@@ -1,0 +1,74 @@
+# =============================================================================
+# SIPA — fichiers à ne jamais versionner
+#
+# Règle : tout ce que l'application PRODUIT reste local. Un rapport d'audit
+# contient les ports ouverts et les vulnérabilités d'une machine réelle ; il
+# n'a rien à faire dans un dépôt public.
+# =============================================================================
+
+# --- Secrets et configuration locale -----------------------------------
+config.json
+*.key
+*.pem
+.env
+
+# --- Bases de données générées ------------------------------------------
+*.db
+*.sqlite
+*.sqlite3
+
+# --- Caches et artefacts Python -----------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- Environnements virtuels --------------------------------------------
+.venv/
+venv/
+env/
+
+# --- Artefacts de build --------------------------------------------------
+dist/
+build/
+*.spec
+bin/*.exe
+
+# --- État local de l'interface -------------------------------------------
+window_geometry.json
+
+# --- Journaux -------------------------------------------------------------
+network_audit_logs.txt
+*.log
+
+# --- Références de dérive et suivi des appareils --------------------------
+scan_baselines.json
+constats_acceptes.json
+appareils_vus.json
+
+# --- Sorties de scan : rapports et sauvegardes automatiques ---------------
+RAPPORT_AUDIT_*.html
+scan_report_*.json
+scan_report_*.csv
+scan_report_*.pdf
+scan_report_*.xlsx
+inventaire_*.csv
+*_scan_fast.json
+*_scan_full.json
+*_scan_vuln.json
+*_scan_backdoor.json
+
+# --- Aide exportée depuis l'application -----------------------------------
+# Produite par le bouton « EXPORTER AIDE » de la fenêtre d'aide.
+T-800_AIDE_COMPLETE.txt
+SIPA_aide_*.txt
+
+# --- Éditeurs et systèmes d'exploitation ----------------------------------
+.idea/
+.vscode/
+*.swp
+Thumbs.db
+desktop.ini
+.DS_Store

@@ -1,0 +1,31 @@
+# Dépendances de SIPA — installer avec : pip install -r requirements.txt
+#
+# Chaque paquet listé ici est réellement importé par le code. Le nom du
+# paquet PyPI diffère parfois du nom d'import : python-nmap s'importe
+# `nmap`, Pillow s'importe `PIL`, scikit-learn s'importe `sklearn`.
+
+# --- Scans réseau (indispensable) --------------------------------------
+python-nmap>=0.7.1          # pilotage de Nmap (module : nmap)
+dnspython>=2.4.2            # DNSSEC, MX, transfert de zone (module : dns)
+scapy>=2.5.0                # analyse de trafic en mode « profond »
+psutil>=5.9.0               # processus, réseau, ressources système
+
+# --- Appels HTTP et intégrations externes -------------------------------
+requests>=2.31.0            # SHODAN, VirusTotal, NVD, webhooks, OUI
+python-gvm>=23.5.0          # pont OpenVAS / Greenbone
+
+# --- Rapports et exports ------------------------------------------------
+reportlab>=4.0.0            # export PDF
+openpyxl>=3.1.0             # export Excel
+matplotlib>=3.8.0           # graphiques temps réel
+plotly>=5.18.0              # graphe réseau interactif
+
+# --- Interface et confort -----------------------------------------------
+Pillow>=10.0.0              # captures d'écran (module : PIL)
+win10toast>=0.9             # notifications Windows
+apscheduler>=3.10.0         # planification des scans
+
+# --- Détection d'anomalies ----------------------------------------------
+# Nécessaire au bouton « ANOMALIES (IA) » (Isolation Forest). numpy est
+# installé automatiquement comme dépendance de scikit-learn.
+scikit-learn>=1.3.0         # module : sklearn

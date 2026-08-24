@@ -1,0 +1,22 @@
+# Normalisation des fins de ligne.
+#
+# Sans ce fichier, le rendu dépend du réglage core.autocrlf de chaque machine :
+# un même fichier peut apparaître entièrement modifié d'un poste à l'autre.
+# On stocke tout en LF dans le dépôt ; Git rétablit les CRLF à la sortie sur
+# Windows pour les fichiers qui en ont besoin.
+
+* text=auto eol=lf
+
+# Scripts Windows : ils doivent garder des CRLF sur le disque.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Fichiers binaires : jamais de conversion.
+*.png binary
+*.jpg binary
+*.ico binary
+*.exe binary
+*.db binary
+*.pdf binary
+*.xlsx binary
