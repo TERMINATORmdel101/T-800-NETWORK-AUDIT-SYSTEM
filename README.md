@@ -216,6 +216,14 @@ principale sans passer par `__init__`.
 
 ---
 
+## 🏆 Crédits
+
+- **Conception fonctionnelle et idées originales** : T-800
+- **Développement assisté** principalement par quatre IA collaboratives
+- **Contributions et retours utilisateurs** bienvenus pour améliorer le logiciel
+
+---
+
 ## 📄 Licence & contribution
 
 Distribué sous **licence MIT** (voir [LICENSE](LICENSE)).

@@ -1,7 +1,7 @@
 # SIPA — contexte pour Claude
 
-Outil d'audit réseau et sécurité (Python/Tkinter, Windows). Projet personnel
-d'Alexandre. Les échanges se font **en français**.
+Outil d'audit réseau et sécurité (Python/Tkinter, Windows). Projet personnel.
+Les commentaires, l'interface et les échanges se font **en français**.
 
 ## Lancer et vérifier
 
@@ -108,8 +108,8 @@ contraste de chaque bouton. Les traductions vivent dans `UI_LABELS`
 
 ## Reste à faire
 
-- Validation terrain : les scans nmap n'ont tourné que sur localhost et sur le
-  réseau local de l'auteur.
+- Validation terrain : les scans nmap n'ont tourné que sur localhost et sur un
+  réseau local restreint, jamais sur un parc étendu.
 - La classe `AuditIA_Ultimate` reste grosse ; d'autres extractions en mixins
   sont possibles (attention au piège des globales ci-dessus).
 - Les messages du journal ne sont pas traduits, seulement les libellés.
