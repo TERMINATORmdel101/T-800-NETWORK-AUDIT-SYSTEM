@@ -3,6 +3,43 @@
 > Projet personnel développé avec l'assistance d'une IA.
 > Voir [« À propos de ce projet »](README.md#-à-propos-de-ce-projet).
 
+## Version 7.2.0 — le contrôle du bon sens
+
+### La fonctionnalité distinctive
+- SIPA croise le **type** de chaque appareil avec ce qu'il **expose**, et
+  signale ce qui n'est pas attendu pour un appareil de cette nature.
+- **Registre de couverture** : chaque analyse dit ce qu'elle n'a pas pu
+  vérifier, et pourquoi. Un appareil non identifié est déclaré non contrôlé.
+- Les attentes par type vivent dans `sipa_core/profils.py`, lisible et modifiable.
+
+### Interface professionnelle
+- Suppression des 1 927 emojis et de toute référence au thème Terminator.
+- 89 libellés de boutons réécrits en casse de phrase, traduits en 5 langues.
+- Palette graphite avec un rouge maîtrisé, en remplacement du rouge pur sur noir.
+- Suppression de la pulsation néon du titre.
+
+### Lisibilité du journal
+- `log()` ne remplace plus le niveau demandé : les messages de succès
+  s'affichaient à un contraste de 1,04, et avertissements comme erreurs
+  partageaient la même couleur.
+- Sept niveaux, chacun lisible dans les deux palettes.
+
+### Intégrité des données
+- L'insertion en base stockait le détail dans la colonne CVE et le type dans la
+  colonne gravité.
+- La détection d'anomalies imposait un quota de 5 % : elle signalait des
+  anomalies sur une machine saine par construction. Elle classe désormais, et
+  n'ajoute plus aucun constat au rapport.
+- Accepter une exception sur un port acceptait toutes les vulnérabilités de ce
+  port, y compris celles publiées plus tard.
+- La table des appareils avait l'IP pour clé : en DHCP, un appareil écrasait la
+  fiche d'un autre. L'identité est désormais l'adresse MAC.
+
+### Aide intégrée
+- 63 renvois pointaient vers des onglets et des boutons qui n'existaient plus.
+
+---
+
 ## Version 7.1.0 — passe de vérité avant publication
 
 Audit complet du dépôt avant sa mise en ligne. Le fil conducteur : **plus

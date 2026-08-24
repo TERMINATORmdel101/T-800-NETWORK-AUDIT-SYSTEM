@@ -4,4 +4,4 @@
 #: SIPA = Programme unique integre pour les audits. Le theme visuel reste
 #: Le nom officiel du logiciel est SIPA.
 APP_NAME = "SIPA"
-APP_VERSION = "7.1.0"
+APP_VERSION = "7.2.0"

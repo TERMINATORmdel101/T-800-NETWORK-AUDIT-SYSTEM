@@ -42,6 +42,7 @@ for _stream in (sys.stdout, sys.stderr):
 from sipa_core import APP_NAME, APP_VERSION
 from sipa_core import secrets as _secrets
 from sipa_core import theme as theme_module
+from sipa_core import profils as _profils
 from sipa_core.theme import ScaleFactor, scaled, THEME
 # Widgets personnalises extraits dans sipa_core/widgets.py
 from sipa_core.widgets import (
@@ -1450,6 +1451,111 @@ class AuditIA_Ultimate(
             return kind if score >= 4 else ""
         except Exception:
             return ""
+
+    def controle_bon_sens(self):
+        """Confronte ce qu'est chaque appareil a ce qu'il expose reellement.
+
+        C'est le seul controle de SIPA qui ne se contente pas de lister : il
+        rapproche le type d'appareil (deduit du fabricant, des annonces mDNS et
+        des ports) de ce qu'on attend d'un appareil de cette nature. Un port
+        d'administration a distance sur une imprimante n'est pas anormal en
+        soi -- il est inattendu POUR UNE IMPRIMANTE, et c'est cela qu'on dit.
+
+        Renvoie le registre de couverture : ce qui a ete controle, ce qui ne
+        l'a pas ete, et pourquoi. Sans cette contrepartie, un silence se lirait
+        comme une absence de probleme.
+        """
+        registre = {"controles": [], "non_controles": []}
+        if not self.nm:
+            registre["non_controles"].append(
+                ("controle du bon sens", "aucun scan nmap disponible"))
+            return registre
+
+        for host in self.nm.all_hosts():
+            try:
+                hostname = self.nm[host].hostname() or ""
+            except Exception:
+                hostname = ""
+
+            ports = []
+            for proto in self.nm[host].all_protocols():
+                ports += [p for p, d in self.nm[host][proto].items()
+                          if d.get("state") == "open"]
+
+            vendor = self._host_vendor(host)
+            type_appareil = self._host_type(host, vendor, hostname, ports)
+
+            if not type_appareil:
+                # Dire qu'on n'a pas su, plutot que de se taire : un appareil
+                # non classe n'est pas un appareil sans probleme.
+                registre["non_controles"].append(
+                    (host, "type d'appareil non identifie avec certitude"))
+                continue
+
+            if _profils.profil(type_appareil) is None:
+                registre["non_controles"].append(
+                    (host, f"aucune attente definie pour un appareil de type "
+                           f"« {type_appareil} »"))
+                continue
+
+            registre["controles"].append((host, type_appareil))
+            surprises = _profils.controler(type_appareil, ports)
+            if not surprises:
+                continue
+
+            for surprise in surprises:
+                self.problems_found.append({
+                    "type": "INATTENDU POUR CE TYPE",
+                    "host": host,
+                    "port": surprise["port"],
+                    "service": surprise["raison"],
+                    "details": (f"Cet appareil est identifie comme « "
+                                f"{type_appareil} ». Le port {surprise['port']} "
+                                f"expose {surprise['raison']}, ce qui n'est pas "
+                                f"attendu pour ce type d'appareil. "
+                                f"Regle appliquee : {surprise['regle']}."),
+                    "action": ("Verifier que cette exposition est voulue. "
+                               "Si elle l'est, marquer le constat comme accepte."),
+                    "risk": "MOYEN",
+                })
+
+        return registre
+
+    def afficher_bon_sens(self):
+        """Journalise le controle du bon sens et sa couverture."""
+        registre = self.controle_bon_sens()
+
+        self.log("", tag="info")
+        self.log("CONTROLE DU BON SENS", tag="title")
+        self.log("Ce que chaque appareil expose est-il coherent avec ce qu'il est ?",
+                 tag="info")
+
+        surprises = [p for p in self.problems_found
+                     if p.get("type") == "INATTENDU POUR CE TYPE"]
+
+        for host, type_appareil in registre["controles"]:
+            propres = [s for s in surprises if s.get("host") == host]
+            if propres:
+                self.log(f"   {host} — {type_appareil}", tag="accent")
+                for s in propres:
+                    self.log(f"      port {s['port']} : {s['service']}", tag="warn")
+                    self.log("      Inattendu pour ce type. Confirmez que c'est voulu.",
+                             tag="info")
+            else:
+                self.log(f"   {host} — {type_appareil} : rien d'inattendu", tag="ok")
+
+        # La contrepartie, toujours affichee : ce qui n'a PAS ete controle.
+        self.log("", tag="info")
+        self.log(f"   Controle effectue sur {len(registre['controles'])} appareil(s).",
+                 tag="info")
+        if registre["non_controles"]:
+            self.log(f"   NON controle sur {len(registre['non_controles'])} appareil(s) :",
+                     tag="warn")
+            for cible, raison in registre["non_controles"]:
+                self.log(f"      {cible} : {raison}", tag="warn")
+            self.log("   Sur ces appareils, l'absence de constat ne veut pas dire "
+                     "l'absence de probleme.", tag="warn")
+        return registre
 
     def _inventory_rows(self):
         """Une ligne par machine détectée.
@@ -2864,6 +2970,15 @@ class AuditIA_Ultimate(
             
             # Afficher résumé final avec statut
             self.log(f"\n SCAN COMPLÉTÉ avec succès ({hosts_scanned} hôte(s) trouvé(s))", tag="ok")
+            # Controle du bon sens : ce que chaque appareil expose est-il
+            # coherent avec ce qu'il est ? Tourne AVANT le resume, pour que ses
+            # constats y figurent.
+            if hosts_scanned > 0:
+                try:
+                    self.afficher_bon_sens()
+                except Exception as exc:
+                    self.log(f"[BON SENS] Controle impossible : {exc}", tag="warn")
+
             self.display_problem_summary(hosts_scanned, target)
 
             # Enregistrement du scan. auto_save_scan et save_scan_result_real

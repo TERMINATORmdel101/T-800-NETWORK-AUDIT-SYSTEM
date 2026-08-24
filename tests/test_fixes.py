@@ -1353,6 +1353,84 @@ def main():
     finally:
         _kb.close()
 
+    # =========================================================================
+    # 27. LE CONTROLE DU BON SENS
+    # =========================================================================
+    # SIPA ne dit plus « port 22 ouvert » mais « cette imprimante accepte des
+    # connexions d'administration a distance, ce qui n'est pas attendu ».
+    from sipa_core import profils as prof
+    from sipa_core import knowledge as kn
+
+    # --- 27a. Tout type reconnu a un profil, un alias, ou est assume ----------
+    types_connus = {t for _, t in kn.VENDOR_HINTS}
+    types_connus |= {t for _, t in kn.HOSTNAME_HINTS}
+    types_connus |= {t for _, t, _ in kn.PORT_HINTS}
+    orphelins = sorted(t for t in types_connus if t
+                       and t not in prof.PROFILS
+                       and t not in prof.SANS_PROFIL
+                       and t not in prof.ALIAS)
+    check("Tout type d'appareil a un profil, un alias, ou est assume sans profil",
+          not orphelins, f"sans reponse : {orphelins}")
+
+    # --- 27b. Le silence par defaut ------------------------------------------
+    # Un port ni attendu ni explicitement inattendu ne doit RIEN declencher :
+    # sinon un NAS avec quinze services legitimes deviendrait une usine a bruit.
+    check("Un port ni attendu ni interdit ne declenche aucun constat",
+          prof.controler("Imprimante", [55555]) == [])
+    check("Un port attendu ne declenche aucun constat",
+          prof.controler("Imprimante", [9100, 631, 80]) == [])
+
+    # --- 27c. Un port interdit declenche un constat justifie -----------------
+    surprises = prof.controler("Imprimante", [9100, 22])
+    check("Un port interdit pour ce type declenche un constat",
+          len(surprises) == 1 and surprises[0]["port"] == 22)
+    check("Le constat cite la regle qui l'a declenche",
+          surprises and "Imprimante" in surprises[0]["regle"]
+          and "22" in surprises[0]["regle"])
+    check("Le constat explique en francais ce qu'expose le port",
+          surprises and "SSH" in surprises[0]["raison"])
+
+    # --- 27d. Un type sans profil ne juge rien -------------------------------
+    check("Un type assume sans profil ne produit aucun constat",
+          prof.controler("Ordinateur", [22, 23, 3389, 445]) == [])
+    check("profil() distingue « rien a signaler » de « aucun avis »",
+          prof.profil("Ordinateur") is None and prof.profil("Imprimante") is not None)
+
+    # --- 27e. Les alias pointent vers un profil existant ---------------------
+    alias_casses = sorted(a for a, cible in prof.ALIAS.items()
+                          if cible not in prof.PROFILS)
+    check("Chaque alias pointe vers un profil reel",
+          not alias_casses, f"alias casses : {alias_casses}")
+    check("Un alias se comporte comme son type canonique",
+          prof.controler("Box opérateur", [23]) and
+          prof.controler("Box opérateur", [23])[0]["port"] == 23)
+
+    # --- 27f. Chaque profil est documente ------------------------------------
+    muets = sorted(nom for nom, regles in prof.PROFILS.items()
+                   if not regles.get("resume")
+                   or any(not r for r in regles["inattendus"].values()))
+    check("Chaque profil porte son resume et justifie chaque port interdit",
+          not muets, f"incomplets : {muets}")
+
+    # --- 27g. La couverture est rendue, pas seulement les trouvailles --------
+    src_bonsens = code_seul(App.controle_bon_sens)
+    check("Le controle rend la liste de ce qu'il n'a PAS pu verifier",
+          "non_controles" in src_bonsens)
+    check("Un type non identifie est inscrit comme non controle",
+          "type d'appareil non identifie" in src_bonsens)
+    affichage = code_seul(App.afficher_bon_sens)
+    check("L'absence de constat sur un appareil non controle est explicitee",
+          "ne veut pas dire" in affichage)
+
+    # --- 27h. Le constat reste une question, pas un verdict ------------------
+    check("Le constat demande confirmation plutot que d'affirmer un danger",
+          "n'est pas" in src_bonsens and "attendu" in src_bonsens)
+    # code_seul() normalise les guillemets : on teste sans en dependre.
+    sans_guillemets = src_bonsens.replace('"', "'")
+    check("Le constat ne se declare pas critique tout seul",
+          "'risk': 'MOYEN'" in sans_guillemets
+          and "CRITIQUE" not in src_bonsens)
+
     # --- Bilan ---------------------------------------------------------------
     passed = sum(1 for _, ok, _ in results if ok)
     total = len(results)

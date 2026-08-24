@@ -30,6 +30,37 @@ combler un vide. Une suite de 235 vérifications automatisées veille dessus.
 
 ---
 
+## 🎯 Ce que SIPA fait que les autres ne font pas
+
+**Le contrôle du bon sens.** Les autres outils disent « port 22 ouvert sur
+192.168.1.20 ». SIPA dit :
+
+> Cet appareil est identifié comme **Imprimante**. Le port 22 expose un accès
+> d'administration à distance (SSH), ce qui n'est pas attendu pour ce type
+> d'appareil. Confirmez que c'est voulu.
+
+SIPA croise ce qu'**est** un appareil — déduit du registre OUI de 39 000
+fabricants, de ses annonces mDNS/UPnP et de ses ports — avec ce qu'un appareil
+de cette nature devrait normalement exposer. Cela fonctionne **dès le premier
+scan**, sans historique.
+
+Trois règles encadrent ce contrôle :
+
+- **Le silence par défaut.** Seuls les ports explicitement listés comme
+  inattendus déclenchent un constat. Un NAS avec quinze services ouverts ne
+  produit pas quinze alertes.
+- **« Inattendu » n'est pas « dangereux ».** Le constat demande confirmation ;
+  il ne se déclare jamais critique tout seul.
+- **La contrepartie est toujours affichée.** SIPA dit aussi ce qu'il n'a **pas**
+  pu vérifier, et pourquoi : un appareil dont le type est incertain est déclaré
+  non contrôlé, jamais passé sous silence.
+
+Les attentes par type d'appareil vivent dans
+[`sipa_core/profils.py`](sipa_core/profils.py) — un fichier lisible et
+modifiable, où chaque port porte sa justification en français.
+
+---
+
 ## 🚀 Ce que SIPA fait vraiment
 
 ### 🔍 Scans réseau
