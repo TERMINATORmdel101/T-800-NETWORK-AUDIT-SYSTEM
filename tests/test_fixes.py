@@ -12,6 +12,7 @@ inutilisable.
 import ast
 import importlib.util
 import inspect
+import io
 import json
 import os
 import re
@@ -362,9 +363,12 @@ def main():
         os.chdir(previous_dir)
 
     body = report.split("<tbody>")[1]
+    # Le badge de gravite occupe sa propre cellule en fin de ligne. On le
+    # compte par la cellule complete plutot que par un emoji : les emojis ont
+    # ete retires de l'interface et des rapports.
     check("Le resume annonce autant de critiques que le tableau en contient",
-          body.count("🔴 CRITIQUE") == counts["CRITIQUE"],
-          f"tableau={body.count('🔴 CRITIQUE')} resume={counts['CRITIQUE']}")
+          body.count("<td>CRITIQUE</td>") == counts["CRITIQUE"],
+          f"tableau={body.count('<td>CRITIQUE</td>')} resume={counts['CRITIQUE']}")
     check("Le rapport indique le port de chaque constat",
           "<th>PORT</th>" in report)
 
@@ -1103,15 +1107,15 @@ def main():
 
     stub.current_language = "FR"
     check("En francais, tr() renvoie le libelle tel quel",
-          App.tr(stub, "\u25b6 SCAN RAPIDE") == "\u25b6 SCAN RAPIDE")
+          App.tr(stub, "Scan rapide") == "Scan rapide")
 
     traductions = {}
     for code in ("EN", "ES", "DE", "IT"):
         stub.current_language = code
-        traductions[code] = App.tr(stub, "\u25b6 SCAN RAPIDE")
+        traductions[code] = App.tr(stub, "Scan rapide")
     check("tr() traduit dans les quatre autres langues",
           len(set(traductions.values())) == 4
-          and "SCAN RAPIDE" not in "".join(traductions.values()),
+          and "Scan rapide" not in "".join(traductions.values()),
           f"traductions : {traductions}")
 
     stub.current_language = "EN"
@@ -1232,6 +1236,122 @@ def main():
     check("L'inventaire est resume dans le journal en mode console",
           any("INVENTAIRE" in ligne for ligne in journal),
           " | ".join(journal))
+
+    # =========================================================================
+    # 25. LE JOURNAL DOIT DISTINGUER SES NIVEAUX ET RESTER LISIBLE
+    # =========================================================================
+    # Mesure sur le widget reel : `error` valait #880000 (contraste 1.87 sur le
+    # fond du journal) sur 111 lignes, `success` (68 lignes) et `accent`
+    # (50 lignes) n'avaient aucune couleur, et `ok` etait identique a `title`.
+    from sipa_core import theme as th_journal
+
+    NIVEAUX = ("log_title", "log_accent", "log_info", "log_ok",
+               "log_warn", "log_error", "log_faint")
+    for palette in ("sombre", "clair"):
+        manquants = [n for n in NIVEAUX if n not in th_journal.PALETTES[palette]]
+        check(f"La palette {palette} definit tous les niveaux de journal",
+              not manquants, f"absents : {manquants}")
+
+    depart_journal = th_journal.current_palette()
+    for palette in ("sombre", "clair"):
+        th_journal.apply_palette(palette)
+        fond = th_journal.THEME["bg_input"]
+        illisibles = [
+            (n, th_journal.THEME[n], round(th_journal.contrast_ratio(th_journal.THEME[n], fond), 2))
+            for n in NIVEAUX if n != "log_faint"
+            and th_journal.contrast_ratio(th_journal.THEME[n], fond) < 4.5
+        ]
+        check(f"Chaque niveau du journal est lisible en palette {palette} (>= 4.5)",
+              not illisibles, f"illisibles : {illisibles}")
+        check(f"Succes et titre se distinguent en palette {palette}",
+              th_journal.THEME["log_ok"] != th_journal.THEME["log_title"])
+    th_journal.apply_palette(depart_journal)
+
+    # Tous les tags employes par log() doivent etre configures.
+    with io.open(os.path.join(ROOT, "sipa.py"), encoding="utf-8") as fichier:
+        sources_log = fichier.read()
+    tags_utilises = set(re.findall(r'tag="([a-z_]+)"', sources_log))
+    logs_src = inspect.getsource(App.build_logs)
+    non_configures = sorted(t for t in tags_utilises
+                            if f'"{t}"' not in logs_src and f"'{t}'" not in logs_src)
+    check("Chaque tag utilise par log() est configure dans build_logs",
+          not non_configures, f"jamais configures : {non_configures}")
+
+    # log() ne doit PAS remplacer le tag demande. Un "effet CRT" transformait
+    # ok/success en un bordeaux quasi noir (contraste 1.04 : invisible) et
+    # donnait a warn comme a error le meme rouge : 145 lignes de succes
+    # illisibles, 314 lignes d'alerte indistinguables.
+    log_src = code_seul(App.log)
+    check("log() respecte le tag demande",
+          "glow_red" not in log_src and "glow_cyan" not in log_src,
+          "log() reecrit encore le tag avant affichage")
+    check("log() transmet le tag tel quel a la file",
+          "self.msg_queue.put((message, tag))" in log_src)
+
+    check("Les couleurs du journal suivent la palette active",
+          'THEME["log_error"]' in logs_src and 'THEME["log_ok"]' in logs_src)
+    check("Plus aucune couleur de journal codee en dur",
+          "#880000" not in logs_src and "#FF0000" not in logs_src)
+
+    # =========================================================================
+    # 26. LES QUATRE DEFAUTS RELEVES PAR L'ANALYSE DE MARCHE
+    # =========================================================================
+    with io.open(os.path.join(ROOT, "sipa.py"), encoding="utf-8") as fichier:
+        src_sipa = fichier.read()
+
+    # --- 26a. Colonnes inversees a l'insertion en base ------------------------
+    # L'INSERT listait (cve_id, severity) mais passait (details, type) :
+    # tout l'historique stockait ces deux colonnes de travers.
+    check("L'insertion en base ne met plus le detail dans la colonne CVE",
+          "v.get('details'), v.get('type')))" not in src_sipa)
+    check("Le schema des vulnerabilites a une colonne pour le detail",
+          "details TEXT," in src_sipa)
+
+    # --- 26b. La detection d'anomalies n'impose plus de quota -----------------
+    # contamination=0.05 FORCE le modele a designer 5 % des connexions comme
+    # anormales : sur une machine saine, il en signalait quand meme 5 %.
+    check("La detection d'anomalies n'impose pas de quota d'anomalies",
+          "contamination=0.05" not in src_sipa,
+          "contamination fixe = quota, pas detection")
+    check("La detection d'anomalies classe au lieu de trancher",
+          "score_samples" in src_sipa)
+    check("Le classement d'anomalies ne fabrique aucun constat",
+          "'type': 'AI ANOMALY'" not in src_sipa
+          and "'type': 'CONNEXION ATYPIQUE'" not in src_sipa)
+
+    # --- 26c. Une exception acceptee ne couvre plus toute une classe ----------
+    empreinte = App.finding_key
+    log4j = {"type": "VULNERABILITE", "host": "10.0.0.1", "port": "8080",
+             "details": "Apache Log4j CVE-2021-44228 (RCE)"}
+    autre = {"type": "VULNERABILITE", "host": "10.0.0.1", "port": "8080",
+             "details": "Apache CVE-2021-34473 (elevation)"}
+    check("Deux CVE sur le meme port ont des empreintes distinctes",
+          empreinte(log4j) != empreinte(autre),
+          f"{empreinte(log4j)} == {empreinte(autre)}")
+    stable = dict(log4j, details="Apache Log4j CVE-2021-44228 (RCE) - build 42")
+    check("L'empreinte d'une meme CVE reste stable malgre le detail variable",
+          empreinte(log4j) == empreinte(stable))
+
+    # --- 26d. Une fiche d'appareil n'ecrase plus celle d'un autre -------------
+    # La cle primaire etait l'IP : en DHCP, un appareil qui heritait de l'IP
+    # d'un autre ecrasait sa fiche et sa date de premiere detection.
+    from sipa_core.knowledge import KnowledgeBase
+    _dossier = tempfile.mkdtemp()
+    _kb = KnowledgeBase(os.path.join(_dossier, "t.db"), downloader=lambda u: "")
+    try:
+        _kb.remember("192.168.1.50", mac="AA:BB:CC:00:00:01", nom="Imprimante")
+        _kb.remember("192.168.1.50", mac="AA:BB:CC:00:00:02", nom="Camera")
+        check("Deux appareils partageant une IP gardent chacun leur fiche",
+              len(_kb.known_devices()) == 2,
+              f"{len(_kb.known_devices())} fiche(s) au lieu de 2")
+
+        _kb.remember("192.168.1.77", nom="Inconnu")
+        avant = len(_kb.known_devices())
+        _kb.remember("192.168.1.77", mac="AA:BB:CC:00:00:03", nom="NAS")
+        check("Decouvrir la MAC d'un appareil ne cree pas de fiche en double",
+              len(_kb.known_devices()) == avant)
+    finally:
+        _kb.close()
 
     # --- Bilan ---------------------------------------------------------------
     passed = sum(1 for _, ok, _ in results if ok)

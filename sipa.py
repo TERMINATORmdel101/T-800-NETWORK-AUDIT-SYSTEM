@@ -83,7 +83,7 @@ def _load_plotly():
 # reellement lourd et il n'est utile qu'au moment d'un scan.
 nmap = None
 
-# ⚠️ Ces noms etaient declares a None et JAMAIS importes : tout appel a
+# Ces noms etaient declares a None et JAMAIS importes : tout appel a
 # requests.get(...), MIMEMultipart(...) ou smtplib.SMTP(...) levait donc une
 # AttributeError/TypeError. Huit methodes etaient concernees (webhooks Slack et
 # Discord, VirusTotal, reconnaissance web, MAC lookup, SearchSploit, scan
@@ -185,7 +185,7 @@ from sipa_core.locales import (
 
 # ========== TOOLTIP CLASS ==========
 # =============================================================================
-# 🎨 [UI/UX MODERNIZATION] DARK THEME COMPONENTS - v6.0
+# [UI/UX MODERNIZATION] DARK THEME COMPONENTS - v6.0
 # =============================================================================
 
 
@@ -338,12 +338,12 @@ class AuditIA_Ultimate(
 
         self.init_nmap()
         self.blink_status()
-        self.start_matrix_rain()  # Animation Matrix
-        self.typewriter_log("INITIALIZING NEURAL NET CPU...", speed=0.03, tag="title")
-        self.typewriter_log("VISION SYSTEM ONLINE. DATA STREAM ENGAGED.", speed=0.02, tag="info")
-        self.animate_header_pulse()
+        self.start_matrix_rain()
+        self.typewriter_log(f"{APP_NAME} {APP_VERSION} — session demarree",
+                            speed=0.03, tag="title")
+        self.typewriter_log("Interface prete.", speed=0.02, tag="info")
         
-        # ✅ CORRECTION BUG #4: Précharger imports lourds en arrière-plan
+        # CORRECTION BUG #4: Précharger imports lourds en arrière-plan
         self._preload_heavy_libraries()
         
         # Messages de prérequis pour OpenVAS/SearchSploit - MIS À JOUR
@@ -383,7 +383,7 @@ class AuditIA_Ultimate(
         
         self.animate_progress_pulse()  # Animation barre de progression
         self.init_database()  # Initialiser la base de données persistante
-        self.check_queue()  # ⚡ Démarrer la surveillance de la queue thread-safe
+        self.check_queue() # Démarrer la surveillance de la queue thread-safe
 
     # ========================================================================
     # GESTION DE LA GÉOMÉTRIE DE LA FENÊTRE (Redimensionnement)
@@ -458,7 +458,7 @@ class AuditIA_Ultimate(
         self.logger.info("="*60)
     
     def _preload_heavy_libraries(self):
-        """✅ BUG #4: Précharge Matplotlib/Plotly/Scapy en thread pour éviter gel UI"""
+        """BUG #4: Précharge Matplotlib/Plotly/Scapy en thread pour éviter gel UI"""
         def preload_worker():
             try:
                 time.sleep(3)  # Laisser UI s'afficher d'abord
@@ -466,16 +466,16 @@ class AuditIA_Ultimate(
                 
                 # Charger Matplotlib
                 _load_matplotlib()
-                self.log("[✓] Matplotlib prêt", tag="ok")
+                self.log("Matplotlib prêt", tag="ok")
                 
                 # Charger Plotly
                 _load_plotly()
-                self.log("[✓] Plotly prêt", tag="ok")
+                self.log("Plotly prêt", tag="ok")
                 
                 # Scapy optionnel (très lourd)
                 # _load_scapy()
                 
-                self.log("[✓] Toutes les librairies chargées (pas de gel UI)", tag="success")
+                self.log("Toutes les librairies chargées (pas de gel UI)", tag="success")
             except Exception as e:
                 self.log(f"[!] Préchargement partiel: {e}", tag="warn")
         
@@ -483,14 +483,14 @@ class AuditIA_Ultimate(
     
     def check_queue(self):
         """
-        ⚡ THREAD-SAFE: Vérifie la queue et met à jour l'interface depuis le thread principal
+        THREAD-SAFE: Vérifie la queue et met à jour l'interface depuis le thread principal
         Cette méthode est appelée périodiquement par root.after()
-        """
+"""
         try:
             while not self.msg_queue.empty():
                 msg, tag = self.msg_queue.get_nowait()
                 
-                # ✅ Mise à jour SÉCURISÉE du widget Tkinter (thread principal uniquement)
+                # Mise à jour SÉCURISÉE du widget Tkinter (thread principal uniquement)
                 self.text_area.config(state="normal")
                 self.text_area.insert(tk.END, msg + "\n", tag)
                 self.text_area.see(tk.END)
@@ -508,7 +508,7 @@ class AuditIA_Ultimate(
             self.root.after(100, self.check_queue)
     
     def set_progress_real(self, value, maximum=100):
-        """✅ BUG #3: Progression réelle au lieu de ping-pong indéterminé"""
+        """BUG #3: Progression réelle au lieu de ping-pong indéterminé"""
         try:
             self.progress["mode"] = "determinate"
             self.progress["maximum"] = maximum
@@ -518,13 +518,13 @@ class AuditIA_Ultimate(
             pass
 
     def start_progress_tracking(self, total_steps=5):
-        """✅ BUG #3: Initialise progression réelle basée sur étapes"""
+        """BUG #3: Initialise progression réelle basée sur étapes"""
         self.current_progress = 0
         self.total_progress_steps = total_steps
         self.set_progress_real(0, 100)
 
     def increment_progress(self, message=""):
-        """✅ BUG #3: Incrémente progression avec feedback utilisateur"""
+        """BUG #3: Incrémente progression avec feedback utilisateur"""
         self.current_progress += 1
         percentage = int((self.current_progress / self.total_progress_steps) * 100)
         self.set_progress_real(percentage, 100)
@@ -532,7 +532,7 @@ class AuditIA_Ultimate(
             self.log(f"[{percentage}%] {message}", tag="info")
     
     def _cleanup_temp_html_files(self):
-        """✅ BUG #2: Nettoyer fichiers HTML temporaires de Plotly"""
+        """BUG #2: Nettoyer fichiers HTML temporaires de Plotly"""
         try:
             import os
             cleaned = 0
@@ -579,11 +579,12 @@ class AuditIA_Ultimate(
                     service TEXT,
                     cve_id TEXT,
                     severity TEXT,
+                    details TEXT,
                     FOREIGN KEY(scan_id) REFERENCES scan_history(id)
                 )
             ''')
             self.db_conn.commit()
-            self.log("[INIT] Base de données neurale (SQLite) connectée.", tag="success")
+            self.log("[INIT] Base de données locale (SQLite) connectée.", tag="success")
         except Exception as e:
             self.log(f"[ERREUR DB] Échec initialisation mémoire: {e}", tag="error")
 
@@ -600,8 +601,15 @@ class AuditIA_Ultimate(
                 scan_id = self.cursor.lastrowid
 
                 for v in vulns:
-                    self.cursor.execute("INSERT INTO vulnerabilities (scan_id, host, port, service, cve_id, severity) VALUES (?, ?, ?, ?, ?, ?)",
-                                        (scan_id, v.get('host'), v.get('port'), v.get('service'), v.get('details'), v.get('type')))
+                    # Les deux dernieres colonnes recevaient les mauvaises valeurs :
+                    # `cve_id` heritait du texte de detail et `severity` du type de
+                    # constat. Tout l'historique en etait fausse.
+                    self.cursor.execute(
+                        "INSERT INTO vulnerabilities "
+                        "(scan_id, host, port, service, cve_id, severity, details) "
+                        "VALUES (?, ?, ?, ?, ?, ?, ?)",
+                        (scan_id, v.get('host'), v.get('port'), v.get('service'),
+                         v.get('type'), self.classify_severity(v), v.get('details')))
                 self.db_conn.commit()
             self.log("[DB] Données tactiques archivées sur le disque.", tag="ok")
         except Exception as e:
@@ -756,7 +764,7 @@ class AuditIA_Ultimate(
                               ("!selected", THEME["btn_tool"])])
 
     def build_header(self):
-        """Header TERMINATOR T-800 - Rouge authentique + Glow effect"""
+        """En-tete de la fenetre : nom, langue, voyant d'etat et horloge."""
         frame = tk.Frame(self.root, bg=THEME["bg"], bd=0, relief="flat")
         frame.pack(fill="x", padx=0, pady=0)
         
@@ -767,7 +775,7 @@ class AuditIA_Ultimate(
         inner = tk.Frame(frame, bg=THEME["bg_secondary"])
         inner.pack(fill="x", padx=THEME["padding_lg"], pady=THEME["padding_lg"])
 
-        # Gauche - Logo T-800
+        # Gauche : nom et version
         left = tk.Frame(inner, bg=THEME["bg_secondary"])
         left.pack(side=tk.LEFT, padx=THEME["padding_std"])
         
@@ -820,26 +828,6 @@ class AuditIA_Ultimate(
         glow_bottom = tk.Frame(frame, bg=THEME["fg"], height=2)
         glow_bottom.pack(fill="x", padx=0, pady=0)
 
-    def animate_header_pulse(self):
-        """Fait respirer le titre principal avec un effet néon"""
-        colors = ["#800000", "#A00000", "#C00000", "#E00000", "#FF0000",
-                  "#FF3333", "#FF0000", "#E00000", "#C00000", "#A00000"]
-
-        if not hasattr(self, '_pulse_idx'):
-            self._pulse_idx = 0
-
-        try:
-            current_color = colors[self._pulse_idx]
-            if hasattr(self, 'title_label'):
-                self.title_label.config(fg=current_color)
-            if hasattr(self, 'title_shadow'):
-                self.title_shadow.config(fg="#330000")
-            self._pulse_idx = (self._pulse_idx + 1) % len(colors)
-        except Exception:
-            pass
-
-        self.root.after(100, self.animate_header_pulse)
-
     #: Texte d'aide affiche dans le champ cible tant qu'il est vide.
     TARGET_PLACEHOLDER = "Adresse IP, nom d'hôte ou plage CIDR (ex. 192.168.1.0/24)"
 
@@ -880,7 +868,7 @@ class AuditIA_Ultimate(
         self.entry_ip.bind("<FocusOut>", lambda e: show_placeholder())
         show_placeholder()
 
-        self.make_button(frame, "📍 DÉTECTER", self.auto_detect, width=14).pack(
+        self.make_button(frame, "Détecter", self.auto_detect, width=14).pack(
             side=tk.LEFT, padx=(0, THEME["padding_lg"]), pady=THEME["padding_std"])
 
     def animate_widget(self, widget, duration=500, effect="fade"):
@@ -1041,93 +1029,93 @@ class AuditIA_Ultimate(
         # lisible et chaque groupe correspond a une intention claire.
         analyses_options = {
             "Scans réseau": [
-                ("▶ SCAN RAPIDE", lambda: self.start_scan("fast"), THEME["btn_action"]),
-                ("▶ SCAN COMPLET", lambda: self.start_scan("full"), THEME["btn_action"]),
-                ("▶ SCAN CVE", lambda: self.start_scan("vuln"), THEME["btn_action"]),
-                ("🔓 BACKDOORS", lambda: self.start_scan("backdoor"), THEME["btn_critical"]),
-                ("🛡️ AUDIT SERVICES", self.run_service_exposure_check, THEME["btn_action"]),
-                ("🌐 SANTÉ RÉSEAU", self.check_network_health, THEME["btn_action"]),
-                ("🌐 ANALYSE DNS", self.analyze_dns, THEME["btn_tool"]),
-                ("🔒 SSL / TLS", self.scan_ssl_tls, THEME["btn_tool"]),
-                ("⛓️ CHAÎNE SSL", self.scan_ssl_chain, THEME["btn_tool"]),
+                ("Scan rapide", lambda: self.start_scan("fast"), THEME["btn_action"]),
+                ("Scan complet", lambda: self.start_scan("full"), THEME["btn_action"]),
+                ("Scan CVE", lambda: self.start_scan("vuln"), THEME["btn_action"]),
+                ("Portes dérobées", lambda: self.start_scan("backdoor"), THEME["btn_critical"]),
+                ("Audit des services", self.run_service_exposure_check, THEME["btn_action"]),
+                ("Santé du réseau", self.check_network_health, THEME["btn_action"]),
+                ("Analyse DNS", self.analyze_dns, THEME["btn_tool"]),
+                ("SSL / TLS", self.scan_ssl_tls, THEME["btn_tool"]),
+                ("Chaîne de certificats", self.scan_ssl_chain, THEME["btn_tool"]),
             ],
-            "Menaces & forensique": [
-                ("💣 EXPLOITS", self.check_exploitation, THEME["btn_critical"]),
-                ("💻 EXPLOITS AVANCÉS", self.detect_advanced_exploits, THEME["btn_critical"]),
-                ("👹 ROOTKITS", self.detect_rootkits, THEME["btn_critical"]),
-                ("🔗 PERSISTENCE", self.check_persistence, THEME["btn_critical"]),
-                ("🔐 BRUTE FORCE", self.detect_brute_force, THEME["btn_critical"]),
-                ("🔍 FORENSIQUE", self.forensic_analysis, THEME["btn_action"]),
-                ("🔍 AUDIT SYSTÈME", self.audit_system_internals, THEME["btn_action"]),
-                ("🤖 ANOMALIES (IA)", self.detect_anomalies_ai, THEME["btn_action"]),
-                ("🔑 SECRETS LOCAUX", self.scan_credentials, THEME["btn_tool"]),
+            "Menaces et forensique": [
+                ("Exploits connus", self.check_exploitation, THEME["btn_critical"]),
+                ("Exploits avancés", self.detect_advanced_exploits, THEME["btn_critical"]),
+                ("Rootkits", self.detect_rootkits, THEME["btn_critical"]),
+                ("Mécanismes de persistance", self.check_persistence, THEME["btn_critical"]),
+                ("Attaques par force brute", self.detect_brute_force, THEME["btn_critical"]),
+                ("Analyse forensique", self.forensic_analysis, THEME["btn_action"]),
+                ("Audit du système", self.audit_system_internals, THEME["btn_action"]),
+                ("Détection d'anomalies", self.detect_anomalies_ai, THEME["btn_action"]),
+                ("Secrets dans vos fichiers", self.scan_credentials, THEME["btn_tool"]),
             ],
         }
 
         tab_analyses = tk.Frame(notebook, bg=THEME["bg"])
-        notebook.add(tab_analyses, text=self.tr("🔍 ANALYSES"))
+        notebook.add(tab_analyses, text=self.tr("Analyses"))
         build_tab_with_combo(tab_analyses, "Analyses", analyses_options)
 
         # ---------- TAB 2: RÉSEAU & RENSEIGNEMENT ----------
         reseau_options = {
-            "Cartographie & trafic": [
-                ("📊 ANALYSE TRAFIC", self.analyze_traffic, THEME["btn_action"]),
-                ("📈 GRAPHIQUES TEMPS RÉEL", self.show_realtime_graphs, THEME["btn_action"]),
-                ("🗺️ GRAPHE RÉSEAU", self.visualize_network, THEME["btn_tool"]),
-                ("🗺️ CARTE RÉSEAU", self.show_network_map, THEME["btn_tool"]),
-                ("🔍 CHANGEMENTS", self.detect_network_changes, THEME["btn_tool"]),
-                ("🔗 INTÉGRITÉ ARP", self.check_arp_integrity, THEME["btn_tool"]),
-                ("🔗 CONSTRUCTEUR MAC", self.tool_mac_lookup, THEME["btn_muted"]),
-                ("📶 RÉSEAUX WIFI", self.scan_wifi, THEME["btn_muted"]),
-                ("📡 SCAN BROADCAST", self.scan_broadcast, THEME["btn_muted"]),
+            "Cartographie et trafic": [
+                ("Analyse du trafic", self.analyze_traffic, THEME["btn_action"]),
+                ("Graphiques en temps réel", self.show_realtime_graphs, THEME["btn_action"]),
+                ("Graphe du réseau", self.visualize_network, THEME["btn_tool"]),
+                ("Carte du réseau", self.show_network_map, THEME["btn_tool"]),
+                ("Changements depuis le dernier scan", self.detect_network_changes, THEME["btn_tool"]),
+                ("Intégrité ARP", self.check_arp_integrity, THEME["btn_tool"]),
+                ("Fabricant (adresse MAC)", self.tool_mac_lookup, THEME["btn_muted"]),
+                ("Réseaux Wi-Fi", self.scan_wifi, THEME["btn_muted"]),
+                ("Découverte par diffusion", self.scan_broadcast, THEME["btn_muted"]),
             ],
             "Renseignement externe": [
-                ("🔎 SHODAN", self.shodan_lookup, THEME["btn_action"]),
-                ("🦠 VIRUSTOTAL", self.virustotal_scan, THEME["btn_action"]),
-                ("🛰️ RÉPUTATION IP", self.check_threat_intelligence, THEME["btn_action"]),
-                ("💥 SEARCHSPLOIT", self.run_real_searchsploit, THEME["btn_critical"]),
-                ("🌐 OSINT", self.osint_research, THEME["btn_tool"]),
-                ("👤 ACTIVE DIRECTORY", self.audit_active_directory, THEME["btn_tool"]),
-                ("🌍 GÉOLOCALISATION", self.geolocate_ips, THEME["btn_tool"]),
-                ("🕸️ TECHNOS WEB", self.scan_web_technologies, THEME["btn_tool"]),
+                ("Shodan", self.shodan_lookup, THEME["btn_action"]),
+                ("VirusTotal", self.virustotal_scan, THEME["btn_action"]),
+                ("Réputation d'une IP", self.check_threat_intelligence, THEME["btn_action"]),
+                ("SearchSploit", self.run_real_searchsploit, THEME["btn_critical"]),
+                ("Renseignement public (OSINT)", self.osint_research, THEME["btn_tool"]),
+                ("Active Directory", self.audit_active_directory, THEME["btn_tool"]),
+                ("Géolocalisation", self.geolocate_ips, THEME["btn_tool"]),
+                ("Technologies web", self.scan_web_technologies, THEME["btn_tool"]),
             ],
         }
 
         tab_reseau = tk.Frame(notebook, bg=THEME["bg"])
-        notebook.add(tab_reseau, text=self.tr("🌐 RÉSEAU & RENSEIGNEMENT"))
+        notebook.add(tab_reseau, text=self.tr("Réseau et renseignement"))
         build_tab_with_combo(tab_reseau, "Réseau", reseau_options)
 
         # ---------- TAB 3: RAPPORTS & OUTILS ----------
         reports_options = {
-            "Rapports & historique": [
-                ("💾 EXPORTER (PDF/XLSX/JSON)", self.export_reports, THEME["btn_action"]),
-                ("📋 RAPPORT HTML", self.generate_html_report, THEME["btn_action"]),
-                ("📊 TABLEAU DE BORD", self.show_dashboard, THEME["btn_tool"]),
-                ("🌐 TABLEAU DE BORD 3D", self.show_3d_dashboard, THEME["btn_tool"]),
-                ("🖥️ APPAREILS DÉTECTÉS", self.show_inventory_window, THEME["btn_action"]),
-                ("🕓 HISTORIQUE", self.show_scan_history, THEME["btn_tool"]),
-                ("⚖️ COMPARER DEUX SCANS", self.compare_scans, THEME["btn_tool"]),
-                ("↺ REJOUER UN SCAN", self.replay_scans, THEME["btn_muted"]),
-                ("📝 JOURNAL", self.show_logs_viewer, THEME["btn_muted"]),
-                ("📸 CAPTURE D'ÉCRAN", self.capture_screenshot, THEME["btn_muted"]),
+            "Rapports et historique": [
+                ("Exporter (PDF, Excel, JSON)", self.export_reports, THEME["btn_action"]),
+                ("Rapport HTML", self.generate_html_report, THEME["btn_action"]),
+                ("Tableau de bord", self.show_dashboard, THEME["btn_tool"]),
+                ("Tableau de bord 3D", self.show_3d_dashboard, THEME["btn_tool"]),
+                ("Appareils détectés", self.show_inventory_window, THEME["btn_action"]),
+                ("Historique des scans", self.show_scan_history, THEME["btn_tool"]),
+                ("Comparer deux scans", self.compare_scans, THEME["btn_tool"]),
+                ("Rejouer un scan", self.replay_scans, THEME["btn_muted"]),
+                ("Journal d'audit", self.show_logs_viewer, THEME["btn_muted"]),
+                ("Capture d'écran", self.capture_screenshot, THEME["btn_muted"]),
             ],
-            "Défense & surveillance": [
-                ("👁️ MONITORING CONTINU", self.toggle_monitoring, THEME["btn_action"]),
-                ("🛡️ RÈGLES PARE-FEU", self.generate_firewall_rules, THEME["btn_critical"]),
-                ("🍯 HONEYPOT", self.deploy_honeypot_plus, THEME["btn_critical"]),
-                ("🥷 MODE FURTIF", self.toggle_stealth_mode, THEME["btn_tool"]),
-                ("⚙️ PROCESSUS", self.analyze_processes, THEME["btn_tool"]),
-                ("📦 SANDBOX", self.open_sandbox, THEME["btn_muted"]),
+            "Défense et surveillance": [
+                ("Surveillance continue", self.toggle_monitoring, THEME["btn_action"]),
+                ("Règles du pare-feu", self.generate_firewall_rules, THEME["btn_critical"]),
+                ("Leurre réseau", self.deploy_honeypot_plus, THEME["btn_critical"]),
+                ("Mode discret", self.toggle_stealth_mode, THEME["btn_tool"]),
+                ("Processus en cours", self.analyze_processes, THEME["btn_tool"]),
+                ("Bac à sable", self.open_sandbox, THEME["btn_muted"]),
             ],
         }
 
         tab_reports = tk.Frame(notebook, bg=THEME["bg"])
-        notebook.add(tab_reports, text=self.tr("📑 RAPPORTS & DÉFENSE"))
+        notebook.add(tab_reports, text=self.tr("Rapports et défense"))
         build_tab_with_combo(tab_reports, "Rapports", reports_options)
 
         # ---------- TAB 4: COMMANDES (inchangé) ----------
         tab11 = tk.Frame(notebook, bg=THEME["bg"])
-        notebook.add(tab11, text=self.tr("💻 COMMANDES"))
+        notebook.add(tab11, text=self.tr("Commandes"))
         frame11 = tk.Frame(tab11, bg=THEME["bg"])
         frame11.pack(padx=10, pady=10, fill="both", expand=True)
         
@@ -1158,15 +1146,15 @@ class AuditIA_Ultimate(
                                    lambda: self.execute_custom_command(), width=3, color=THEME["fg"])
         btn_exec.pack(side=tk.LEFT, padx=1)
         
-        btn_fav = self.make_button(cmd_input_frame, "♡", 
+        btn_fav = self.make_button(cmd_input_frame, "", 
                                   lambda: self.add_favorite_command(), width=3)
         btn_fav.pack(side=tk.LEFT, padx=1)
         
-        btn_copy = self.make_button(cmd_input_frame, "📋", 
+        btn_copy = self.make_button(cmd_input_frame, "", 
                                    lambda: self.copy_results(), width=3)
         btn_copy.pack(side=tk.LEFT, padx=1)
         
-        btn_save = self.make_button(cmd_input_frame, "💾", 
+        btn_save = self.make_button(cmd_input_frame, "", 
                                    lambda: self.save_results(), width=3)
         btn_save.pack(side=tk.LEFT, padx=1)
         
@@ -1229,32 +1217,32 @@ class AuditIA_Ultimate(
         # ---------- TAB 5: PARAMÈTRES ----------
         settings_options = {
             "Intégrations": [
-                ("🦖 OPENVAS (WINDOWS)", self.run_openvas_windows, THEME["btn_action"]),
-                ("🦖 OPENVAS (DOCKER)", self.run_openvas_bridge, THEME["btn_action"]),
-                ("🌐 SERVEUR API REST", self.start_api_server, THEME["btn_action"]),
-                ("⚙️ SCAN MULTI-CIBLES", self.scan_multi_target, THEME["btn_tool"]),
-                ("⏰ PLANIFIER DES SCANS", self.schedule_scans, THEME["btn_action"]),
-                ("💬 SLACK", self.setup_slack_notifications, THEME["btn_tool"]),
-                ("🪝 WEBHOOK", self.setup_webhooks, THEME["btn_tool"]),
-                ("🔧 TENABLE", self.sync_tenable, THEME["btn_muted"]),
-                ("🎯 QUALYS", self.sync_qualys, THEME["btn_muted"]),
-                ("🛡️ DEFENDER", self.sync_defender, THEME["btn_muted"]),
-                ("🤖 MODE AGENT", self.start_agent_mode, THEME["btn_muted"]),
+                ("OpenVAS (Windows)", self.run_openvas_windows, THEME["btn_action"]),
+                ("OpenVAS (Docker)", self.run_openvas_bridge, THEME["btn_action"]),
+                ("Serveur API REST", self.start_api_server, THEME["btn_action"]),
+                ("Scan multi-cibles", self.scan_multi_target, THEME["btn_tool"]),
+                ("Planifier des scans", self.schedule_scans, THEME["btn_action"]),
+                ("Slack", self.setup_slack_notifications, THEME["btn_tool"]),
+                ("Webhook", self.setup_webhooks, THEME["btn_tool"]),
+                ("Tenable", self.sync_tenable, THEME["btn_muted"]),
+                ("Qualys", self.sync_qualys, THEME["btn_muted"]),
+                ("Microsoft Defender", self.sync_defender, THEME["btn_muted"]),
+                ("Mode agent", self.start_agent_mode, THEME["btn_muted"]),
             ],
-            "Préférences & alertes": [
-                ("❓ AIDE", self.show_help, THEME["btn_action"]),
-                ("📧 CONFIGURER EMAIL", self.configure_email, THEME["btn_tool"]),
-                ("🔔 NOTIFICATIONS", self.test_notification, THEME["btn_tool"]),
-                ("🔊 SONS D'ALERTE", self.toggle_sound_alerts, THEME["btn_tool"]),
-                ("⚡ MODE PERFORMANCE", self.toggle_performance, THEME["btn_tool"]),
-                ("🌙 THÈME SOMBRE", lambda: self.toggle_dark_mode(True), THEME["btn_muted"]),
-                ("☀️ THÈME CLAIR", lambda: self.toggle_dark_mode(False), THEME["btn_muted"]),
-                ("🎨 PALETTE ACTIVE", self.show_current_theme, THEME["btn_muted"]),
+            "Préférences et alertes": [
+                ("Aide", self.show_help, THEME["btn_action"]),
+                ("Configurer l'e-mail", self.configure_email, THEME["btn_tool"]),
+                ("Notifications", self.test_notification, THEME["btn_tool"]),
+                ("Sons d'alerte", self.toggle_sound_alerts, THEME["btn_tool"]),
+                ("Mode performance", self.toggle_performance, THEME["btn_tool"]),
+                ("Thème sombre", lambda: self.toggle_dark_mode(True), THEME["btn_muted"]),
+                ("Thème clair", lambda: self.toggle_dark_mode(False), THEME["btn_muted"]),
+                ("Palette active", self.show_current_theme, THEME["btn_muted"]),
             ],
         }
 
         tab_settings = tk.Frame(notebook, bg=THEME["bg"])
-        notebook.add(tab_settings, text=self.tr("⚙️ PARAMÈTRES"))
+        notebook.add(tab_settings, text=self.tr("Paramètres"))
         build_tab_with_combo(tab_settings, "Paramètres", settings_options)
 
         # Barre d'etat : la place etait occupee par un bandeau rouge pleine
@@ -1273,7 +1261,7 @@ class AuditIA_Ultimate(
                                    font=THEME["font_label"])
         self.lbl_status.pack(side=tk.LEFT)
 
-        self.make_button(inner_status, "☢️ EFFACEMENT D'URGENCE", self.emergency_wipe,
+        self.make_button(inner_status, "EFFACEMENT D'URGENCE", self.emergency_wipe,
                          width=24, color=THEME["btn_critical"]).pack(side=tk.RIGHT)
         self.make_button(inner_status, "⏹ ARRÊTER LE SCAN", self.request_cancel,
                          width=20, color=THEME["btn_muted"]).pack(side=tk.RIGHT, padx=8)
@@ -1844,28 +1832,29 @@ class AuditIA_Ultimate(
         self.text_area.pack(side=tk.LEFT, fill="both", expand=True)
         scrollbar.config(command=self.text_area.yview)
         
-        # Configuration tags (étiquettes) avec couleurs modernes + sélection visible
-        self.text_area.tag_config("title", foreground="#FFFFFF", 
-                                 font=(THEME["font_mono"][0], 11, "bold"),
-                                 background=THEME["bg_input"])         # Blanc éclatant
-        self.text_area.tag_config("info", foreground="#CCCCCC",
-                                 background=THEME["bg_input"])         # Gris minimaliste
-        self.text_area.tag_config("warn", foreground="#FF0000",
-                                 background=THEME["bg_input"])         # Rouge pur (PAS d'orange)
-        self.text_area.tag_config("ok", foreground="#FFFFFF",
-                                 background=THEME["bg_input"])         # Blanc pour succès
-        self.text_area.tag_config("error", foreground="#880000",
-                                 background=THEME["bg_input"])         # Bordeaux sombre
-        self.text_area.tag_config("matrix", foreground="#330000", 
-                                 font=(THEME["font_mono"][0], 8),
-                                 background=THEME["bg_input"])         # Rouge très sombre (pluie)
-        # Tags pour effet glow (CRT Bloom) – STRICT ROUGE/NOIR
-        self.text_area.tag_config("glow_red", foreground="#FF0000",
-                     font=("Consolas", 11, "bold"),
-                     background=THEME["bg_input"])                     # Rouge laser pur
-        self.text_area.tag_config("glow_cyan", foreground="#330000",  # Remplacement cyan → rouge très sombre
-                     font=("Consolas", 10, "bold"),
-                     background=THEME["bg_input"])
+        # Chaque niveau du journal a sa couleur, tiree de la palette active
+        # pour suivre la bascule sombre/clair. Auparavant le niveau erreur
+        # avait un contraste de 1.87 (illisible), succes etait identique a
+        # titre, et les tags `success` et `accent` -- employes 118 fois --
+        # n'avaient aucune couleur.
+        fond = THEME["bg_input"]
+        police = THEME["font_mono"][0]
+        niveaux = {
+            "title":   (THEME["log_title"], True),
+            "accent":  (THEME["log_accent"], True),
+            "info":    (THEME["log_info"], False),
+            "ok":      (THEME["log_ok"], False),
+            "success": (THEME["log_ok"], False),
+            "warn":    (THEME["log_warn"], False),
+            "error":   (THEME["log_error"], True),
+        }
+        for nom, (couleur, gras) in niveaux.items():
+            self.text_area.tag_config(
+                nom, foreground=couleur, background=fond,
+                font=(police, 11, "bold") if gras else (police, 11))
+
+        self.text_area.tag_config("matrix", foreground=THEME["log_faint"],
+                                  font=(police, 8), background=fond)
         
         # Cache pour optimisation des logs
         self._log_cache = []
@@ -1878,16 +1867,17 @@ class AuditIA_Ultimate(
         self.progress.pack(fill="x", padx=0, pady=0)
     
     def log(self, message, tag="info", speed=0.01):
-        """Affiche un message THREAD-SAFE via queue.Queue avec effet glow"""
-        # Choisir le tag visuel pour l'effet CRT Bloom
-        final_tag = tag
-        if tag in ("warn", "error"):
-            final_tag = "glow_red"
-        elif tag in ("ok", "success"):
-            final_tag = "glow_cyan"
+        """Affiche un message dans le journal, depuis n'importe quel thread.
 
-        # ✅ THREAD-SAFE: Met le message dans la file au lieu d'accéder directement au widget
-        self.msg_queue.put((message, final_tag))
+        Le tag demande est respecte tel quel. Auparavant un "effet CRT" le
+        remplacait avant affichage : `ok` et `success` devenaient un bordeaux
+        quasi noir (contraste 1.04 sur le fond du journal, soit invisible)
+        et `warn` comme `error` recevaient le meme rouge, rendant les deux
+        niveaux indistinguables.
+        """
+        # Thread-safe : le message passe par la file, jamais directement au
+        # widget -- Tkinter n'est pas utilisable depuis un thread de travail.
+        self.msg_queue.put((message, tag))
         
         # Logger aussi dans le fichier structuré
         if tag == "error":
@@ -2041,9 +2031,9 @@ class AuditIA_Ultimate(
                                    timeout=5, check=True, text=True)
             if result.returncode == 0:
                 found_path = "nmap"
-                self.log("✅ NMAP détecté dans le PATH système", tag="ok")
+                self.log("NMAP détecté dans le PATH système", tag="ok")
         except (FileNotFoundError, subprocess.CalledProcessError, subprocess.TimeoutExpired) as e:
-            self.log(f"⚠️  NMAP PATH test échoué: {e}", tag="warn")
+            self.log(f"NMAP PATH test échoué:{e}", tag="warn")
             
             # 2. Chercher dans les dossiers - DEUXIÈME TENTATIVE
             for path in possible_paths[1:]:
@@ -2054,15 +2044,15 @@ class AuditIA_Ultimate(
                                               stderr=subprocess.PIPE, timeout=5, check=True, text=True)
                         if result.returncode == 0:
                             found_path = path
-                            self.log(f"✅ NMAP trouvé à: {path}", tag="ok")
+                            self.log(f"NMAP trouvé à:{path}", tag="ok")
                             break
                 except (subprocess.TimeoutExpired, subprocess.CalledProcessError, OSError) as e:
-                    self.log(f"⚠️  Chemin invalide {path}: {e}", tag="warn")
+                    self.log(f"Chemin invalide{path}: {e}", tag="warn")
                     continue
 
         if found_path:
             try:
-                # ⚡ IMPORT DYNAMIQUE de python-nmap (lourd)
+                # IMPORT DYNAMIQUE de python-nmap (lourd)
                 nmap_module = _load_nmap()
                 
                 if found_path == "nmap":
@@ -2072,9 +2062,9 @@ class AuditIA_Ultimate(
                 
                 self.nmap_path = found_path
                 self.nmap_status = "ONLINE"
-                self.log("✅ NMAP INITIALIZED - READY FOR SCANNING", tag="ok")
+                self.log("NMAP INITIALIZED - READY FOR SCANNING", tag="ok")
                 
-                self.log(f"[OK] SYSTÈME DE VISION ACTIVE (Nmap: {found_path})", tag="success")
+                self.log(f"[OK] Nmap opérationnel ({found_path})", tag="success")
                 self.enable_buttons()
             except Exception as e:
                 self.log(f"[ERREUR] Nmap trouvé mais impossible à charger: {e}", tag="error")
@@ -2107,20 +2097,20 @@ class AuditIA_Ultimate(
                     time.sleep(speed)
 
     def matrix_processing(self, lines=8, duration=0.8):
-        """Effet T-800: génère des opcodes CPU pour simuler le calcul neural"""
+        """Effet visuel : defile des octets pendant une attente."""
         # Même précaution que typewriter_log : pas d'accès direct au widget
         # hors thread principal.
         if threading.current_thread() is not threading.main_thread():
-            self.log("[NEURAL NET PROCESSING...]", tag="info")
+            self.log("[Analyse en cours...]", tag="info")
             return
 
         # Mode performance: skip animations
         if self.performance_mode:
-            self.text_area.insert(tk.END, "[NEURAL NET PROCESSING... SKIPPED (PERF MODE)]\n", "info")
+            self.text_area.insert(tk.END, "[Analyse en cours... (mode performance)]\n", "info")
             return
 
         prefixes = ["CPU", "MEM", "REG", "ALU", "DSP", "VPU"]
-        self.text_area.insert(tk.END, "\n> [NEURAL NET PROCESSING...]\n", "info")
+        self.text_area.insert(tk.END, "\n> [Analyse en cours...]\n", "info")
         start = time.time()
         line_count = 0
 
@@ -2133,7 +2123,7 @@ class AuditIA_Ultimate(
             time.sleep(0.06)
             line_count += 1
 
-        self.text_area.insert(tk.END, "> [ANALYSIS COMPLETE - SKYNET PROTOCOL]\n", "info")
+        self.text_area.insert(tk.END, "> [Analyse terminée]\n", "info")
 
     # ---------- ACTIONS ----------
     def auto_detect(self):
@@ -2166,11 +2156,11 @@ class AuditIA_Ultimate(
 
         self.problems_found = []
         self.disable_buttons()
-        # ✅ BUG #3: Progression réelle (9 ports à vérifier)
+        # BUG #3: Progression réelle (9 ports à vérifier)
         self.start_progress_tracking(total_steps=9)
         self.text_area.delete(1.0, tk.END)
         self.log("="*60, tag="title")
-        self.log(f"🛡️ AUDIT D'EXPOSITION DES SERVICES SUR {target}", tag="warn")
+        self.log(f"AUDIT D'EXPOSITION DES SERVICES SUR{target}", tag="warn")
         self.log("[*] Vérifie uniquement l'ouverture des ports; pas d'authentification.", tag="info")
 
         thread = threading.Thread(target=self._process_service_exposure_check, args=(target,))
@@ -2196,7 +2186,7 @@ class AuditIA_Ultimate(
             
             for port, (service, action) in ports_to_check.items():
                 try:
-                    # ✅ BUG #3: Mise à jour progression réelle
+                    # BUG #3: Mise à jour progression réelle
                     self.root.after(0, lambda s=service: self.increment_progress(f"Test port {s}..."))
                     
                     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -2281,9 +2271,9 @@ class AuditIA_Ultimate(
                 with context.wrap_socket(sock, server_hostname=target) as ssock:
                     cert = ssock.getpeercert()
                     if cert:
-                        self.log(f"  ✓ Certificat valide pour {cert.get('subject', 'Unknown')}", tag="ok")
+                        self.log(f"  Certificat valide pour{cert.get('subject', 'Unknown')}", tag="ok")
         except ssl.SSLError as e:
-            self.log(f"  ⚠️ Erreur SSL: {str(e)[:100]}", tag="warn")
+            self.log(f"  Erreur SSL:{str(e)[:100]}", tag="warn")
             self.problems_found.append({
                 'type': 'SSL CERTIFICATE',
                 'host': target,
@@ -2345,15 +2335,15 @@ class AuditIA_Ultimate(
         # Afficher le score
         if score >= 80:
             tag = "ok"
-            status = "✅ SÉCURISÉ"
+            status = "SÉCURISÉ"
         elif score >= 60:
             tag = "info"
-            status = "⚠️ ACCEPTABLE"
+            status = "ACCEPTABLE"
         else:
             tag = "warn"
-            status = "🔴 RISQUÉ"
+            status = "RISQUÉ"
         
-        self.log(f"\n📊 SCORE DE SÉCURITÉ: {score}/100 - {status}", tag=tag)
+        self.log(f"\n SCORE DE SÉCURITÉ: {score}/100 - {status}", tag=tag)
         self.log(f"Services exposés: {len(open_ports)}", tag="info")
 
     def _save_audit_history(self, target, open_ports):
@@ -2371,7 +2361,7 @@ class AuditIA_Ultimate(
         }
         
         self.audit_history.append(audit_record)
-        self.log(f"\n💾 Audit sauvegardé dans l'historique", tag="ok")
+        self.log(f"\n Audit sauvegardé dans l'historique", tag="ok")
 
     def _boutons_actifs(self):
         """Boutons de la grille encore presents a l'ecran."""
@@ -2503,11 +2493,11 @@ class AuditIA_Ultimate(
                 continue
 
             if not matches:
-                self.log(f"  ✓ {product} {version} : aucune CVE connue",
+                self.log(f"{product} {version} : aucune CVE connue",
                          tag="ok")
                 continue
 
-            self.log(f"  ⚠ {product} {version} : {len(matches)} CVE connue(s)",
+            self.log(f"{product} {version} : {len(matches)} CVE connue(s)",
                      tag="warn")
             for cve in matches[:15]:  # on borne l'affichage aux plus graves
                 for host, port, name in locations:
@@ -2765,23 +2755,23 @@ class AuditIA_Ultimate(
         try:
             # VÉRIFIER QUE NMAP EST DISPONIBLE
             if self.nm is None:
-                self.log(f"❌ NMAP NOT INITIALIZED - Tentative de ré-initialisation...", tag="warn")
+                self.log(f"NMAP NOT INITIALIZED - Tentative de ré-initialisation...", tag="warn")
                 self.init_nmap()
                 
                 if self.nm is None:
                     raise Exception("NMAP initialization failed after retry")
             
-            self.log(f"🔍 Scan en cours ({scan_type}) sur {target}... (Tentative {retry_count + 1}/{max_retries + 1})", tag="info")
+            self.log(f"Scan en cours ({scan_type}) sur {target}... (Tentative {retry_count + 1}/{max_retries + 1})", tag="info")
             
             # EXÉCUTER LE SCAN
             try:
                 self.nm.scan(target, arguments=args)
             except Exception as scan_error:
-                self.log(f"⚠️  Erreur scan NMAP: {scan_error}", tag="warn")
+                self.log(f"Erreur scan NMAP:{scan_error}", tag="warn")
                 
                 # DEUXIÈME TENTATIVE avec timeout accru
                 if retry_count < max_retries:
-                    self.log(f"🔄 Deuxième tentative de scan en cours...", tag="info")
+                    self.log(f"Deuxième tentative de scan en cours...", tag="info")
                     import time
                     time.sleep(2)  # Attendre 2s avant retry
                     
@@ -2810,7 +2800,7 @@ class AuditIA_Ultimate(
                     for idx, (port, service) in enumerate(ports):
                         if getattr(self, "scan_cancel", None) and self.scan_cancel.is_set():
                             break
-                        # Animation scan T-800 (routée via la queue thread-safe :
+                        # Animation de progression (routee via la file thread-safe :
                         # run_nmap tourne sur un thread d'arrière-plan)
                         if idx % 5 == 0:
                             self.log(f"  SCAN: {random.choice(['█','▓','▒','░'])*3} [{idx}/{len(ports)}]", tag="matrix")
@@ -2873,7 +2863,7 @@ class AuditIA_Ultimate(
                 self.check_network_exploits(target)
             
             # Afficher résumé final avec statut
-            self.log(f"\n✅ SCAN COMPLÉTÉ avec succès ({hosts_scanned} hôte(s) trouvé(s))", tag="ok")
+            self.log(f"\n SCAN COMPLÉTÉ avec succès ({hosts_scanned} hôte(s) trouvé(s))", tag="ok")
             self.display_problem_summary(hosts_scanned, target)
 
             # Enregistrement du scan. auto_save_scan et save_scan_result_real
@@ -2899,11 +2889,11 @@ class AuditIA_Ultimate(
             
         except Exception as exc:
             error_msg = str(exc)
-            self.log(f"❌ SCAN FAILURE: {error_msg}", tag="warn")
+            self.log(f"SCAN FAILURE:{error_msg}", tag="warn")
             
             # Si c'est un timeout ou une erreur de connection, suggérer une vérification
             if "timeout" in error_msg.lower() or "connection" in error_msg.lower():
-                self.log(f"\n⚠️  Conseil: Vérifier que:", tag="warn")
+                self.log(f"\n Conseil: Vérifier que:", tag="warn")
                 self.log(f"  • La cible {target} est accessible", tag="warn")
                 self.log(f"  • Le firewall n'interfère pas", tag="warn")
                 self.log(f"  • NMAP est correctement installé (commande: nmap --version)", tag="warn")
@@ -3108,13 +3098,13 @@ class AuditIA_Ultimate(
     def display_problem_summary(self, hosts_scanned, target):
         self.matrix_processing(lines=3, duration=0.3)
         self.log("\n" + "=" * 60)
-        self.log("MISSION REPORT", tag="title")
-        self.log(f"TARGET: {target}")
-        self.log(f"UNITS ANALYZED: {hosts_scanned}")
-        self.log(f"THREATS: {len(self.problems_found)}")
+        self.log("BILAN DE L'ANALYSE", tag="title")
+        self.log(f"Cible : {target}")
+        self.log(f"Hôtes analysés : {hosts_scanned}")
+        self.log(f"Constats : {len(self.problems_found)}")
 
         if not self.problems_found:
-            self.log("STATUS: GREEN - NO THREATS", tag="ok")
+            self.log("Aucun constat sur les contrôles exécutés.", tag="ok")
         else:
             for i, p in enumerate(self.problems_found, 1):
                 self.log(f"{i}. {p['type']} @ {p['host']}:{p['port']} ({p['service']})", tag="warn")
@@ -3242,7 +3232,7 @@ class AuditIA_Ultimate(
                         self.log(f"    • {hf.get('HotFixID', 'N/A')} - {hf.get('Description', '')}", tag="ok")
                     # Détection: patches manquants = mauvais signe
                     if len(hotfixes) < 10:
-                        self.log(f"🚨 ALERTE: Seulement {len(hotfixes)} patches! Trop peu pour un système en production.", tag="error")
+                        self.log(f"ALERTE: Seulement{len(hotfixes)} patches! Trop peu pour un système en production.", tag="error")
                         self.problems_found.append({
                             'type': 'LOW_PATCH_COUNT',
                             'details': f'{len(hotfixes)} patches détectés (< 10 attendus)',
@@ -3269,7 +3259,7 @@ class AuditIA_Ultimate(
                     # Alerte: Guest account activé = VRAIMENT mauvais
                     guest_active = any(u['Name'] == 'Guest' and u['Enabled'] for u in users)
                     if guest_active:
-                        self.log("🚨 CRITIQUE: Compte Guest activé! C'est une faille béante.", tag="error")
+                        self.log("CRITIQUE: Compte Guest activé! C'est une faille béante.", tag="error")
                         self.problems_found.append({
                             'type': 'GUEST_ACCOUNT_ACTIVE',
                             'details': 'Compte Guest Windows activé',
@@ -3298,10 +3288,10 @@ class AuditIA_Ultimate(
                         for obs in obsolete_keywords:
                             if obs.lower() in name.lower():
                                 suspicious.append(sw)
-                                self.log(f"    🚨 DANGER: {name} ({sw.get('DisplayVersion', '?')})", tag="error")
+                                self.log(f"    DANGER:{name} ({sw.get('DisplayVersion', '?')})", tag="error")
                     
                     if suspicious:
-                        self.log(f"🚨 ALERTE: {len(suspicious)} logiciel(s) obsolète(s) détecté(s)!", tag="error")
+                        self.log(f"ALERTE:{len(suspicious)} logiciel(s) obsolète(s) détecté(s)!", tag="error")
                         for sw in suspicious:
                             self.problems_found.append({
                                 'type': 'OBSOLETE_SOFTWARE',
@@ -3309,7 +3299,7 @@ class AuditIA_Ultimate(
                                 'action': 'Désinstaller ce logiciel ou le mettre à jour'
                             })
                     else:
-                        self.log("✅ Aucun logiciel obsolète détecté.", tag="success")
+                        self.log("Aucun logiciel obsolète détecté.", tag="success")
             except Exception as e:
                 self.log(f"[-] Erreur WMI Logiciels: {e}", tag="error")
             
@@ -3349,9 +3339,9 @@ class AuditIA_Ultimate(
                         connections += 1
                         self.log(f"[!] Connexion détectée de {addr[0]}:{addr[1]}", tag="warn")
                         
-                        # 🛡️ SÉCURITÉ: Valider l'adresse reçue
+                        # SÉCURITÉ: Valider l'adresse reçue
                         if not addr or not addr[0]:
-                            self.log("    └─ ⚠️  Adresse invalide détectée, connexion ignorée", tag="warn")
+                            self.log("    └─ Adresse invalide détectée, connexion ignorée", tag="warn")
                             continue
                         
                         # Envoyer faux prompt Windows
@@ -3359,21 +3349,21 @@ class AuditIA_Ultimate(
                         prompt += b"(c) Microsoft Corporation. Tous droits reserv\xe9s.\n\n"
                         prompt += b"C:\\Users\\Administrator> "
                         
-                        # 🛡️ SÉCURITÉ: Gérer les erreurs d'envoi
+                        # SÉCURITÉ: Gérer les erreurs d'envoi
                         try:
                             client_socket.send(prompt)
                         except (ConnectionResetError, BrokenPipeError, OSError) as send_err:
-                            self.log(f"    └─ ⚠️  Erreur d'envoi: {send_err}", tag="warn")
+                            self.log(f"    └─ Erreur d'envoi:{send_err}", tag="warn")
                             continue
                         
                         # Recevoir la commande (ou credential) de l'attaquant
                         try:
-                            # 🛡️ SÉCURITÉ: Limiter la taille reçue à 1024 bytes max
+                            # SÉCURITÉ: Limiter la taille reçue à 1024 bytes max
                             client_socket.settimeout(5)  # Timeout de 5 sec pour recv
                             data = client_socket.recv(1024)
                             
                             if data:
-                                # 🛡️ SÉCURITÉ: Validation et sanitization
+                                # SÉCURITÉ: Validation et sanitization
                                 try:
                                     command = data.decode('utf-8', errors='ignore').strip()
                                     # Limiter la longueur affichée
@@ -3387,7 +3377,7 @@ class AuditIA_Ultimate(
                                             'details': f'Credential attempt from {addr[0]}: {command_display}',
                                             'action': 'Ajouter IP à liste noire du firewall'
                                         })
-                                        self.log(f"    └─ 🎯 CREDENTIAL ATTEMPT CAPTURÉ!", tag="error")
+                                        self.log(f"    └─ CREDENTIAL ATTEMPT CAPTURÉ!", tag="error")
                                     
                                     # Répondre avec erreur (comme Windows)
                                     response = b"Access denied. Your attempt has been logged.\n"
@@ -3397,12 +3387,12 @@ class AuditIA_Ultimate(
                                         pass  # Client déconnecté
                                         
                                 except (UnicodeDecodeError, ValueError) as decode_err:
-                                    self.log(f"    └─ ⚠️  Données corrompues reçues: {decode_err}", tag="warn")
+                                    self.log(f"    └─ Données corrompues reçues:{decode_err}", tag="warn")
                                     
                         except socket.timeout:
                             self.log(f"    └─ Timeout de réception pour {addr[0]}", tag="info")
                         except (ConnectionResetError, BrokenPipeError, OSError) as recv_err:
-                            self.log(f"    └─ ⚠️  Connexion perdue: {recv_err}", tag="warn")
+                            self.log(f"    └─ Connexion perdue:{recv_err}", tag="warn")
                             
                     except socket.timeout:
                         # Timeout global du honeypot
@@ -3410,7 +3400,7 @@ class AuditIA_Ultimate(
                     except Exception as e:
                         self.log(f"[-] Erreur lors de la connexion honeypot: {type(e).__name__}: {e}", tag="error")
                     finally:
-                        # 🛡️ SÉCURITÉ: Toujours fermer proprement le socket client
+                        # SÉCURITÉ: Toujours fermer proprement le socket client
                         if client_socket:
                             try:
                                 client_socket.close()
@@ -3424,7 +3414,7 @@ class AuditIA_Ultimate(
                 self.log("[!] Port 8888 nécessite les droits admin.", tag="error")
                 self.log("    Tentative sur port 18888 (non-privilegié)...", tag="warn")
                 
-                # 🛡️ Fermer le socket précédent si ouvert
+                # Fermer le socket précédent si ouvert
                 if honeypot_socket:
                     try:
                         honeypot_socket.close()
@@ -3471,19 +3461,19 @@ class AuditIA_Ultimate(
         threading.Thread(target=start_trap, daemon=True).start()
 
     # =========================================================================
-    # PARTIE 5: MODE PERFORMANCE - DÉSACTIVER ANIMATIONS (EFFICACITÉ T-800)
+    # PARTIE 5: MODE PERFORMANCE - DESACTIVER LES ANIMATIONS
     # =========================================================================
     def toggle_performance(self):
         """Active/Désactive le mode performance (animations et effets)."""
         self.performance_mode = not self.performance_mode
         status = "ACTIVÉ" if self.performance_mode else "DÉSACTIVÉ"
-        self.log(f"\n⚡ MODE PERFORMANCE: {status}", tag="warn" if self.performance_mode else "info")
+        self.log(f"\n MODE PERFORMANCE: {status}", tag="warn" if self.performance_mode else "info")
         if self.performance_mode:
-            self.log("   → Animations Matrix désactivées", tag="info")
+            self.log("   → Animations décoratives désactivées", tag="info")
             self.log("   → Affichage Typewriter instantané", tag="info")
             self.log("   → CPU efficacité maximale", tag="success")
         else:
-            self.log("   → Animations Matrix réactivées", tag="info")
+            self.log("   → Animations décoratives réactivées", tag="info")
             self.log("   → Affichage Typewriter standard", tag="info")
 
 
@@ -3535,7 +3525,7 @@ class AuditIA_Ultimate(
                         if "VULNERABLE" in output or "Risk factor: HIGH" in output:
                             vuln_found = True
                             exploit_name = script.get('id', 'Unknown Exploit')
-                            self.log(f"⚠️ [DANGER] FAILLE DÉTECTÉE: {exploit_name}", tag="error")
+                            self.log(f"[DANGER] FAILLE DÉTECTÉE:{exploit_name}", tag="error")
                             self.log(f"Détails:\n{output}", tag="warn")
                             
                             self.problems_found.append({
@@ -3546,7 +3536,7 @@ class AuditIA_Ultimate(
                                 'action': 'PATCHER IMMÉDIATEMENT'
                             })
                         else:
-                            self.log(f"✓ Check {script.get('id')}: SÉCURISÉ", tag="success")
+                            self.log(f"Check{script.get('id')}: SÉCURISÉ", tag="success")
                 else:
                     self.log("Aucun script n'a retourné de résultat (Probablement sécurisé ou bloqué).", tag="info")
 
@@ -3655,9 +3645,9 @@ class AuditIA_Ultimate(
         Recherche Shodan RÉELLE.
         """
         if not api_key or api_key.strip() == "":
-            self.log("🛑 ERREUR : Aucune clé API Shodan fournie.", tag="error")
-            self.log("ℹ️ Shodan est un service payant/restreint. Sans clé, impossible de scanner légalement.", tag="info")
-            self.log("👉 Obtenez une clé sur : https://account.shodan.io", tag="accent")
+            self.log("ERREUR : Aucune clé API Shodan fournie.", tag="error")
+            self.log("ℹ Shodan est un service payant/restreint. Sans clé, impossible de scanner légalement.", tag="info")
+            self.log("Obtenez une clé sur : https://account.shodan.io", tag="accent")
             self.root.after(0, self.stop_loading)
             return
 
@@ -3700,7 +3690,7 @@ class AuditIA_Ultimate(
 
     # -------------------------------------------------------------------------
     # [MODULAR TRAFFIC ANALYZER]
-    # Le T-800 s'adapte à la mission. Choix de l'arme : Vitesse, Précision ou Snapshot.
+    # Trois moteurs au choix selon le besoin : vitesse, precision ou instantane.
     # -------------------------------------------------------------------------
 
 
@@ -3731,7 +3721,7 @@ class AuditIA_Ultimate(
             }
             with open(json_file, 'w') as f:
                 json.dump(json_data, f, indent=2)
-            self.log(f"✓ JSON Export: {json_file}", tag="ok")
+            self.log(f"JSON Export:{json_file}", tag="ok")
             
             # CSV Export
             csv_file = f"scan_report_{timestamp}.csv"
@@ -3743,9 +3733,9 @@ class AuditIA_Ultimate(
                         writer.writerow([issue.get('type', ''), issue.get('host', ''), 
                                         issue.get('port', ''), issue.get('service', ''),
                                         issue.get('details', ''), issue.get('action', '')])
-                self.log(f"✓ CSV Export: {csv_file}", tag="ok")
+                self.log(f"CSV Export:{csv_file}", tag="ok")
             except Exception as e:
-                self.log(f"✗ CSV Export failed: {e}", tag="warn")
+                self.log(f"CSV Export failed:{e}", tag="warn")
             
             # PDF Export (si disponible)
             if PDF_AVAILABLE:
@@ -3767,9 +3757,9 @@ class AuditIA_Ultimate(
                         y -= 15
                     
                     c.save()
-                    self.log(f"✓ PDF Export: {pdf_file}", tag="ok")
+                    self.log(f"PDF Export:{pdf_file}", tag="ok")
                 except Exception as e:
-                    self.log(f"✗ PDF Export failed: {e}", tag="warn")
+                    self.log(f"PDF Export failed:{e}", tag="warn")
             
             # Excel Export (si disponible)
             if EXCEL_AVAILABLE:
@@ -3795,9 +3785,9 @@ class AuditIA_Ultimate(
                         ws[f'F{idx}'] = issue.get('action', '')
                     
                     wb.save(xlsx_file)
-                    self.log(f"✓ Excel Export: {xlsx_file}", tag="ok")
+                    self.log(f"Excel Export:{xlsx_file}", tag="ok")
                 except Exception as e:
-                    self.log(f"✗ Excel Export failed: {e}", tag="warn")
+                    self.log(f"Excel Export failed:{e}", tag="warn")
             
             self.log("\n[REPORTS GENERATED]", tag="title")
             self.log(f"Location: {os.getcwd()}")
@@ -3834,7 +3824,7 @@ class AuditIA_Ultimate(
             output = self.run_safe_command(["nltest", "/dsgetdc:"])
             
             if "Echec" in output or "Failed" in output:
-                self.log("⚠️ Cette machine n'est pas connectée à un domaine.", tag="warn")
+                self.log("Cette machine n'est pas connectée à un domaine.", tag="warn")
                 self.root.after(0, self.stop_loading)
                 return
             
@@ -3857,9 +3847,9 @@ class AuditIA_Ultimate(
                         admins.extend(parts)
                 
                 if admins:
-                    self.log(f"🚨 {len(admins)} ADMINISTRATEURS DOMAINE DÉTECTÉS !", tag="error")
+                    self.log(f"{len(admins)} ADMINISTRATEURS DOMAINE DÉTECTÉS !", tag="error")
                     for admin in admins:
-                        self.log(f"  💀 CIBLE VIP : {admin}", tag="warn")
+                        self.log(f"  CIBLE VIP :{admin}", tag="warn")
                         self.problems_found.append({
                             'type': 'HIGH VALUE TARGET',
                             'host': 'AD CONTROLLER',
@@ -3881,7 +3871,7 @@ class AuditIA_Ultimate(
                     try:
                         length = int(''.join(filter(str.isdigit, line)))
                         if length < 10:
-                            self.log("  ⚠️ Politique faible (<10 caractères) !", tag="warn")
+                            self.log("  Politique faible (<10 caractères) !", tag="warn")
                     except: pass
                 elif "verrouillage" in line or "Lockout" in line:
                     self.log(f"  {line.strip()}", tag="info")
@@ -3896,7 +3886,7 @@ class AuditIA_Ultimate(
     # Crée un rapport interactif et moderne (Bootstrap-like sans dépendance)
     # =========================================================================
     def generate_html_report(self):
-        """Génère un rapport HTML autonome avec design T-800."""
+        """Genere un rapport HTML autonome."""
         self.disable_buttons()
         self.progress.start(10)
         self.text_area.delete(1.0, tk.END)
@@ -3917,18 +3907,29 @@ class AuditIA_Ultimate(
     #: Constats acceptes par l'operateur (fichier local, une empreinte par ligne).
     ACCEPTED_FILE = "constats_acceptes.json"
 
+    #: Identifiants de vulnerabilite reconnus dans le detail d'un constat.
+    _MOTIF_CVE = re.compile(r"CVE-\d{4}-\d{4,7}", re.IGNORECASE)
+
     @staticmethod
     def finding_key(problem):
-        """Empreinte stable d'un constat : type + hote + port.
+        """Empreinte stable d'un constat : type + hote + port + CVE.
 
         Volontairement independante du texte de detail, qui peut varier d'un
         scan a l'autre (numero de version, compteur), sans quoi une exception
         cesserait de s'appliquer au scan suivant.
+
+        Une exception pres : l'identifiant CVE, quand le detail en contient un.
+        Sans lui, accepter UNE vulnerabilite sur un port les acceptait TOUTES
+        sur ce port -- y compris celles publiees apres coup. L'operateur
+        croyait accorder une exception ciblee et eteignait durablement toute
+        une classe d'alertes.
         """
+        cve = AuditIA_Ultimate._MOTIF_CVE.search(str(problem.get("details") or ""))
         return "|".join((
             str(problem.get("type") or "").strip().upper(),
             str(problem.get("host") or "").strip(),
             str(problem.get("port") or "").strip(),
+            cve.group(0).upper() if cve else "",
         ))
 
     def load_accepted(self):
@@ -4058,7 +4059,7 @@ class AuditIA_Ultimate(
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>RAPPORT AUDIT T-800</title>
+    <title>Rapport d'audit {APP_NAME}</title>
     <style>
         body {{ background-color: #050505; color: #FFFFFF; font-family: 'Segoe UI', sans-serif; padding: 20px; margin: 0; }}
         h1 {{ color: #FF0000; border-bottom: 2px solid #FF0000; padding-bottom: 10px; margin-bottom: 30px; }}
@@ -4086,9 +4087,9 @@ class AuditIA_Ultimate(
         <p style="margin: 5px 0;"><strong>Cible:</strong> {self.get_target()}</p>
         <p style="margin: 5px 0;"><strong>Date:</strong> {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}</p>
     </div>
-    
+
     <div class="stat-box danger">
-        <h2 style="margin-top: 0; color: #ff0000;">⚠️ RÉSUMÉ DES MENACES</h2>
+        <h2 style="margin-top: 0; color: #ff0000;"> RÉSUMÉ DES MENACES</h2>
         <div class="status" style="color: #ff0000;">{total} MENACES DÉTECTÉES</div>
         <p style="font-size: 1.1em; margin: 5px 0;">
             Critiques : <strong style="color:#ff5252;">{counts['CRITIQUE']}</strong> &nbsp;·&nbsp;
@@ -4099,7 +4100,7 @@ class AuditIA_Ultimate(
         </p>
     </div>
 
-    <h2>📊 DÉTAILS DES MENACES</h2>
+    <h2> DÉTAILS DES MENACES</h2>
     <table>
         <thead>
             <tr>
@@ -4115,12 +4116,12 @@ class AuditIA_Ultimate(
         <tbody>
 """
             
-            badges = {"CRITIQUE": ("tag-crit", "🔴 CRITIQUE"),
-                      "ÉLEVÉ": ("tag-crit", "🟠 ÉLEVÉ"),
-                      "MOYEN": ("tag-warn", "🟡 MOYEN"),
-                      "FAIBLE": ("tag-info", "🔵 FAIBLE"),
-                      "INFO": ("tag-info", "⚪ INFO"),
-                      "BAS": ("tag-info", "🔵 FAIBLE")}
+            badges = {"CRITIQUE": ("tag-crit", "CRITIQUE"),
+                      "ÉLEVÉ": ("tag-crit", "ÉLEVÉ"),
+                      "MOYEN": ("tag-warn", "MOYEN"),
+                      "FAIBLE": ("tag-info", "FAIBLE"),
+                      "INFO": ("tag-info", "INFO"),
+                      "BAS": ("tag-info", "FAIBLE")}
 
             # Les constats les plus graves d'abord : un rapport se lit du haut.
             ordered = sorted(self.problems_found,
@@ -4147,7 +4148,7 @@ class AuditIA_Ultimate(
     </table>
 
     <div class="stat-box warning">
-        <h2 style="color: #ffcc00; margin-top: 0;">⚡ RECOMMANDATIONS</h2>
+        <h2 style="color: #ffcc00; margin-top: 0;"> RECOMMANDATIONS</h2>
         <ul>
             <li><strong>Immédiat:</strong> Isoler tout système avec des menaces CRITIQUES</li>
             <li><strong>Court terme:</strong> Investiguer et corriger toutes les failles détectées</li>
@@ -4157,7 +4158,7 @@ class AuditIA_Ultimate(
     </div>
 
     <div class="footer">
-        <p>Genere par {APP_NAME} {APP_VERSION}</p>
+        <p>Genere par{APP_NAME} {APP_VERSION}</p>
         <p>Ce rapport est confidentiel et destiné aux autorités de sécurité informatique autorisées.</p>
     </div>
 </body>
@@ -4167,8 +4168,8 @@ class AuditIA_Ultimate(
             with open(filename, "w", encoding="utf-8") as f:
                 f.write(html_content)
             
-            self.log(f"✅ Rapport HTML généré : {filename}", tag="ok")
-            self.log(f"📍 Chemin: {os.path.abspath(filename)}", tag="info")
+            self.log(f"Rapport HTML généré :{filename}", tag="ok")
+            self.log(f"Chemin:{os.path.abspath(filename)}", tag="info")
             
             # Ouverture du navigateur : jamais en mode console, sinon une tache
             # planifiee ouvrirait une fenetre sur une session non surveillee.
@@ -4177,12 +4178,12 @@ class AuditIA_Ultimate(
                     raise RuntimeError("mode console : pas d'ouverture automatique")
                 import webbrowser
                 webbrowser.open(os.path.abspath(filename))
-                self.log("🌐 Ouverture dans le navigateur...", tag="info")
+                self.log("Ouverture dans le navigateur...", tag="info")
             except:
                 self.log("(Ouverture manuelle requise)", tag="info")
                 
         except Exception as e:
-            self.log(f"❌ Erreur HTML: {e}", tag="error")
+            self.log(f"Erreur HTML:{e}", tag="error")
         finally:
             self.root.after(0, self.stop_loading)
 
@@ -4245,10 +4246,10 @@ class AuditIA_Ultimate(
                 
                 if "NONE" not in result.stdout and "FOUND:" in result.stdout:
                     blocked_count = result.stdout.count("|")
-                    self.log(f"   ⚠️ {blocked_count} connexions bloquées par Firewall", tag="warn")
+                    self.log(f"{blocked_count} connexions bloquées par Firewall", tag="warn")
                     issues_found += blocked_count
             except:
-                self.log("   ℹ️ Firewall logs not accessible", tag="info")
+                self.log("   ℹ Firewall logs not accessible", tag="info")
             
             # ========== PORT SCANNING DETECTION ==========
             self.log("\n[3] PORT SCANNING DETECTION", tag="accent")
@@ -4271,7 +4272,7 @@ class AuditIA_Ultimate(
                 
                 if "SCANNING_DETECTED" in result.stdout:
                     scan_count = int(result.stdout.split(":")[-1].strip())
-                    self.log(f"   🔴 POSSIBLE PORT SCAN DETECTED: {scan_count} SYN connections pending!", tag="error")
+                    self.log(f"   POSSIBLE PORT SCAN DETECTED:{scan_count} SYN connections pending!", tag="error")
                     issues_found += 1
                     self.problems_found.append({
                         'type': 'NETWORK SCAN ACTIVITY',
@@ -4279,16 +4280,16 @@ class AuditIA_Ultimate(
                         'action': 'Verify if legitimate network activity'
                     })
                 else:
-                    self.log(f"   ✓ No suspicious port scanning detected", tag="success")
+                    self.log(f"   No suspicious port scanning detected", tag="success")
             except:
-                self.log("   ℹ️ Port scan detection skipped", tag="info")
+                self.log("   ℹ Port scan detection skipped", tag="info")
             
             # ========== RÉSUMÉ ==========
             self.log("\n" + "="*70, tag="info")
             if issues_found == 0:
-                self.log("[RÉSULTAT] ✅ Aucune attaque brute force détectée", tag="success")
+                self.log("[RÉSULTAT] Aucune attaque brute force détectée", tag="success")
             else:
-                self.log(f"[RÉSULTAT] ⚠️ {issues_found} problème(s) de sécurité détecté(s)!", tag="error")
+                self.log(f"[RÉSULTAT]{issues_found} problème(s) de sécurité détecté(s)!", tag="error")
             
             self.display_problem_summary(len(self.problems_found), self.get_target())
             
@@ -4420,7 +4421,7 @@ class AuditIA_Ultimate(
 
                     # Vérification faiblesse
                     if "RC4" in cipher[0] or "MD5" in cipher[0] or version in ["TLSv1", "SSLv3"]:
-                        self.log("⚠️ SÉCURITÉ FAIBLE DÉTECTÉE !", tag="warn")
+                        self.log("SÉCURITÉ FAIBLE DÉTECTÉE !", tag="warn")
                         self.problems_found.append({
                             'type': 'WEAK SSL',
                             'host': target,
@@ -4428,7 +4429,7 @@ class AuditIA_Ultimate(
                             'action': 'Mettre à jour le serveur web'
                         })
                     else:
-                        self.log("✓ Connexion sécurisée (Standards modernes respectés)", tag="success")
+                        self.log("Connexion sécurisée (Standards modernes respectés)", tag="success")
 
         except ConnectionRefusedError:
             self.log(f"Le port 443 est fermé sur {target}.", tag="error")
@@ -4455,8 +4456,8 @@ class AuditIA_Ultimate(
             self.log("[VIRUSTOTAL REPUTATION CHECK]", tag="title")
 
             if not api_key or not api_key.strip():
-                self.log("🛑 Aucune clé API VirusTotal fournie.", tag="error")
-                self.log("👉 Obtenez une clé gratuite sur : https://www.virustotal.com/gui/my-apikey", tag="accent")
+                self.log("Aucune clé API VirusTotal fournie.", tag="error")
+                self.log("Obtenez une clé gratuite sur : https://www.virustotal.com/gui/my-apikey", tag="accent")
                 self._virustotal_demo()
                 return
 
@@ -4498,7 +4499,7 @@ class AuditIA_Ultimate(
             self.log(f"{target:20} {malicious:<12} {suspicious:<12} {harmless:<12} {undetected:<12}", tag=verdict_tag)
 
             if malicious or suspicious:
-                self.log(f"\n🚨 {target} signalé par {malicious} moteur(s) comme malveillant, "
+                self.log(f"\n{target} signalé par {malicious} moteur(s) comme malveillant, "
                          f"{suspicious} comme suspect.", tag="error")
                 self.problems_found.append({
                     'type': 'VIRUSTOTAL ALERT',
@@ -4509,7 +4510,7 @@ class AuditIA_Ultimate(
                     'action': 'Bloquer au niveau du firewall'
                 })
             else:
-                self.log(f"\n✓ {target} n'est signalé par aucun moteur antivirus.", tag="success")
+                self.log(f"\n {target} n'est signalé par aucun moteur antivirus.", tag="success")
 
         except Exception as exc:
             self.log(f"VIRUSTOTAL ERROR: {exc}", tag="warn")
@@ -4567,7 +4568,7 @@ class AuditIA_Ultimate(
                                 content = f.read()
                                 for kw in keywords:
                                     if kw in content.lower():
-                                        self.log(f"⚠️ POTENTIEL LEAK: '{kw}' trouvé dans {file}", tag="warn")
+                                        self.log(f"POTENTIEL LEAK: '{kw}' trouvé dans {file}", tag="warn")
                                         self.problems_found.append({
                                             'type': 'CREDENTIAL LEAK',
                                             'details': f"Mot clé '{kw}' trouvé dans {file}",
@@ -4630,7 +4631,7 @@ class AuditIA_Ultimate(
             # Construction de l'affichage
             dashboard = f"""
 ╔════════════════════════════════════════════════════════════════════════════╗
-║                    T-800 SYSTEM MONITOR (REAL-TIME)                        ║
+║                 SURVEILLANCE SYSTÈME (TEMPS RÉEL)                          ║
 ╠════════════════════════════════════════════════════════════════════════════╣
 ║                                                                            ║
 ║  CPU CORE:    [{make_bar(cpu_usage)}] {cpu_usage}%                         ║
@@ -4652,9 +4653,9 @@ class AuditIA_Ultimate(
             
             # Alerte si le système est en surcharge
             if cpu_usage > 85:
-                self.log("⚠️ ALERTE: SURCHAUFFE CPU DÉTECTÉE", tag="warn")
+                self.log("ALERTE: SURCHAUFFE CPU DÉTECTÉE", tag="warn")
             if memory.percent > 90:
-                self.log("⚠️ ALERTE: MÉMOIRE CRITIQUE", tag="warn")
+                self.log("ALERTE: MÉMOIRE CRITIQUE", tag="warn")
             
             self.log("[OK] SYSTÈME OPÉRATIONNEL", tag="success")
 
@@ -4697,7 +4698,7 @@ class AuditIA_Ultimate(
                 if "SSID" in line and ":" in line:
                     ssid = line.split(":")[1].strip()
                     if ssid and ssid not in ssids_seen:
-                        self.log(f"  📡 VISIBLE: {ssid}", tag="info")
+                        self.log(f"  VISIBLE:{ssid}", tag="info")
                         ssids_seen.add(ssid)
 
             # 2. Extraire les profils enregistrés (Extraction de clés)
@@ -4718,7 +4719,7 @@ class AuditIA_Ultimate(
             
             extracted_count = 0
             for profile in profiles:
-                # ⚠️ SÉCURITÉ: Utiliser liste d'arguments au lieu de shell=True
+                # SÉCURITÉ: Utiliser liste d'arguments au lieu de shell=True
                 cmd_key = ["netsh", "wlan", "show", "profile", f"name={profile}", "key=clear"]
                 
                 try:
@@ -4734,7 +4735,7 @@ class AuditIA_Ultimate(
                                 break
                     
                     if key != "NON TROUVÉ":
-                        self.log(f"  🔑 SSID: {profile:<20} | PASS: {key}", tag="ok")
+                        self.log(f"  SSID:{profile:<20} | PASS: {key}", tag="ok")
                         self.problems_found.append({
                             'type': 'WIFI CREDENTIAL',
                             'host': 'LOCAL',
@@ -4744,7 +4745,7 @@ class AuditIA_Ultimate(
                         })
                         extracted_count += 1
                     else:
-                        self.log(f"  🔒 SSID: {profile:<20} | PASS: [Chiffré/Enterprise]", tag="info")
+                        self.log(f"  SSID:{profile:<20} | PASS: [Chiffré/Enterprise]", tag="info")
                         
                 except Exception:
                     pass
@@ -4764,7 +4765,7 @@ class AuditIA_Ultimate(
     # =========================================================================
     def emergency_wipe(self):
         """Procédure d'urgence : Suppression de toutes les données et arrêt."""
-        if not messagebox.askyesno("CONFIRMATION", "☢️ ATTENTION ☢️\n\nCela va supprimer :\n- Tous les logs\n- La base de données\n- Les rapports générés\n- L'historique\n\nContinuer ?"):
+        if not messagebox.askyesno("CONFIRMATION", " ATTENTION \n\nCela va supprimer :\n- Tous les logs\n- La base de données\n- Les rapports générés\n- L'historique\n\nContinuer ?"):
             return
 
         self.log("INITIATING SELF-DESTRUCT SEQUENCE...", tag="error")
@@ -4850,7 +4851,7 @@ class AuditIA_Ultimate(
                     
                     for header, alert in security_headers:
                         if header not in headers:
-                            self.log(f"  ⚠️ {alert}", tag="warn")
+                            self.log(f"{alert}", tag="warn")
                             found_vulns += 1
                             self.problems_found.append({
                                 'type': 'WEAK WEB CONFIG',
@@ -4860,7 +4861,7 @@ class AuditIA_Ultimate(
                                 'action': 'Configurer le serveur web'
                             })
                     
-                    self.log(f"  ✓ Code retour racine : {resp.status_code}", tag="ok")
+                    self.log(f"  Code retour racine :{resp.status_code}", tag="ok")
 
                     # 2. Recherche de dossiers cachés (Dirbusting léger)
                     self.log(f"  [DIR] Recherche de fichiers sensibles ({len(SENSITIVE_PATHS)} tests)...", tag="info")
@@ -4870,7 +4871,7 @@ class AuditIA_Ultimate(
                         try:
                             sub_resp = requests.get(full_url, timeout=2, verify=False)
                             if sub_resp.status_code == 200:
-                                self.log(f"  🚨 ALERTE : {full_url} est ACCESSIBLE (200 OK) !", tag="error")
+                                self.log(f"  ALERTE :{full_url} est ACCESSIBLE (200 OK) !", tag="error")
                                 found_vulns += 1
                                 self.problems_found.append({
                                     'type': 'EXPOSED WEB PATH',
@@ -4879,7 +4880,7 @@ class AuditIA_Ultimate(
                                     'action': "Restreindre l'accès ou supprimer"
                                 })
                             elif sub_resp.status_code == 403:
-                                self.log(f"  🔒 {path} détecté mais protégé (403 Forbidden)", tag="ok")
+                                self.log(f"{path} détecté mais protégé (403 Forbidden)", tag="ok")
                         except: pass
 
                 except requests.exceptions.ConnectionError:
@@ -4889,9 +4890,9 @@ class AuditIA_Ultimate(
 
             self.log("="*60)
             if found_vulns == 0:
-                self.log("[RÉSULTAT] ✅ Aucun problème web évident détecté.", tag="success")
+                self.log("[RÉSULTAT] Aucun problème web évident détecté.", tag="success")
             else:
-                self.log(f"[RÉSULTAT] ⚠️ {found_vulns} faiblesses web identifiées.", tag="warn")
+                self.log(f"[RÉSULTAT]{found_vulns} faiblesses web identifiées.", tag="warn")
 
         finally:
             self.root.after(0, self.stop_loading)
@@ -4933,9 +4934,9 @@ class AuditIA_Ultimate(
             self.log("-" * 60)
             
             if duplicates:
-                self.log("🚨 ALERTE : ARP SPOOFING DÉTECTÉ !", tag="error")
+                self.log("ALERTE : ARP SPOOFING DÉTECTÉ !", tag="error")
                 for mac, ip1, ip2 in duplicates:
-                    self.log(f"  💀 La MAC {mac} usurpe {ip1} ET {ip2}", tag="error")
+                    self.log(f"  La MAC{mac} usurpe {ip1} ET {ip2}", tag="error")
                     self.problems_found.append({
                         'type': 'ARP POISONING',
                         'host': 'RÉSEAU LOCAL',
@@ -4944,7 +4945,7 @@ class AuditIA_Ultimate(
                     })
                     self.send_notification("ALERTE MITM", f"ARP Spoofing détecté sur {mac}")
             else:
-                self.log("✅ Table ARP saine. Pas d'attaque Man-in-the-Middle détectée.", tag="success")
+                self.log("Table ARP saine. Pas d'attaque Man-in-the-Middle détectée.", tag="success")
 
         except Exception as e:
             self.log(f"Erreur ARP: {e}", tag="error")
@@ -5036,7 +5037,7 @@ class AuditIA_Ultimate(
                         if 'script' in service and 'vulners' in service['script']:
                             vuln_output = service['script']['vulners']
                             
-                            self.log(f"  ❌ PORT {port}/{proto} ({product} {version}) : VULNÉRABLE", tag="error")
+                            self.log(f"  PORT{port}/{proto} ({product} {version}) : VULNÉRABLE", tag="error")
                             
                             # Parser le texte brut de vulners pour le rendre joli
                             for line in vuln_output.split('\n'):
@@ -5048,7 +5049,7 @@ class AuditIA_Ultimate(
                                     tag = "warn"
                                     if "9." in line or "10.0" in line: # Score CVSS haut
                                         tag = "error"
-                                        clean_line = "🔥 CRITIQUE: " + clean_line
+                                        clean_line = "CRITIQUE:" + clean_line
                                     
                                     self.log(f"     -> {clean_line}", tag=tag)
                                     
@@ -5065,14 +5066,14 @@ class AuditIA_Ultimate(
                         else:
                             # Service sain ou pas d'info
                             if product:
-                                self.log(f"  ✓ PORT {port}/{proto} ({product} {version}) : Aucun CVE connu trouvé", tag="success")
+                                self.log(f"  PORT{port}/{proto} ({product} {version}) : Aucun CVE connu trouvé", tag="success")
 
             self.log("="*60)
             if total_cves > 0:
-                self.log(f"🚨 RÉSULTAT : {total_cves} vulnérabilités connues détectées.", tag="error")
+                self.log(f"RÉSULTAT :{total_cves} vulnérabilités connues détectées.", tag="error")
                 self.log("[conseil] Exportez le rapport pour avoir les liens des correctifs.", tag="info")
             else:
-                self.log("✅ RÉSULTAT : Aucune vulnérabilité connue détectée avec cette base.", tag="success")
+                self.log("RÉSULTAT : Aucune vulnérabilité connue détectée avec cette base.", tag="success")
 
         except Exception as e:
             self.log(f"ERREUR SCAN VULN: {e}", tag="error")
@@ -5133,7 +5134,7 @@ class AuditIA_Ultimate(
 
                         # Construction de la requête de recherche (ex: "Apache 2.4")
                         query = f"{product} {version}".strip().lower()
-                        self.log(f"\n🔍 Recherche pour : {query} (Port {port})", tag="accent")
+                        self.log(f"\n Recherche pour : {query} (Port {port})", tag="accent")
                         
                         # Recherche dans la base
                         hits = []
@@ -5146,7 +5147,7 @@ class AuditIA_Ultimate(
                         # Affichage des résultats
                         if hits:
                             found_exploits += len(hits)
-                            self.log(f"  ⚠️ {len(hits)} Exploits potentiels trouvés !", tag="warn")
+                            self.log(f"{len(hits)} Exploits potentiels trouvés !", tag="warn")
                             for exploit in hits[:5]: # On affiche les 5 premiers max
                                 self.log(f"    -> ID: {exploit['id']} | {exploit['description'][:60]}...", tag="warn")
                                 self.log(f"       Link: https://www.exploit-db.com/exploits/{exploit['id']}", tag="info")
@@ -5160,7 +5161,7 @@ class AuditIA_Ultimate(
                                     'action': f"Vérifier exploit {exploit['id']}"
                                 })
                         else:
-                            self.log("  ✓ Aucun exploit direct trouvé dans la base.", tag="ok")
+                            self.log("  Aucun exploit direct trouvé dans la base.", tag="ok")
 
             self.log("="*60)
             self.log(f"[FIN] Total exploits potentiels identifiés : {found_exploits}", tag="title")
@@ -5184,7 +5185,7 @@ class AuditIA_Ultimate(
 
         # Fenêtre de configuration connexion
         dialog = tk.Toplevel(self.root)
-        dialog.title("🦖 Connexion OpenVAS (Docker/Remote)")
+        dialog.title("Connexion OpenVAS (Docker/Remote)")
         dialog.geometry("450x350")
         dialog.configure(bg=THEME["bg"])
 
@@ -5224,7 +5225,7 @@ class AuditIA_Ultimate(
             # Lancement en thread pour ne pas bloquer l'interface
             threading.Thread(target=self._process_openvas_scan, args=(host, port, user, pwd, target_ip)).start()
 
-        btn = tk.Button(dialog, text="🚀 LANCER L'AUDIT", command=execute_connection, 
+        btn = tk.Button(dialog, text="LANCER L'AUDIT", command=execute_connection, 
                   bg=THEME["fg"], fg="black", font=("Arial", 10, "bold"))
         btn.pack(pady=20)
 
@@ -5272,7 +5273,7 @@ class AuditIA_Ultimate(
                 task_id = task_res.get('id')
 
                 # 5. Démarrage
-                self.log(f"🚀 DÉMARRAGE DU MOTEUR DE SCAN (ID: {task_id})...", tag="warn")
+                self.log(f"DÉMARRAGE DU MOTEUR DE SCAN (ID:{task_id})...", tag="warn")
                 gmp.start_task(task_id)
                 
                 self.log("[+] COMMANDE ENVOYÉE AU MOTEUR !", tag="success")
@@ -5541,7 +5542,7 @@ class AuditIA_Ultimate(
                 # transitoire pendant qu'un scan écrit dedans, acceptable pour un
                 # simple statut de lecture)
                 status = {
-                    "system": "T-800 NETWORK AUDIT",
+                    "system": APP_NAME,
                     "status": "ONLINE",
                     "target": snapshot_target,
                     "threats_detected": len(app_ref.problems_found),
@@ -5597,10 +5598,10 @@ class AuditIA_Ultimate(
         output = self.run_safe_command(cmd)
         
         if "OK" in output or "Reussite" in output or "success" in output.lower():
-            self.log(f"🛡️ CIBLE NEUTRALISÉE : {ip_address} bloquée au niveau Kernel.", tag="success")
+            self.log(f"CIBLE NEUTRALISÉE :{ip_address} bloquée au niveau Kernel.", tag="success")
             self.send_notification("Défense Active", f"IP {ip_address} bloquée par le Firewall.")
         else:
-            self.log(f"⚠️ Échec du blocage (Êtes-vous Admin ?) : {output}", tag="error")
+            self.log(f"Échec du blocage (Êtes-vous Admin ?) :{output}", tag="error")
 
     def generate_firewall_rules(self):
         """Bouton Firewall : Applique les règles basées sur les menaces trouvées."""
@@ -5727,10 +5728,10 @@ class AuditIA_Ultimate(
                     resp = requests.get(f"https://ipinfo.io/{clean_target}/json", timeout=5)
                     data = resp.json()
                     
-                    self.log(f"  🏢 Org/ISP : {data.get('org', 'Inconnu')}", tag="ok")
-                    self.log(f"  📍 Location : {data.get('city')}, {data.get('region')} ({data.get('country')})", tag="info")
-                    self.log(f"  🌐 Hostname : {data.get('hostname', 'N/A')}", tag="info")
-                    self.log(f"  📡 Anycast  : {data.get('anycast', False)}", tag="info")
+                    self.log(f"  Org/ISP :{data.get('org', 'Inconnu')}", tag="ok")
+                    self.log(f"  Location :{data.get('city')}, {data.get('region')} ({data.get('country')})", tag="info")
+                    self.log(f"  Hostname :{data.get('hostname', 'N/A')}", tag="info")
+                    self.log(f"  Anycast :{data.get('anycast', False)}", tag="info")
                     
                 except Exception as e:
                     self.log(f"  [-] API inaccessible : {e}", tag="warn")
@@ -5844,31 +5845,42 @@ class AuditIA_Ultimate(
                     self.log("[-] Pas assez de données pour entraîner le modèle.", tag="warn")
                     return
 
-                # 2. Entraînement du modèle (Unsupervised)
-                # Contamination = estimation de la part d'anomalies (ex: 5%)
-                clf = IsolationForest(contamination=0.05, random_state=42)
-                self.log(f"[*] Entraînement sur {len(data)} vecteurs de connexion...", tag="info")
-                
-                preds = clf.fit_predict(data)
-                # preds = 1 (Normal), -1 (Anomalie)
+                # 2. Classement, et non detection.
+                # L'ancien code fixait a l'avance la part d'anomalies attendue,
+                # ce qui IMPOSE au modele d'en designer exactement autant : sur
+                # une machine parfaitement saine, il en signalait quand meme
+                # 5 %. C'etait un quota, pas une detection. Laisser le modele
+                # trancher seul est pire encore (jusqu'a 60 % signalees).
+                #
+                # Le fond du probleme : un numero de port n'est pas une
+                # grandeur ordonnee -- 443 et 445 ne sont pas "proches". Ce
+                # modele ne peut donc pas trancher. Ce qu'il sait faire, c'est
+                # CLASSER : dire quelles connexions ressemblent le moins aux
+                # autres. On s'en tient a cela, et on le dit.
+                clf = IsolationForest(contamination="auto", random_state=42)
+                clf.fit(data)
+                scores = clf.score_samples(data)
+                self.log(f"   {len(data)} connexions distantes analysees.", tag="info")
 
-                # 3. Résultats
-                anomalies_count = 0
-                for i, prediction in enumerate(preds):
-                    if prediction == -1: # Anomalie détectée
-                        c = details_map[i]
-                        anomalies_count += 1
-                        self.log(f"🚨 ANOMALIE IA : {c.laddr.ip}:{c.laddr.port} <-> {c.raddr.ip}:{c.raddr.port} [{c.status}]", tag="error")
-                        self.problems_found.append({
-                            'type': 'AI ANOMALY',
-                            'details': f"Connexion atypique détectée par IsolationForest (Port {c.raddr.port})",
-                            'action': 'Investiguer processus'
-                        })
+                # Les plus atypiques d'abord (score le plus bas).
+                classement = sorted(range(len(data)), key=lambda i: scores[i])
+                a_montrer = classement[:5]
 
-                if anomalies_count == 0:
-                    self.log("✅ Le modèle n'a détecté aucune déviation comportementale.", tag="success")
-                else:
-                    self.log(f"⚠️ {anomalies_count} connexions jugées 'anormales' par le modèle.", tag="warn")
+                self.log("", tag="info")
+                self.log("   Les connexions les plus atypiques de CETTE machine :", tag="accent")
+                for rang, i in enumerate(a_montrer, 1):
+                    c = details_map[i]
+                    self.log(f"   {rang}. score {scores[i]:+.3f}  "
+                             f"{c.laddr.ip}:{c.laddr.port} <-> "
+                             f"{c.raddr.ip}:{c.raddr.port} [{c.status}]", tag="info")
+
+                self.log("", tag="info")
+                self.log("   Ce classement est un ecart statistique, pas un verdict.", tag="warn")
+                self.log("   Une machine saine a toujours une connexion « la plus", tag="warn")
+                self.log("   atypique » : la premiere ligne n'est donc pas une alerte.", tag="warn")
+                self.log("   Aucun constat n'est ajoute au rapport a partir de ce", tag="warn")
+                self.log("   classement. A vous d'identifier le processus proprietaire", tag="warn")
+                self.log("   si une ligne vous surprend.", tag="warn")
 
             except Exception as e:
                 self.log(f"Erreur IA: {e}", tag="error")
@@ -6128,7 +6140,7 @@ class AuditIA_Ultimate(
                     
                     if name.lower() in suspicious_names:
                         tag = "warn"
-                        prefix = "⚠️ "
+                        prefix = ""
                         self.problems_found.append({
                             'type': 'PROCESSUS SUSPECT',
                             'details': f"{name} (PID: {pid}) en cours d'exécution",
@@ -6440,11 +6452,11 @@ class AuditIA_Ultimate(
                 
                 # Colorer selon la sévérité
                 if severity == "critical":
-                    self.log(f"🚨 CRITICAL: {title} - {message}", tag="warn")
+                    self.log(f"CRITICAL:{title} - {message}", tag="warn")
                 elif severity == "warning":
-                    self.log(f"⚠️ WARNING: {title} - {message}", tag="warn")
+                    self.log(f"WARNING:{title} - {message}", tag="warn")
                 else:
-                    self.log(f"ℹ️ INFO: {title} - {message}", tag="info")
+                    self.log(f"ℹ INFO:{title} - {message}", tag="info")
         except Exception as exc:
             self.log(f"Notification error: {exc}", tag="warn")
 
@@ -6513,7 +6525,7 @@ class AuditIA_Ultimate(
         import psutil
         
         graph_window = tk.Toplevel(self.root)
-        graph_window.title("📈 Monitoring Réel - T-800")
+        graph_window.title("Surveillance en temps réel")
         graph_window.geometry("1000x700")
         graph_window.configure(bg="black")
 
@@ -6633,7 +6645,7 @@ class AuditIA_Ultimate(
         y_vals.append(0)
         z_vals.append(0)
         colors.append(0)
-        hover_texts.append("SCANNER (T-800)")
+        hover_texts.append("Poste d'analyse")
 
         # Placement des hôtes en cercle autour du scanner
         radius = 10
@@ -6691,7 +6703,7 @@ class AuditIA_Ultimate(
             ))
 
         fig.update_layout(
-            title='🌐 TOPOLOGIE RÉSEAU 3D (Données Nmap Réelles)',
+            title='TOPOLOGIE RÉSEAU 3D (Données Nmap Réelles)',
             scene=dict(
                 xaxis_title='Réseau X',
                 yaxis_title='Réseau Y',
@@ -6702,7 +6714,7 @@ class AuditIA_Ultimate(
             font=dict(color='#FFFFFF')
         )
 
-        # ✅ BUG #2: Sauvegarder dans fichier temporaire tracké
+        # BUG #2: Sauvegarder dans fichier temporaire tracké
         import tempfile
         import webbrowser
         temp_file = tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.html', encoding='utf-8')
@@ -6808,7 +6820,7 @@ class AuditIA_Ultimate(
 
         fig = go.Figure(data=[edge_trace, node_trace],
                         layout=go.Layout(
-                            title=f'🗺️ Topologie Réelle ({count} hôtes détectés)',
+                            title=f'Topologie Réelle ({count} hôtes détectés)',
                             titlefont_size=16,
                             showlegend=False,
                             hovermode='closest',
@@ -6987,7 +6999,7 @@ class AuditIA_Ultimate(
             added = new_hosts - old_hosts
             removed = old_hosts - new_hosts
             
-            self.log("\n[🔍] DÉTECTION DE CHANGEMENTS:", tag="title")
+            self.log("\n DÉTECTION DE CHANGEMENTS:", tag="title")
             
             if added:
                 self.log(f"[+] Nouveaux hosts ({len(added)}):", tag="ok")
@@ -7121,7 +7133,7 @@ class AuditIA_Ultimate(
     
     def test_notification(self):
         """Test de notification Windows"""
-        self.send_notification("Test Notification", "Les notifications sont opérationnelles! ✅")
+        self.send_notification("Test Notification", "Les notifications sont opérationnelles!")
     
     def send_notification(self, title, message):
         """Envoie une notification Windows"""
@@ -7138,7 +7150,7 @@ class AuditIA_Ultimate(
                     icon_path=None,
                     threaded=True
                 )
-                self.log(f"[🔔] Notification envoyée: {title}", tag="ok")
+                self.log(f"Notification envoyée:{title}", tag="ok")
         except Exception as e:
             self.log(f"[!] Erreur notification: {e}", tag="warn")
     
@@ -7147,11 +7159,11 @@ class AuditIA_Ultimate(
         self.sound_enabled = not self.sound_enabled
         
         if self.sound_enabled:
-            self.log("[🔊] SONS D'ALERTE ACTIVÉS", tag="ok")
+            self.log("SONS D'ALERTE ACTIVÉS", tag="ok")
             self.set_status("Alertes sonores activées")
             self.play_alert_sound()  # Test
         else:
-            self.log("[🔇] SONS D'ALERTE DÉSACTIVÉS", tag="warn")
+            self.log("SONS D'ALERTE DÉSACTIVÉS", tag="warn")
             self.set_status("Alertes sonores désactivées")
     
     def play_alert_sound(self):
@@ -7172,11 +7184,11 @@ class AuditIA_Ultimate(
         
         # Dialogue de configuration
         dialog = tk.Toplevel(self.root)
-        dialog.title("📧 Configuration Email")
+        dialog.title("Configuration Email")
         dialog.geometry("500x400")
         dialog.configure(bg=THEME["bg"])
         
-        tk.Label(dialog, text="📧 Configuration des Rapports Email", 
+        tk.Label(dialog, text="Configuration des Rapports Email", 
                 font=("Consolas", 13, "bold"), bg=THEME["bg"], fg=THEME["fg"]).pack(pady=10)
         
         # Champs
@@ -7240,10 +7252,10 @@ class AuditIA_Ultimate(
                      tag="ok")
             dialog.destroy()
         
-        tk.Button(dialog, text="💾 Sauvegarder", command=save_config,
+        tk.Button(dialog, text="Sauvegarder", command=save_config,
                  bg=THEME["fg"], fg=THEME["bg"], font=("Consolas", 10, "bold")).pack(pady=10)
         
-        tk.Button(dialog, text="📧 Test Email", command=self.send_test_email,
+        tk.Button(dialog, text="Test Email", command=self.send_test_email,
                  bg=THEME["accent"], fg="#000000", font=("Consolas", 10, "bold")).pack(pady=5)
     
     def send_test_email(self):
@@ -7258,10 +7270,10 @@ class AuditIA_Ultimate(
             msg = MIMEMultipart()
             msg['From'] = self.email_config['sender']
             msg['To'] = ', '.join(self.email_config['recipients'])
-            msg['Subject'] = "🤖 T-800 Network Audit - Test Email"
+            msg['Subject'] = f"{APP_NAME} — courriel de test"
             
             body = """
-            Ceci est un email de test du système T-800 Network Audit.
+            Ceci est un courriel de test envoyé par SIPA.
             
             Les rapports automatiques sont configurés.
             
@@ -7305,7 +7317,7 @@ class AuditIA_Ultimate(
                 bad_ips = response.text.splitlines()
                 
                 if target in bad_ips:
-                    self.log(f"🚨 ALERTE: L'IP {target} EST LISTÉE COMME MALVEILLANTE !", tag="error")
+                    self.log(f"ALERTE: L'IP{target} EST LISTÉE COMME MALVEILLANTE !", tag="error")
                     self.problems_found.append({
                         'type': 'IP MALVEILLANTE',
                         'host': target,
@@ -7313,7 +7325,7 @@ class AuditIA_Ultimate(
                         'action': 'BLOQUER TOUT TRAFIC'
                     })
                 else:
-                    self.log(f"✓ L'IP {target} n'est pas dans la liste noire actuelle.", tag="success")
+                    self.log(f"L'IP{target} n'est pas dans la liste noire actuelle.", tag="success")
                     self.log(f"(Base de données vérifiée: {len(bad_ips)} IPs connues)", tag="info")
             else:
                 self.log("Erreur de connexion à la base de données.", tag="warn")
@@ -7335,7 +7347,7 @@ class AuditIA_Ultimate(
     def _not_implemented(self, feature_name, reason):
         """Signale sans ambiguïté une fonctionnalité annoncée mais non implémentée."""
         self.log(f"\n[{feature_name}]", tag="title")
-        self.log("⚠️  FONCTIONNALITÉ NON IMPLÉMENTÉE", tag="warn")
+        self.log("FONCTIONNALITÉ NON IMPLÉMENTÉE", tag="warn")
         self.log(f"   {reason}", tag="info")
         self.log("   Aucune donnée n'a été collectée ni envoyée.", tag="info")
 
@@ -7472,7 +7484,7 @@ if __name__ == "__main__":
     # Scan Queue (RÉEL ThreadPoolExecutor)
     scan_queue = ScanQueue(config_manager)
     
-    print("[INIT] ✅ Tous les composants initialisés (RÉEL, PAS SIMULÉ)")
+    print("[INIT] Tous les composants initialisés (RÉEL, PAS SIMULÉ)")
     
     # --- LANCEMENT DE L'INTERFACE ---
     
@@ -7527,7 +7539,7 @@ if __name__ == "__main__":
     def show_license_window():
         """Affiche la fenêtre de licence au démarrage"""
         license_window = tk.Toplevel(root)
-        license_window.title("T-800 License Agreement / Contrat de Licence")
+        license_window.title("Contrat de licence")
         # Taille adaptee au DPI et bornee a l'ecran : "950x750" en pixels bruts
         # etait minuscule (et le contenu debordait) sur un ecran haute densite.
         _lic_scale = max(1.0, license_window.winfo_fpixels('1i') / 96.0)
@@ -7546,7 +7558,7 @@ if __name__ == "__main__":
         header = tk.Frame(license_window, bg=THEME["fg"], height=50)
         header.pack(fill="x", padx=0, pady=0)
         
-        title_label = tk.Label(header, text="⚠️ T-800 NETWORK AUDIT SYSTEM - LICENSE AGREEMENT",
+        title_label = tk.Label(header, text=f"{APP_NAME} — CONTRAT DE LICENCE",
                               font=("Consolas", 12, "bold"),
                               bg=THEME["fg"], fg=THEME["bg"])
         title_label.pack(pady=10)

@@ -14,7 +14,7 @@ from sipa_core.theme import THEME
 
 
 class AnimationsMixin:
-    """Animations decoratives du terminal T-800."""
+    """Animations decoratives de l'interface."""
 
     def start_matrix_rain(self):
         """Animation Matrix Rain sur l'arrière-plan"""
@@ -156,9 +156,9 @@ class AnimationsMixin:
     def animate_threat_alert(self):
         """Animation spéciale pour les alertes de menaces"""
         alert_frames = [
-            "⚠️  [!] THREAT DETECTED [!]  ⚠️",
-            "🔴  [!] THREAT DETECTED [!]  🔴",
-            "⚠️  [!] THREAT DETECTED [!]  ⚠️"
+            "[!] THREAT DETECTED [!]",
+            "[!] THREAT DETECTED [!]",
+            "[!] THREAT DETECTED [!]"
         ]
         
         for i, frame in enumerate(alert_frames):

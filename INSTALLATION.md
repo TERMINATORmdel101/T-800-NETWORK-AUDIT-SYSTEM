@@ -169,3 +169,11 @@ paramètres PPP élevés*.
 ## Support
 
 Consultez le [README](README.md), ou ouvrez une **issue** sur le dépôt GitHub.
+
+---
+
+## À propos
+
+SIPA est un projet personnel développé avec l'assistance d'une IA, pour combler
+une niche : un outil d'audit réseau en français sur Windows. Voir la section
+[« À propos de ce projet »](README.md#-à-propos-de-ce-projet) du README.

@@ -68,11 +68,11 @@ class AdvancedScansMixin:
                                 }
                 
                 if services_found:
-                    self.log(f"\n   ✓ {len(services_found)} service(s) ouvert(s) détecté(s):", tag="success")
+                    self.log(f"\n{len(services_found)} service(s) ouvert(s) détecté(s):", tag="success")
                     for port, svc in sorted(services_found.items()):
                         self.log(f"      Port {port}: {svc['product']} {svc['version']}", tag="info")
                 else:
-                    self.log("   ℹ️ Aucun service courant détecté", tag="info")
+                    self.log("   ℹ Aucun service courant détecté", tag="info")
                     return
                     
             except Exception as e:
@@ -140,7 +140,7 @@ class AdvancedScansMixin:
                             else:
                                 tag = 'accent'
                             
-                            self.log(f"\n   🔴 {cve_id}", tag=tag)
+                            self.log(f"\n {cve_id}", tag=tag)
                             self.log(f"      Produit: {svc['product']} {version}", tag="info")
                             self.log(f"      Description: {description}", tag="info")
                             self.log(f"      Sévérité: {severity} (CVSS: {cvss})", tag=tag)
@@ -162,11 +162,11 @@ class AdvancedScansMixin:
             self.log(f"   HIGH: {high_cves}", tag="warn")
             
             if critical_cves > 0:
-                self.log(f"\n   🔴 URGENT: {critical_cves} critical vulnerability(ies) to patch!", tag="error")
+                self.log(f"\n URGENT: {critical_cves} critical vulnerability(ies) to patch!", tag="error")
             elif high_cves > 0:
-                self.log(f"\n   ⚠️ {high_cves} high-risk vulnerability(ies) found", tag="warn")
+                self.log(f"\n{high_cves} high-risk vulnerability(ies) found", tag="warn")
             else:
-                self.log(f"\n   ✓ No known critical vulnerabilities detected", tag="success")
+                self.log(f"\nNo known critical vulnerabilities detected", tag="success")
             
             self.display_problem_summary(len(self.problems_found), target)
             
@@ -196,17 +196,17 @@ class AdvancedScansMixin:
             try:
                 # Utiliser socket pour une vraie résolution
                 hostname, aliases, ips = socket.gethostbyname_ex(target)
-                self.log(f"   ✓ Nom principal: {hostname}", tag="success")
+                self.log(f"   Nom principal:{hostname}", tag="success")
                 
                 if aliases:
-                    self.log(f"   📋 Alias (CNAME): {', '.join(aliases)}", tag="info")
+                    self.log(f"   Alias (CNAME):{', '.join(aliases)}", tag="info")
                 
                 self.log(f"\n   Adresses IP trouvées:", tag="accent")
                 for ip in ips:
                     self.log(f"      → {ip}", tag="ok")
                     
             except socket.gaierror as e:
-                self.log(f"   ✗ Erreur résolution: {e}", tag="error")
+                self.log(f"   Erreur résolution:{e}", tag="error")
                 ips = []
             
             # ========== [2] REVERSE LOOKUP ==========
@@ -216,9 +216,9 @@ class AdvancedScansMixin:
                 for ip in ips:
                     try:
                         rev_name, _, _ = socket.gethostbyaddr(ip)
-                        self.log(f"   ✓ {ip} -> {rev_name}", tag="success")
+                        self.log(f"{ip} -> {rev_name}", tag="success")
                     except socket.herror:
-                        self.log(f"   ⚠️ {ip} -> Pas de PTR record (risque: spoofing DNS)", tag="warn")
+                        self.log(f"{ip} -> Pas de PTR record (risque: spoofing DNS)", tag="warn")
                         issues_found += 1
             
             # ========== [3] SÉCURITÉ DNS - DNSBL LOOKUP ==========
@@ -242,17 +242,17 @@ class AdvancedScansMixin:
                         query = f"{reversed_ip}.{dnsbl}"
                         try:
                             socket.gethostbyname(query)
-                            self.log(f"   🔴 IP BLACKLISTED on {dnsbl}!", tag="error")
+                            self.log(f"   IP BLACKLISTED on{dnsbl}!", tag="error")
                             is_blacklisted = True
                             issues_found += 1
                         except socket.gaierror:
                             pass  # Not blacklisted on this service
                     
                     if not is_blacklisted:
-                        self.log(f"   ✓ IP not found in public blacklists", tag="success")
+                        self.log(f"   IP not found in public blacklists", tag="success")
                         
                 except Exception as e:
-                    self.log(f"   ℹ️ DNSBL check skipped: {e}", tag="info")
+                    self.log(f"   ℹ DNSBL check skipped:{e}", tag="info")
             
             # ========== [4] DNSSEC VALIDATION ==========
             self.log("\n[4] DNSSEC & DNS SECURITY", tag="accent")
@@ -268,32 +268,32 @@ class AdvancedScansMixin:
                         mx_records.append(str(rdata.exchange))
                     
                     if mx_records:
-                        self.log(f"   📧 MX Records:", tag="info")
+                        self.log(f"   MX Records:", tag="info")
                         for mx in mx_records[:5]:
                             self.log(f"      → {mx}", tag="info")
                     else:
-                        self.log(f"   ⚠️ Pas de MX records trouvés", tag="warn")
+                        self.log(f"   Pas de MX records trouvés", tag="warn")
                 except:
-                    self.log(f"   ℹ️ MX lookup skipped", tag="info")
+                    self.log(f"   ℹ MX lookup skipped", tag="info")
                 
                 # Chercher TXT records (SPF, DKIM, etc.)
                 try:
                     txt_records = dns.resolver.resolve(target, 'TXT')
-                    self.log(f"\n   🔐 Security TXT Records:", tag="accent")
+                    self.log(f"\n Security TXT Records:", tag="accent")
                     for rdata in txt_records:
                         txt = str(rdata)
                         if 'v=spf1' in txt:
-                            self.log(f"      ✓ SPF Policy: {txt[:60]}...", tag="success")
+                            self.log(f"      SPF Policy:{txt[:60]}...", tag="success")
                         elif 'v=DKIM1' in txt:
-                            self.log(f"      ✓ DKIM Found", tag="success")
+                            self.log(f"      DKIM Found", tag="success")
                         elif 'v=DMARC1' in txt:
-                            self.log(f"      ✓ DMARC Policy: {txt[:60]}...", tag="success")
+                            self.log(f"      DMARC Policy:{txt[:60]}...", tag="success")
                 except:
-                    self.log(f"      ⚠️ No SPF/DKIM/DMARC records (email vulnerable!)", tag="warn")
+                    self.log(f"      No SPF/DKIM/DMARC records (email vulnerable!)", tag="warn")
                     issues_found += 1
                     
             except ImportError:
-                self.log("   ℹ️ dnspython not installed (pip install dnspython)", tag="info")
+                self.log("   ℹ dnspython not installed (pip install dnspython)", tag="info")
             
             # ========== [5] ZONE TRANSFER TEST (AXFR) ==========
             self.log("\n[5] DNS ZONE TRANSFER VULNERABILITY", tag="accent")
@@ -307,7 +307,7 @@ class AdvancedScansMixin:
                 zone = None
                 try:
                     zone = dns.zone.from_xfr(dns.query.xfr(target, target))
-                    self.log(f"   🔴 CRITICAL: Zone transfer allowed! (AXFR exploit)", tag="error")
+                    self.log(f"   CRITICAL: Zone transfer allowed! (AXFR exploit)", tag="error")
                     issues_found += 1
                     self.problems_found.append({
                         'type': 'DNS VULNERABILITY',
@@ -316,17 +316,17 @@ class AdvancedScansMixin:
                         'action': 'Disable zone transfers or restrict to authorized IPs'
                     })
                 except Exception as e:
-                    self.log(f"   ✓ Zone transfer blocked (secure)", tag="success")
+                    self.log(f"   Zone transfer blocked (secure)", tag="success")
                     
             except ImportError:
-                self.log("   ℹ️ Zone transfer check skipped (dnspython required)", tag="info")
+                self.log("   ℹ Zone transfer check skipped (dnspython required)", tag="info")
             
             # ========== RÉSUMÉ ==========
             self.log("\n" + "="*70, tag="info")
             if issues_found == 0:
-                self.log("[RÉSULTAT] ✅ DNS Configuration - Pas de problème majeur détecté", tag="success")
+                self.log("[RÉSULTAT] DNS Configuration - Pas de problème majeur détecté", tag="success")
             else:
-                self.log(f"[RÉSULTAT] ⚠️ {issues_found} problème(s) de sécurité DNS détecté(s)!", tag="error")
+                self.log(f"[RÉSULTAT]{issues_found} problème(s) de sécurité DNS détecté(s)!", tag="error")
             
             self.display_problem_summary(len(self.problems_found), target)
             
@@ -369,7 +369,7 @@ class AdvancedScansMixin:
                 unsigned_drivers = result.stdout.count('Invalid') + result.stdout.count('NotSigned')
                 
                 if unsigned_drivers > 0:
-                    self.log(f"   ⚠️ {unsigned_drivers} unsigned driver(s) detected!", tag="warn")
+                    self.log(f"{unsigned_drivers} unsigned driver(s) detected!", tag="warn")
                     suspicious_count += unsigned_drivers
                     self.problems_found.append({
                         'type': 'UNSIGNED KERNEL DRIVER',
@@ -377,10 +377,10 @@ class AdvancedScansMixin:
                         'action': 'Check driver origin in Device Manager'
                     })
                 else:
-                    self.log(f"   ✓ All kernel drivers properly signed", tag="success")
+                    self.log(f"   All kernel drivers properly signed", tag="success")
                     
             except Exception as e:
-                self.log(f"   ℹ️ Driver check skipped: {e}", tag="info")
+                self.log(f"   ℹ Driver check skipped:{e}", tag="info")
             
             # ========== [2] PROCESS INJECTION DETECTION ==========
             self.log("\n[2] PROCESS INJECTION & HIDDEN PROCESS ANALYSIS", tag="accent")
@@ -401,15 +401,15 @@ class AdvancedScansMixin:
                         suspicious_procs.append(proc_name)
                 
                 if suspicious_procs:
-                    self.log(f"   ⚠️ {len(suspicious_procs)} possible hidden process(es):", tag="warn")
+                    self.log(f"{len(suspicious_procs)} possible hidden process(es):", tag="warn")
                     for proc in suspicious_procs[:5]:
                         self.log(f"      → {proc}", tag="error")
                         suspicious_count += 1
                 else:
-                    self.log(f"   ✓ No hidden processes detected", tag="success")
+                    self.log(f"   No hidden processes detected", tag="success")
                     
             except Exception as e:
-                self.log(f"   ℹ️ Process injection check skipped", tag="info")
+                self.log(f"   ℹ Process injection check skipped", tag="info")
             
             # ========== [3] SYSTEM CALL HOOK DETECTION ==========
             self.log("\n[3] SYSTEM HOOKS & INTERRUPT TABLE", tag="accent")
@@ -428,7 +428,7 @@ class AdvancedScansMixin:
                 disabled_running = result.stdout.count('1') if result.stdout else 0
                 
                 if disabled_running > 0:
-                    self.log(f"   ⚠️ {disabled_running} disabled service(s) running (anomaly!)", tag="warn")
+                    self.log(f"{disabled_running} disabled service(s) running (anomaly!)", tag="warn")
                     suspicious_count += 1
                     self.problems_found.append({
                         'type': 'SUSPICIOUS SERVICE',
@@ -436,10 +436,10 @@ class AdvancedScansMixin:
                         'action': 'Check Services.msc for anomalies'
                     })
                 else:
-                    self.log(f"   ✓ No anomalous running services detected", tag="success")
+                    self.log(f"   No anomalous running services detected", tag="success")
                     
             except Exception as e:
-                self.log(f"   ℹ️ Service hook check skipped", tag="info")
+                self.log(f"   ℹ Service hook check skipped", tag="info")
             
             # ========== [4] REGISTRY ROOTKIT SIGNATURES ==========
             self.log("\n[4] REGISTRY ROOTKIT SIGNATURES", tag="accent")
@@ -457,13 +457,13 @@ class AdvancedScansMixin:
                 autorun_count = result.stdout.count('Count')
                 
                 if autorun_count > 10:
-                    self.log(f"   ⚠️ {autorun_count} autorun entries (high count - check for malware)", tag="warn")
+                    self.log(f"{autorun_count} autorun entries (high count - check for malware)", tag="warn")
                     suspicious_count += 1
                 else:
-                    self.log(f"   ✓ Autorun entries within normal range", tag="success")
+                    self.log(f"   Autorun entries within normal range", tag="success")
                     
             except Exception:
-                self.log(f"   ℹ️ Registry check skipped", tag="info")
+                self.log(f"   ℹ Registry check skipped", tag="info")
             
             # ========== [5] FILE SYSTEM ANOMALY DETECTION ==========
             self.log("\n[5] SYSTEM FILE INTEGRITY", tag="accent")
@@ -484,13 +484,13 @@ class AdvancedScansMixin:
                         age_days = (time.time() - mod_time) / (24 * 3600)
                         
                         if age_days < 7:  # Modifié dans la semaine dernière
-                            self.log(f"   ⚠️ {fpath} modified {int(age_days)} days ago!", tag="warn")
+                            self.log(f"{fpath} modified {int(age_days)} days ago!", tag="warn")
                             suspicious_times += 1
                     except:
                         pass
                 
                 if suspicious_times == 0:
-                    self.log(f"   ✓ System files not recently modified", tag="success")
+                    self.log(f"   System files not recently modified", tag="success")
                 else:
                     suspicious_count += suspicious_times
                     self.problems_found.append({
@@ -500,15 +500,15 @@ class AdvancedScansMixin:
                     })
                     
             except Exception:
-                self.log(f"   ℹ️ File integrity check skipped", tag="info")
+                self.log(f"   ℹ File integrity check skipped", tag="info")
             
             # ========== RÉSUMÉ ==========
             self.log("\n" + "="*70, tag="info")
             
             if suspicious_count == 0:
-                self.log("[RÉSULTAT] ✅ No rootkit indicators detected", tag="success")
+                self.log("[RÉSULTAT] No rootkit indicators detected", tag="success")
             else:
-                self.log(f"[RÉSULTAT] ⚠️ {suspicious_count} suspicious indicator(s) detected!", tag="error")
+                self.log(f"[RÉSULTAT]{suspicious_count} suspicious indicator(s) detected!", tag="error")
                 self.log("   → Recommend: Full system scan with malwarebytes/kaspersky", tag="warn")
             
             self.display_problem_summary(len(self.problems_found), target)

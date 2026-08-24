@@ -27,6 +27,18 @@ principal ; il a attrapé plusieurs régressions.
 Le paquet s'appelle `sipa_core` et non `sipa/` pour ne pas entrer en collision
 avec `sipa.py`.
 
+## Nature du projet
+
+SIPA est un projet personnel, fait par plaisir, pour combler une niche : un
+outil d'audit réseau en français sur Windows. Il est développé **avec
+l'assistance d'une IA** — l'auteur conçoit les fonctionnalités et décide de ce
+qui entre dans le logiciel ; l'IA apporte les compétences de développement.
+Ce n'est une prise de position ni pour ni contre l'IA : c'est le moyen qui
+permet de passer de l'idée au logiciel.
+
+C'est aussi la raison pour laquelle la règle d'honnêteté ci-dessous n'est pas
+négociable : un code écrit vite doit être vérifiable lentement.
+
 ## Le principe directeur : l'honnêteté
 
 Ce projet a été assaini d'une longue série de fonctionnalités qui

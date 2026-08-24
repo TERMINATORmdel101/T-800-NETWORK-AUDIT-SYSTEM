@@ -216,6 +216,26 @@ principale sans passer par `__init__`.
 
 ---
 
+## 🧭 À propos de ce projet
+
+SIPA est un **projet personnel**, développé pour le plaisir et pour combler une
+niche : un outil d'audit réseau **en français**, sur Windows, utilisable sans
+abonnement ni compte en ligne.
+
+**Il est développé avec l'assistance d'une IA, et c'est assumé.** J'ai les idées
+et je sais ce que je veux que le logiciel fasse ; je n'ai pas, à la base, les
+compétences de développement pour les réaliser. L'IA est ce qui me permet de
+passer de l'un à l'autre. Je conçois les fonctionnalités, je décide de ce qui
+entre dans le logiciel, et je teste chaque version.
+
+Ce n'est **ni une prise de position pour, ni contre l'IA**. C'est simplement
+l'outil qui me permet de construire ce que j'avais en tête. Le résultat se juge
+sur ce qu'il fait réellement, pas sur la façon dont il a été écrit — et c'est
+précisément pour cela que ce projet s'impose de ne jamais simuler un résultat,
+et que des vérifications automatisées le contrôlent à chaque modification.
+
+---
+
 ## 🏆 Crédits
 
 - **Conception fonctionnelle et idées originales** : T-800

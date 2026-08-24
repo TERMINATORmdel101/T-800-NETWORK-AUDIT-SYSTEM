@@ -131,8 +131,13 @@ class KnowledgeBase:
                 cle TEXT PRIMARY KEY,
                 valeur TEXT
             );
+            -- `cle` est l'identite stable de l'appareil : son adresse MAC
+            -- quand on la connait, son IP a defaut. L'IP seule ne convient
+            -- pas comme identite : en DHCP, un appareil qui herite de l'IP
+            -- d'un autre ecrasait sa fiche et sa date de premiere detection.
             CREATE TABLE IF NOT EXISTS appareil (
-                ip          TEXT PRIMARY KEY,
+                cle         TEXT PRIMARY KEY,
+                ip          TEXT,
                 mac         TEXT,
                 fabricant   TEXT,
                 type        TEXT,
@@ -145,6 +150,8 @@ class KnowledgeBase:
             );
             """
         )
+        # Les bases creees avant l'identite stable n'ont pas la colonne `cle`.
+        self._migrer_appareils()
         self.conn.commit()
 
     # -- registre des fabricants -------------------------------------------
@@ -285,23 +292,85 @@ class KnowledgeBase:
         return best
 
     # -- inventaire persistant ---------------------------------------------
+    COLONNES_APPAREIL = ("cle", "ip", "mac", "fabricant", "type", "modele",
+                         "systeme", "nom", "decouvert_par", "premiere_vue",
+                         "derniere_vue")
+
+    def _migrer_appareils(self):
+        """Ajoute la colonne `cle` aux bases creees avant ce correctif."""
+        colonnes = [r[1] for r in self.conn.execute(
+            "PRAGMA table_info(appareil)")]
+        if "cle" in colonnes:
+            return
+        with self.conn:
+            self.conn.execute("ALTER TABLE appareil RENAME TO appareil_ancien")
+            self.conn.execute("""
+                CREATE TABLE appareil (
+                    cle         TEXT PRIMARY KEY,
+                    ip          TEXT,
+                    mac         TEXT,
+                    fabricant   TEXT,
+                    type        TEXT,
+                    modele      TEXT,
+                    systeme     TEXT,
+                    nom         TEXT,
+                    decouvert_par TEXT,
+                    premiere_vue  TEXT,
+                    derniere_vue  TEXT
+                );
+            """)
+            for ligne in self.conn.execute("SELECT * FROM appareil_ancien"):
+                fiche = dict(ligne)
+                fiche["cle"] = self.cle_appareil(fiche.get("ip"), fiche.get("mac"))
+                self.conn.execute(
+                    "INSERT OR REPLACE INTO appareil (%s) VALUES (%s)"
+                    % (",".join(self.COLONNES_APPAREIL),
+                       ",".join("?" * len(self.COLONNES_APPAREIL))),
+                    tuple(fiche.get(c) for c in self.COLONNES_APPAREIL))
+            self.conn.execute("DROP TABLE appareil_ancien")
+
+    @staticmethod
+    def cle_appareil(ip, mac=None):
+        """Identite stable : l'adresse MAC si connue, l'IP a defaut."""
+        if mac:
+            return "mac:" + str(mac).replace("-", ":").strip().lower()
+        return "ip:" + str(ip)
+
     def remember(self, ip, **fields):
         """Enregistre ou complète la fiche d'un appareil."""
         stamp = time.strftime("%Y-%m-%d %H:%M")
+        mac = fields.get("mac")
+        cle = self.cle_appareil(ip, mac)
+
         existing = self.conn.execute(
-            "SELECT * FROM appareil WHERE ip=?", (ip,)).fetchone()
-        data = dict(existing) if existing else {"ip": ip, "premiere_vue": stamp}
+            "SELECT * FROM appareil WHERE cle=?", (cle,)).fetchone()
+
+        if existing is None and mac:
+            # L'appareil etait peut-etre connu par son IP seule, avant qu'on
+            # decouvre sa MAC. On reprend sa fiche plutot que d'en creer une
+            # seconde, et on la reindexe sous son identite definitive.
+            ancienne_cle = self.cle_appareil(ip)
+            provisoire = self.conn.execute(
+                "SELECT * FROM appareil WHERE cle=?", (ancienne_cle,)).fetchone()
+            if provisoire is not None:
+                existing = provisoire
+                with self.conn:
+                    self.conn.execute(
+                        "DELETE FROM appareil WHERE cle=?", (ancienne_cle,))
+
+        data = dict(existing) if existing else {"premiere_vue": stamp}
         for key, value in fields.items():
             if value:
                 data[key] = value
+        data["ip"] = ip
+        data["cle"] = cle
         data["derniere_vue"] = stamp
-        columns = ("ip", "mac", "fabricant", "type", "modele", "systeme",
-                   "nom", "decouvert_par", "premiere_vue", "derniere_vue")
         with self.conn:
             self.conn.execute(
-                f"INSERT OR REPLACE INTO appareil ({','.join(columns)}) "
-                f"VALUES ({','.join('?' * len(columns))})",
-                tuple(data.get(c) for c in columns))
+                "INSERT OR REPLACE INTO appareil (%s) VALUES (%s)"
+                % (",".join(self.COLONNES_APPAREIL),
+                   ",".join("?" * len(self.COLONNES_APPAREIL))),
+                tuple(data.get(c) for c in self.COLONNES_APPAREIL))
         return data
 
     def known_devices(self):

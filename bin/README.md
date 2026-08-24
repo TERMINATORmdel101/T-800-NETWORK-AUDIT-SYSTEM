@@ -18,3 +18,8 @@ conserver à côté du projet.
 
 L'exécutable a les mêmes prérequis que le code source : **Nmap** est
 indispensable aux scans, Docker n'est utile qu'à OpenVAS.
+
+---
+
+SIPA est un projet personnel développé avec l'assistance d'une IA.
+Voir [« À propos de ce projet »](../README.md#-à-propos-de-ce-projet).

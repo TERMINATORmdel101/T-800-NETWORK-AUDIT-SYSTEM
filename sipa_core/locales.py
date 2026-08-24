@@ -304,10 +304,10 @@ LICENSE_TEXT = {
     'FR': """
 ═══════════════════════════════════════════════════════════════════════════════
                    CONTRAT DE LICENCE ET CONDITIONS D'UTILISATION
-                            T-800 Network Audit System
+                            SIPA — Audit réseau et sécurité
 ═══════════════════════════════════════════════════════════════════════════════
 
-📋 ACCEPTATION DE LA LICENCE
+ACCEPTATION DE LA LICENCE
 
 En utilisant ce logiciel, vous acceptez les conditions suivantes:
 
@@ -317,27 +317,27 @@ En utilisant ce logiciel, vous acceptez les conditions suivantes:
    • Ce logiciel n'est PAS conçu à des fins illégales ou malveillantes
 
 2. RESPONSABILITÉ DE L'UTILISATEUR
-   ⚠️  L'utilisateur qui utilise ce programme est ENTIÈREMENT RESPONSABLE:
+   L'utilisateur qui utilise ce programme est ENTIÈREMENT RESPONSABLE:
    • De l'utilisation du logiciel
    • De la conformité légale de ses actions
    • De tout dommage causé par son utilisation
    • Du respect des lois nationales et internationales
 
 3. RESPONSABILITÉ DU CRÉATEUR
-   ❌ Le créateur du logiciel N'EST PAS RESPONSABLE:
+   Le créateur du logiciel N'EST PAS RESPONSABLE:
    • De l'utilisation abusive du logiciel
    • De tout dommage causé par ce logiciel
    • De toute violation légale commise par l'utilisateur
    • De tout impact négatif sur des systèmes tiers
 
 4. CONDITIONS D'UTILISATION LÉGALE
-   ✓ UTILISATION AUTORISÉE:
+   UTILISATION AUTORISÉE:
    • Tests de sécurité sur VOS propres systèmes
    • Tests sur des systèmes avec permission écrite explicite du propriétaire
    • À titre éducatif et de recherche en cybersécurité
    • Pour améliorer votre sécurité réseau
 
-   ❌ UTILISATION INTERDITE:
+   UTILISATION INTERDITE:
    • Accès non autorisé à des systèmes tiers
    • Tests de sécurité sans consentement explicite
    • Utilisation à des fins malveillantes ou criminelles
@@ -384,10 +384,10 @@ Licence MIT · Contrat révisé le 23 août 2026
     'EN': """
 ═══════════════════════════════════════════════════════════════════════════════
                    LICENSE AGREEMENT AND TERMS OF USE
-                            T-800 Network Audit System
+                            SIPA — Audit réseau et sécurité
 ═══════════════════════════════════════════════════════════════════════════════
 
-📋 LICENSE ACCEPTANCE
+LICENSE ACCEPTANCE
 
 By using this software, you accept the following conditions:
 
@@ -397,27 +397,27 @@ By using this software, you accept the following conditions:
    • This software is NOT designed for illegal or malicious purposes
 
 2. USER RESPONSIBILITY
-   ⚠️  The user who uses this program is FULLY RESPONSIBLE for:
+   The user who uses this program is FULLY RESPONSIBLE for:
    • The use of the software
    • Legal compliance of their actions
    • Any damage caused by its use
    • Compliance with national and international laws
 
 3. CREATOR RESPONSIBILITY
-   ❌ The software creator IS NOT RESPONSIBLE for:
+   The software creator IS NOT RESPONSIBLE for:
    • Misuse of the software
    • Any damage caused by this software
    • Any legal violation committed by the user
    • Any negative impact on third-party systems
 
 4. LEGAL USE CONDITIONS
-   ✓ AUTHORIZED USE:
+   AUTHORIZED USE:
    • Security testing on YOUR own systems
    • Testing on systems with explicit written permission from the owner
    • For educational and cybersecurity research purposes
    • To improve your network security
 
-   ❌ PROHIBITED USE:
+   PROHIBITED USE:
    • Unauthorized access to third-party systems
    • Security testing without explicit consent
    • Use for malicious or criminal purposes
@@ -464,10 +464,10 @@ MIT licence · Agreement revised on 23 August 2026
     'ES': """
 ═══════════════════════════════════════════════════════════════════════════════
                ACUERDO DE LICENCIA Y TÉRMINOS DE USO
-                            T-800 Network Audit System
+                            SIPA — Audit réseau et sécurité
 ═══════════════════════════════════════════════════════════════════════════════
 
-📋 ACEPTACIÓN DE LA LICENCIA
+ACEPTACIÓN DE LA LICENCIA
 
 Al utilizar este software, acepta las siguientes condiciones:
 
@@ -477,27 +477,27 @@ Al utilizar este software, acepta las siguientes condiciones:
    • Este software NO está diseñado para fines ilegales o maliciosos
 
 2. RESPONSABILIDAD DEL USUARIO
-   ⚠️  El usuario que utiliza este programa es TOTALMENTE RESPONSABLE de:
+   El usuario que utiliza este programa es TOTALMENTE RESPONSABLE de:
    • El uso del software
    • Cumplimiento legal de sus acciones
    • Cualquier daño causado por su uso
    • Cumplimiento de leyes nacionales e internacionales
 
 3. RESPONSABILIDAD DEL CREADOR
-   ❌ El creador del software NO ES RESPONSABLE de:
+   El creador del software NO ES RESPONSABLE de:
    • El mal uso del software
    • Cualquier daño causado por este software
    • Cualquier violación legal cometida por el usuario
    • Cualquier impacto negativo en sistemas de terceros
 
 4. CONDICIONES DE USO LEGAL
-   ✓ USO AUTORIZADO:
+   USO AUTORIZADO:
    • Pruebas de seguridad en SUS propios sistemas
    • Pruebas en sistemas con permiso escrito explícito del propietario
    • Con fines educativos y de investigación en ciberseguridad
    • Para mejorar su seguridad de red
 
-   ❌ USO PROHIBIDO:
+   USO PROHIBIDO:
    • Acceso no autorizado a sistemas de terceros
    • Pruebas de seguridad sin consentimiento explícito
    • Uso para fines maliciosos o criminales
@@ -544,10 +544,10 @@ Licencia MIT · Contrato revisado el 23 de agosto de 2026
     'DE': """
 ═══════════════════════════════════════════════════════════════════════════════
                    LIZENZVEREINBARUNG UND NUTZUNGSBEDINGUNGEN
-                            T-800 Network Audit System
+                            SIPA — Audit réseau et sécurité
 ═══════════════════════════════════════════════════════════════════════════════
 
-📋 LIZENZAKZEPTANZ
+LIZENZAKZEPTANZ
 
 Durch die Nutzung dieser Software akzeptieren Sie die folgenden Bedingungen:
 
@@ -557,27 +557,27 @@ Durch die Nutzung dieser Software akzeptieren Sie die folgenden Bedingungen:
    • Diese Software ist NICHT für illegale oder böswillige Zwecke gedacht
 
 2. VERANTWORTUNG DES BENUTZERS
-   ⚠️  Der Benutzer, der dieses Programm nutzt, ist VOLLSTÄNDIG verantwortlich für:
+   Der Benutzer, der dieses Programm nutzt, ist VOLLSTÄNDIG verantwortlich für:
    • Die Nutzung der Software
    • Rechtliche Konformität seiner Handlungen
    • Alle durch die Nutzung verursachten Schäden
    • Einhaltung nationaler und internationaler Gesetze
 
 3. HAFTUNG DES SCHÖPFERS
-   ❌ Der Softwareentwickler IST NICHT HAFTBAR für:
+   Der Softwareentwickler IST NICHT HAFTBAR für:
    • Missbrauch der Software
    • Alle durch diese Software verursachten Schäden
    • Alle illegalen Handlungen des Benutzers
    • Negative Auswirkungen auf Systeme Dritter
 
 4. BEDINGUNGEN FÜR LEGALE NUTZUNG
-   ✓ AUTORISIERTE NUTZUNG:
+   AUTORISIERTE NUTZUNG:
    • Sicherheitstests auf IHREN eigenen Systemen
    • Tests auf Systemen mit ausdrücklicher schriftlicher Genehmigung des Eigentümers
    • Zu Bildungs- und Cybersecurity-Forschungszwecken
    • Zur Verbesserung Ihrer Netzwerksicherheit
 
-   ❌ VERBOTENE NUTZUNG:
+   VERBOTENE NUTZUNG:
    • Unbefugter Zugriff auf Systeme Dritter
    • Sicherheitstests ohne ausdrückliche Zustimmung
    • Nutzung für illegale oder kriminelle Zwecke
@@ -624,10 +624,10 @@ MIT-Lizenz · Vertrag überarbeitet am 23. August 2026
     'IT': """
 ═══════════════════════════════════════════════════════════════════════════════
                    CONTRATTO DI LICENZA E TERMINI DI UTILIZZO
-                            T-800 Network Audit System
+                            SIPA — Audit réseau et sécurité
 ═══════════════════════════════════════════════════════════════════════════════
 
-📋 ACCETTAZIONE DELLA LICENZA
+ACCETTAZIONE DELLA LICENZA
 
 Utilizzando questo software, accettate le seguenti condizioni:
 
@@ -637,27 +637,27 @@ Utilizzando questo software, accettate le seguenti condizioni:
    • Questo software NON è progettato per scopi illegali o dannosi
 
 2. RESPONSABILITÀ DELL'UTENTE
-   ⚠️  L'utente che utilizza questo programma è INTERAMENTE RESPONSABILE di:
+   L'utente che utilizza questo programma è INTERAMENTE RESPONSABILE di:
    • L'utilizzo del software
    • Conformità legale delle sue azioni
    • Qualsiasi danno causato dal suo utilizzo
    • Conformità alle leggi nazionali e internazionali
 
 3. RESPONSABILITÀ DEL CREATORE
-   ❌ Il creatore del software NON È RESPONSABILE di:
+   Il creatore del software NON È RESPONSABILE di:
    • Abuso del software
    • Qualsiasi danno causato da questo software
    • Qualsiasi violazione legale commessa dall'utente
    • Qualsiasi impatto negativo su sistemi di terzi
 
 4. CONDIZIONI DI UTILIZZO LEGALE
-   ✓ UTILIZZO AUTORIZZATO:
+   UTILIZZO AUTORIZZATO:
    • Test di sicurezza sui VOSTRI sistemi
    • Test su sistemi con permesso scritto esplicito del proprietario
    • A fini educativi e di ricerca in cybersecurity
    • Per migliorare la vostra sicurezza di rete
 
-   ❌ UTILIZZO VIETATO:
+   UTILIZZO VIETATO:
    • Accesso non autorizzato a sistemi di terzi
    • Test di sicurezza senza consenso esplicito
    • Utilizzo per scopi illegali o criminali
@@ -758,41 +758,35 @@ BUTTON_DESCRIPTIONS = {
 #: de retraduire l'interface entiere sans toucher aux sites d'appel.
 #: Une chaine absente de ce tableau reste affichee en francais.
 UI_LABELS = {
-    '🔍 ANALYSES': {
-        'EN': '🔍 ANALYSIS',
-        'ES': '🔍 ANÁLISIS',
-        'DE': '🔍 ANALYSEN',
-        'IT': '🔍 ANALISI',
-    },
-    '🌐 RÉSEAU & RENSEIGNEMENT': {
-        'EN': '🌐 NETWORK & INTELLIGENCE',
-        'ES': '🌐 RED E INTELIGENCIA',
-        'DE': '🌐 NETZWERK & AUFKLÄRUNG',
-        'IT': '🌐 RETE E INTELLIGENCE',
-    },
-    '📑 RAPPORTS & DÉFENSE': {
-        'EN': '📑 REPORTS & DEFENCE',
-        'ES': '📑 INFORMES Y DEFENSA',
-        'DE': '📑 BERICHTE & ABWEHR',
-        'IT': '📑 RAPPORTI E DIFESA',
-    },
-    '💻 COMMANDES': {
-        'EN': '💻 COMMANDS',
-        'ES': '💻 COMANDOS',
-        'DE': '💻 BEFEHLE',
-        'IT': '💻 COMANDI',
-    },
-    '⚙️ PARAMÈTRES': {
-        'EN': '⚙️ SETTINGS',
-        'ES': '⚙️ AJUSTES',
-        'DE': '⚙️ EINSTELLUNGEN',
-        'IT': '⚙️ IMPOSTAZIONI',
-    },
     'Analyses': {
         'EN': 'Analysis',
         'ES': 'Análisis',
         'DE': 'Analysen',
         'IT': 'Analisi',
+    },
+    'Réseau et renseignement': {
+        'EN': 'Network & intelligence',
+        'ES': 'Red e inteligencia',
+        'DE': 'Netzwerk & Aufklärung',
+        'IT': 'Rete e intelligence',
+    },
+    'Rapports et défense': {
+        'EN': 'Reports & defence',
+        'ES': 'Informes y defensa',
+        'DE': 'Berichte & Abwehr',
+        'IT': 'Rapporti e difesa',
+    },
+    'Commandes': {
+        'EN': 'Commands',
+        'ES': 'Comandos',
+        'DE': 'Befehle',
+        'IT': 'Comandi',
+    },
+    'Paramètres': {
+        'EN': 'Settings',
+        'ES': 'Ajustes',
+        'DE': 'Einstellungen',
+        'IT': 'Impostazioni',
     },
     'Réseau': {
         'EN': 'Network',
@@ -806,25 +800,19 @@ UI_LABELS = {
         'DE': 'Berichte',
         'IT': 'Rapporti',
     },
-    'Paramètres': {
-        'EN': 'Settings',
-        'ES': 'Ajustes',
-        'DE': 'Einstellungen',
-        'IT': 'Impostazioni',
-    },
     'Scans réseau': {
         'EN': 'Network scans',
         'ES': 'Escaneos de red',
         'DE': 'Netzwerk-Scans',
         'IT': 'Scansioni di rete',
     },
-    'Menaces & forensique': {
+    'Menaces et forensique': {
         'EN': 'Threats & forensics',
         'ES': 'Amenazas y forense',
         'DE': 'Bedrohungen & Forensik',
         'IT': 'Minacce e forense',
     },
-    'Cartographie & trafic': {
+    'Cartographie et trafic': {
         'EN': 'Mapping & traffic',
         'ES': 'Mapeo y tráfico',
         'DE': 'Kartierung & Datenverkehr',
@@ -836,13 +824,13 @@ UI_LABELS = {
         'DE': 'Externe Aufklärung',
         'IT': 'Intelligence esterna',
     },
-    'Rapports & historique': {
+    'Rapports et historique': {
         'EN': 'Reports & history',
         'ES': 'Informes e historial',
         'DE': 'Berichte & Verlauf',
         'IT': 'Rapporti e cronologia',
     },
-    'Défense & surveillance': {
+    'Défense et surveillance': {
         'EN': 'Defence & monitoring',
         'ES': 'Defensa y vigilancia',
         'DE': 'Abwehr & Überwachung',
@@ -854,437 +842,437 @@ UI_LABELS = {
         'DE': 'Integrationen',
         'IT': 'Integrazioni',
     },
-    'Préférences & alertes': {
+    'Préférences et alertes': {
         'EN': 'Preferences & alerts',
         'ES': 'Preferencias y alertas',
         'DE': 'Einstellungen & Warnungen',
         'IT': 'Preferenze e avvisi',
     },
-    '▶ SCAN RAPIDE': {
-        'EN': '▶ QUICK SCAN',
-        'ES': '▶ ESCANEO RÁPIDO',
-        'DE': '▶ SCHNELL-SCAN',
-        'IT': '▶ SCANSIONE RAPIDA',
-    },
-    '▶ SCAN COMPLET': {
-        'EN': '▶ FULL SCAN',
-        'ES': '▶ ESCANEO COMPLETO',
-        'DE': '▶ VOLLSTÄNDIGER SCAN',
-        'IT': '▶ SCANSIONE COMPLETA',
-    },
-    '▶ SCAN CVE': {
-        'EN': '▶ CVE SCAN',
-        'ES': '▶ ESCANEO CVE',
-        'DE': '▶ CVE-SCAN',
-        'IT': '▶ SCANSIONE CVE',
-    },
-    '🔓 BACKDOORS': {
-        'EN': '🔓 BACKDOORS',
-        'ES': '🔓 PUERTAS TRASERAS',
-        'DE': '🔓 HINTERTÜREN',
-        'IT': '🔓 BACKDOOR',
-    },
-    '🛡️ AUDIT SERVICES': {
-        'EN': '🛡️ SERVICE AUDIT',
-        'ES': '🛡️ AUDITORÍA DE SERVICIOS',
-        'DE': '🛡️ DIENSTE-AUDIT',
-        'IT': '🛡️ AUDIT SERVIZI',
-    },
-    '🌐 SANTÉ RÉSEAU': {
-        'EN': '🌐 NETWORK HEALTH',
-        'ES': '🌐 SALUD DE LA RED',
-        'DE': '🌐 NETZWERKZUSTAND',
-        'IT': '🌐 SALUTE DELLA RETE',
-    },
-    '🌐 ANALYSE DNS': {
-        'EN': '🌐 DNS ANALYSIS',
-        'ES': '🌐 ANÁLISIS DNS',
-        'DE': '🌐 DNS-ANALYSE',
-        'IT': '🌐 ANALISI DNS',
-    },
-    '🔒 SSL / TLS': {
-        'EN': '🔒 SSL / TLS',
-        'ES': '🔒 SSL / TLS',
-        'DE': '🔒 SSL / TLS',
-        'IT': '🔒 SSL / TLS',
-    },
-    '⛓️ CHAÎNE SSL': {
-        'EN': '⛓️ SSL CHAIN',
-        'ES': '⛓️ CADENA SSL',
-        'DE': '⛓️ SSL-KETTE',
-        'IT': '⛓️ CATENA SSL',
-    },
-    '💣 EXPLOITS': {
-        'EN': '💣 EXPLOITS',
-        'ES': '💣 EXPLOITS',
-        'DE': '💣 EXPLOITS',
-        'IT': '💣 EXPLOIT',
-    },
-    '💻 EXPLOITS AVANCÉS': {
-        'EN': '💻 ADVANCED EXPLOITS',
-        'ES': '💻 EXPLOITS AVANZADOS',
-        'DE': '💻 ERWEITERTE EXPLOITS',
-        'IT': '💻 EXPLOIT AVANZATI',
-    },
-    '👹 ROOTKITS': {
-        'EN': '👹 ROOTKITS',
-        'ES': '👹 ROOTKITS',
-        'DE': '👹 ROOTKITS',
-        'IT': '👹 ROOTKIT',
-    },
-    '🔗 PERSISTENCE': {
-        'EN': '🔗 PERSISTENCE',
-        'ES': '🔗 PERSISTENCIA',
-        'DE': '🔗 PERSISTENZ',
-        'IT': '🔗 PERSISTENZA',
-    },
-    '🔐 BRUTE FORCE': {
-        'EN': '🔐 BRUTE FORCE',
-        'ES': '🔐 FUERZA BRUTA',
-        'DE': '🔐 BRUTE FORCE',
-        'IT': '🔐 FORZA BRUTA',
-    },
-    '🔍 FORENSIQUE': {
-        'EN': '🔍 FORENSICS',
-        'ES': '🔍 FORENSE',
-        'DE': '🔍 FORENSIK',
-        'IT': '🔍 FORENSE',
-    },
-    '🔍 AUDIT SYSTÈME': {
-        'EN': '🔍 SYSTEM AUDIT',
-        'ES': '🔍 AUDITORÍA DEL SISTEMA',
-        'DE': '🔍 SYSTEM-AUDIT',
-        'IT': '🔍 AUDIT DI SISTEMA',
-    },
-    '🤖 ANOMALIES (IA)': {
-        'EN': '🤖 ANOMALIES (AI)',
-        'ES': '🤖 ANOMALÍAS (IA)',
-        'DE': '🤖 ANOMALIEN (KI)',
-        'IT': '🤖 ANOMALIE (IA)',
-    },
-    '🔑 SECRETS LOCAUX': {
-        'EN': '🔑 LOCAL SECRETS',
-        'ES': '🔑 SECRETOS LOCALES',
-        'DE': '🔑 LOKALE GEHEIMNISSE',
-        'IT': '🔑 SEGRETI LOCALI',
-    },
-    '📊 ANALYSE TRAFIC': {
-        'EN': '📊 TRAFFIC ANALYSIS',
-        'ES': '📊 ANÁLISIS DE TRÁFICO',
-        'DE': '📊 VERKEHRSANALYSE',
-        'IT': '📊 ANALISI DEL TRAFFICO',
-    },
-    '📈 GRAPHIQUES TEMPS RÉEL': {
-        'EN': '📈 LIVE CHARTS',
-        'ES': '📈 GRÁFICOS EN TIEMPO REAL',
-        'DE': '📈 ECHTZEIT-DIAGRAMME',
-        'IT': '📈 GRAFICI IN TEMPO REALE',
-    },
-    '🗺️ GRAPHE RÉSEAU': {
-        'EN': '🗺️ NETWORK GRAPH',
-        'ES': '🗺️ GRAFO DE RED',
-        'DE': '🗺️ NETZWERKGRAPH',
-        'IT': '🗺️ GRAFO DI RETE',
-    },
-    '🗺️ CARTE RÉSEAU': {
-        'EN': '🗺️ NETWORK MAP',
-        'ES': '🗺️ MAPA DE RED',
-        'DE': '🗺️ NETZWERKKARTE',
-        'IT': '🗺️ MAPPA DI RETE',
-    },
-    '🔍 CHANGEMENTS': {
-        'EN': '🔍 CHANGES',
-        'ES': '🔍 CAMBIOS',
-        'DE': '🔍 ÄNDERUNGEN',
-        'IT': '🔍 MODIFICHE',
-    },
-    '🔗 INTÉGRITÉ ARP': {
-        'EN': '🔗 ARP INTEGRITY',
-        'ES': '🔗 INTEGRIDAD ARP',
-        'DE': '🔗 ARP-INTEGRITÄT',
-        'IT': '🔗 INTEGRITÀ ARP',
-    },
-    '🔗 CONSTRUCTEUR MAC': {
-        'EN': '🔗 MAC VENDOR',
-        'ES': '🔗 FABRICANTE MAC',
-        'DE': '🔗 MAC-HERSTELLER',
-        'IT': '🔗 PRODUTTORE MAC',
-    },
-    '📶 RÉSEAUX WIFI': {
-        'EN': '📶 WIFI NETWORKS',
-        'ES': '📶 REDES WIFI',
-        'DE': '📶 WLAN-NETZE',
-        'IT': '📶 RETI WIFI',
-    },
-    '📡 SCAN BROADCAST': {
-        'EN': '📡 BROADCAST SCAN',
-        'ES': '📡 ESCANEO BROADCAST',
-        'DE': '📡 BROADCAST-SCAN',
-        'IT': '📡 SCANSIONE BROADCAST',
-    },
-    '🔎 SHODAN': {
-        'EN': '🔎 SHODAN',
-        'ES': '🔎 SHODAN',
-        'DE': '🔎 SHODAN',
-        'IT': '🔎 SHODAN',
-    },
-    '🦠 VIRUSTOTAL': {
-        'EN': '🦠 VIRUSTOTAL',
-        'ES': '🦠 VIRUSTOTAL',
-        'DE': '🦠 VIRUSTOTAL',
-        'IT': '🦠 VIRUSTOTAL',
-    },
-    '🛰️ RÉPUTATION IP': {
-        'EN': '🛰️ IP REPUTATION',
-        'ES': '🛰️ REPUTACIÓN IP',
-        'DE': '🛰️ IP-REPUTATION',
-        'IT': '🛰️ REPUTAZIONE IP',
-    },
-    '💥 SEARCHSPLOIT': {
-        'EN': '💥 SEARCHSPLOIT',
-        'ES': '💥 SEARCHSPLOIT',
-        'DE': '💥 SEARCHSPLOIT',
-        'IT': '💥 SEARCHSPLOIT',
-    },
-    '🌐 OSINT': {
-        'EN': '🌐 OSINT',
-        'ES': '🌐 OSINT',
-        'DE': '🌐 OSINT',
-        'IT': '🌐 OSINT',
-    },
-    '👤 ACTIVE DIRECTORY': {
-        'EN': '👤 ACTIVE DIRECTORY',
-        'ES': '👤 ACTIVE DIRECTORY',
-        'DE': '👤 ACTIVE DIRECTORY',
-        'IT': '👤 ACTIVE DIRECTORY',
-    },
-    '🌍 GÉOLOCALISATION': {
-        'EN': '🌍 GEOLOCATION',
-        'ES': '🌍 GEOLOCALIZACIÓN',
-        'DE': '🌍 GEOLOKALISIERUNG',
-        'IT': '🌍 GEOLOCALIZZAZIONE',
-    },
-    '🕸️ TECHNOS WEB': {
-        'EN': '🕸️ WEB TECHNOLOGIES',
-        'ES': '🕸️ TECNOLOGÍAS WEB',
-        'DE': '🕸️ WEB-TECHNOLOGIEN',
-        'IT': '🕸️ TECNOLOGIE WEB',
-    },
-    '💾 EXPORTER (PDF/XLSX/JSON)': {
-        'EN': '💾 EXPORT (PDF/XLSX/JSON)',
-        'ES': '💾 EXPORTAR (PDF/XLSX/JSON)',
-        'DE': '💾 EXPORTIEREN (PDF/XLSX/JSON)',
-        'IT': '💾 ESPORTA (PDF/XLSX/JSON)',
-    },
-    '📋 RAPPORT HTML': {
-        'EN': '📋 HTML REPORT',
-        'ES': '📋 INFORME HTML',
-        'DE': '📋 HTML-BERICHT',
-        'IT': '📋 RAPPORTO HTML',
-    },
-    '📊 TABLEAU DE BORD': {
-        'EN': '📊 DASHBOARD',
-        'ES': '📊 PANEL DE CONTROL',
-        'DE': '📊 DASHBOARD',
-        'IT': '📊 CRUSCOTTO',
-    },
-    '🌐 TABLEAU DE BORD 3D': {
-        'EN': '🌐 3D DASHBOARD',
-        'ES': '🌐 PANEL 3D',
-        'DE': '🌐 3D-DASHBOARD',
-        'IT': '🌐 CRUSCOTTO 3D',
-    },
-    '🖥️ APPAREILS DÉTECTÉS': {
-        'EN': '🖥️ DETECTED DEVICES',
-        'ES': '🖥️ DISPOSITIVOS DETECTADOS',
-        'DE': '🖥️ ERKANNTE GERÄTE',
-        'IT': '🖥️ DISPOSITIVI RILEVATI',
-    },
-    '🕓 HISTORIQUE': {
-        'EN': '🕓 HISTORY',
-        'ES': '🕓 HISTORIAL',
-        'DE': '🕓 VERLAUF',
-        'IT': '🕓 CRONOLOGIA',
-    },
-    '⚖️ COMPARER DEUX SCANS': {
-        'EN': '⚖️ COMPARE TWO SCANS',
-        'ES': '⚖️ COMPARAR DOS ESCANEOS',
-        'DE': '⚖️ ZWEI SCANS VERGLEICHEN',
-        'IT': '⚖️ CONFRONTA DUE SCANSIONI',
-    },
-    '↺ REJOUER UN SCAN': {
-        'EN': '↺ REPLAY A SCAN',
-        'ES': '↺ REPETIR UN ESCANEO',
-        'DE': '↺ SCAN WIEDERHOLEN',
-        'IT': '↺ RIPETI UNA SCANSIONE',
-    },
-    '📝 JOURNAL': {
-        'EN': '📝 LOG',
-        'ES': '📝 REGISTRO',
-        'DE': '📝 PROTOKOLL',
-        'IT': '📝 REGISTRO',
-    },
-    "📸 CAPTURE D'ÉCRAN": {
-        'EN': '📸 SCREENSHOT',
-        'ES': '📸 CAPTURA DE PANTALLA',
-        'DE': '📸 BILDSCHIRMFOTO',
-        'IT': '📸 SCHERMATA',
-    },
-    '👁️ MONITORING CONTINU': {
-        'EN': '👁️ CONTINUOUS MONITORING',
-        'ES': '👁️ MONITORIZACIÓN CONTINUA',
-        'DE': '👁️ DAUERÜBERWACHUNG',
-        'IT': '👁️ MONITORAGGIO CONTINUO',
-    },
-    '🛡️ RÈGLES PARE-FEU': {
-        'EN': '🛡️ FIREWALL RULES',
-        'ES': '🛡️ REGLAS DEL CORTAFUEGOS',
-        'DE': '🛡️ FIREWALL-REGELN',
-        'IT': '🛡️ REGOLE FIREWALL',
-    },
-    '🍯 HONEYPOT': {
-        'EN': '🍯 HONEYPOT',
-        'ES': '🍯 HONEYPOT',
-        'DE': '🍯 HONEYPOT',
-        'IT': '🍯 HONEYPOT',
-    },
-    '🥷 MODE FURTIF': {
-        'EN': '🥷 STEALTH MODE',
-        'ES': '🥷 MODO SIGILOSO',
-        'DE': '🥷 TARNMODUS',
-        'IT': '🥷 MODALITÀ FURTIVA',
-    },
-    '⚙️ PROCESSUS': {
-        'EN': '⚙️ PROCESSES',
-        'ES': '⚙️ PROCESOS',
-        'DE': '⚙️ PROZESSE',
-        'IT': '⚙️ PROCESSI',
-    },
-    '📦 SANDBOX': {
-        'EN': '📦 SANDBOX',
-        'ES': '📦 SANDBOX',
-        'DE': '📦 SANDBOX',
-        'IT': '📦 SANDBOX',
-    },
-    '🦖 OPENVAS (WINDOWS)': {
-        'EN': '🦖 OPENVAS (WINDOWS)',
-        'ES': '🦖 OPENVAS (WINDOWS)',
-        'DE': '🦖 OPENVAS (WINDOWS)',
-        'IT': '🦖 OPENVAS (WINDOWS)',
-    },
-    '🦖 OPENVAS (DOCKER)': {
-        'EN': '🦖 OPENVAS (DOCKER)',
-        'ES': '🦖 OPENVAS (DOCKER)',
-        'DE': '🦖 OPENVAS (DOCKER)',
-        'IT': '🦖 OPENVAS (DOCKER)',
-    },
-    '🌐 SERVEUR API REST': {
-        'EN': '🌐 REST API SERVER',
-        'ES': '🌐 SERVIDOR API REST',
-        'DE': '🌐 REST-API-SERVER',
-        'IT': '🌐 SERVER API REST',
-    },
-    '⚙️ SCAN MULTI-CIBLES': {
-        'EN': '⚙️ MULTI-TARGET SCAN',
-        'ES': '⚙️ ESCANEO MULTIOBJETIVO',
-        'DE': '⚙️ MEHRZIEL-SCAN',
-        'IT': '⚙️ SCANSIONE MULTI-OBIETTIVO',
-    },
-    '⏰ PLANIFIER DES SCANS': {
-        'EN': '⏰ SCHEDULE SCANS',
-        'ES': '⏰ PROGRAMAR ESCANEOS',
-        'DE': '⏰ SCANS PLANEN',
-        'IT': '⏰ PIANIFICA SCANSIONI',
-    },
-    '💬 SLACK': {
-        'EN': '💬 SLACK',
-        'ES': '💬 SLACK',
-        'DE': '💬 SLACK',
-        'IT': '💬 SLACK',
-    },
-    '🪝 WEBHOOK': {
-        'EN': '🪝 WEBHOOK',
-        'ES': '🪝 WEBHOOK',
-        'DE': '🪝 WEBHOOK',
-        'IT': '🪝 WEBHOOK',
-    },
-    '🔧 TENABLE': {
-        'EN': '🔧 TENABLE',
-        'ES': '🔧 TENABLE',
-        'DE': '🔧 TENABLE',
-        'IT': '🔧 TENABLE',
-    },
-    '🎯 QUALYS': {
-        'EN': '🎯 QUALYS',
-        'ES': '🎯 QUALYS',
-        'DE': '🎯 QUALYS',
-        'IT': '🎯 QUALYS',
-    },
-    '🛡️ DEFENDER': {
-        'EN': '🛡️ DEFENDER',
-        'ES': '🛡️ DEFENDER',
-        'DE': '🛡️ DEFENDER',
-        'IT': '🛡️ DEFENDER',
-    },
-    '🤖 MODE AGENT': {
-        'EN': '🤖 AGENT MODE',
-        'ES': '🤖 MODO AGENTE',
-        'DE': '🤖 AGENTENMODUS',
-        'IT': '🤖 MODALITÀ AGENTE',
-    },
-    '❓ AIDE': {
-        'EN': '❓ HELP',
-        'ES': '❓ AYUDA',
-        'DE': '❓ HILFE',
-        'IT': '❓ AIUTO',
-    },
-    '📧 CONFIGURER EMAIL': {
-        'EN': '📧 CONFIGURE EMAIL',
-        'ES': '📧 CONFIGURAR CORREO',
-        'DE': '📧 E-MAIL EINRICHTEN',
-        'IT': '📧 CONFIGURA EMAIL',
-    },
-    '🔔 NOTIFICATIONS': {
-        'EN': '🔔 NOTIFICATIONS',
-        'ES': '🔔 NOTIFICACIONES',
-        'DE': '🔔 BENACHRICHTIGUNGEN',
-        'IT': '🔔 NOTIFICHE',
-    },
-    "🔊 SONS D'ALERTE": {
-        'EN': '🔊 ALERT SOUNDS',
-        'ES': '🔊 SONIDOS DE ALERTA',
-        'DE': '🔊 WARNTÖNE',
-        'IT': '🔊 SUONI DI AVVISO',
-    },
-    '⚡ MODE PERFORMANCE': {
-        'EN': '⚡ PERFORMANCE MODE',
-        'ES': '⚡ MODO RENDIMIENTO',
-        'DE': '⚡ LEISTUNGSMODUS',
-        'IT': '⚡ MODALITÀ PRESTAZIONI',
-    },
-    '🌙 THÈME SOMBRE': {
-        'EN': '🌙 DARK THEME',
-        'ES': '🌙 TEMA OSCURO',
-        'DE': '🌙 DUNKLES DESIGN',
-        'IT': '🌙 TEMA SCURO',
-    },
-    '☀️ THÈME CLAIR': {
-        'EN': '☀️ LIGHT THEME',
-        'ES': '☀️ TEMA CLARO',
-        'DE': '☀️ HELLES DESIGN',
-        'IT': '☀️ TEMA CHIARO',
-    },
-    '🎨 PALETTE ACTIVE': {
-        'EN': '🎨 ACTIVE PALETTE',
-        'ES': '🎨 PALETA ACTIVA',
-        'DE': '🎨 AKTIVE PALETTE',
-        'IT': '🎨 TAVOLOZZA ATTIVA',
-    },
-    '📍 DÉTECTER': {
-        'EN': '📍 DETECT',
-        'ES': '📍 DETECTAR',
-        'DE': '📍 ERKENNEN',
-        'IT': '📍 RILEVA',
+    'Scan rapide': {
+        'EN': 'Quick scan',
+        'ES': 'Escaneo rápido',
+        'DE': 'Schnell-Scan',
+        'IT': 'Scansione rapida',
+    },
+    'Scan complet': {
+        'EN': 'Full scan',
+        'ES': 'Escaneo completo',
+        'DE': 'Vollständiger Scan',
+        'IT': 'Scansione completa',
+    },
+    'Scan CVE': {
+        'EN': 'CVE scan',
+        'ES': 'Escaneo CVE',
+        'DE': 'CVE-Scan',
+        'IT': 'Scansione CVE',
+    },
+    'Portes dérobées': {
+        'EN': 'Backdoors',
+        'ES': 'Puertas traseras',
+        'DE': 'Hintertüren',
+        'IT': 'Backdoor',
+    },
+    'Audit des services': {
+        'EN': 'Service audit',
+        'ES': 'Auditoría de servicios',
+        'DE': 'Dienste-Audit',
+        'IT': 'Audit dei servizi',
+    },
+    'Santé du réseau': {
+        'EN': 'Network health',
+        'ES': 'Salud de la red',
+        'DE': 'Netzwerkzustand',
+        'IT': 'Salute della rete',
+    },
+    'Analyse DNS': {
+        'EN': 'DNS analysis',
+        'ES': 'Análisis DNS',
+        'DE': 'DNS-Analyse',
+        'IT': 'Analisi DNS',
+    },
+    'SSL / TLS': {
+        'EN': 'SSL / TLS',
+        'ES': 'SSL / TLS',
+        'DE': 'SSL / TLS',
+        'IT': 'SSL / TLS',
+    },
+    'Chaîne de certificats': {
+        'EN': 'Certificate chain',
+        'ES': 'Cadena de certificados',
+        'DE': 'Zertifikatskette',
+        'IT': 'Catena di certificati',
+    },
+    'Exploits connus': {
+        'EN': 'Known exploits',
+        'ES': 'Exploits conocidos',
+        'DE': 'Bekannte Exploits',
+        'IT': 'Exploit noti',
+    },
+    'Exploits avancés': {
+        'EN': 'Advanced exploits',
+        'ES': 'Exploits avanzados',
+        'DE': 'Erweiterte Exploits',
+        'IT': 'Exploit avanzati',
+    },
+    'Rootkits': {
+        'EN': 'Rootkits',
+        'ES': 'Rootkits',
+        'DE': 'Rootkits',
+        'IT': 'Rootkit',
+    },
+    'Mécanismes de persistance': {
+        'EN': 'Persistence mechanisms',
+        'ES': 'Mecanismos de persistencia',
+        'DE': 'Persistenzmechanismen',
+        'IT': 'Meccanismi di persistenza',
+    },
+    'Attaques par force brute': {
+        'EN': 'Brute-force attacks',
+        'ES': 'Ataques de fuerza bruta',
+        'DE': 'Brute-Force-Angriffe',
+        'IT': 'Attacchi a forza bruta',
+    },
+    'Analyse forensique': {
+        'EN': 'Forensic analysis',
+        'ES': 'Análisis forense',
+        'DE': 'Forensische Analyse',
+        'IT': 'Analisi forense',
+    },
+    'Audit du système': {
+        'EN': 'System audit',
+        'ES': 'Auditoría del sistema',
+        'DE': 'System-Audit',
+        'IT': 'Audit di sistema',
+    },
+    "Détection d'anomalies": {
+        'EN': 'Anomaly detection',
+        'ES': 'Detección de anomalías',
+        'DE': 'Anomalieerkennung',
+        'IT': 'Rilevamento anomalie',
+    },
+    'Secrets dans vos fichiers': {
+        'EN': 'Secrets in your files',
+        'ES': 'Secretos en sus archivos',
+        'DE': 'Geheimnisse in Ihren Dateien',
+        'IT': 'Segreti nei vostri file',
+    },
+    'Analyse du trafic': {
+        'EN': 'Traffic analysis',
+        'ES': 'Análisis de tráfico',
+        'DE': 'Verkehrsanalyse',
+        'IT': 'Analisi del traffico',
+    },
+    'Graphiques en temps réel': {
+        'EN': 'Live charts',
+        'ES': 'Gráficos en tiempo real',
+        'DE': 'Echtzeit-Diagramme',
+        'IT': 'Grafici in tempo reale',
+    },
+    'Graphe du réseau': {
+        'EN': 'Network graph',
+        'ES': 'Grafo de red',
+        'DE': 'Netzwerkgraph',
+        'IT': 'Grafo di rete',
+    },
+    'Carte du réseau': {
+        'EN': 'Network map',
+        'ES': 'Mapa de red',
+        'DE': 'Netzwerkkarte',
+        'IT': 'Mappa di rete',
+    },
+    'Changements depuis le dernier scan': {
+        'EN': 'Changes since last scan',
+        'ES': 'Cambios desde el último escaneo',
+        'DE': 'Änderungen seit dem letzten Scan',
+        'IT': "Modifiche dall'ultima scansione",
+    },
+    'Intégrité ARP': {
+        'EN': 'ARP integrity',
+        'ES': 'Integridad ARP',
+        'DE': 'ARP-Integrität',
+        'IT': 'Integrità ARP',
+    },
+    'Fabricant (adresse MAC)': {
+        'EN': 'Vendor (MAC address)',
+        'ES': 'Fabricante (dirección MAC)',
+        'DE': 'Hersteller (MAC-Adresse)',
+        'IT': 'Produttore (indirizzo MAC)',
+    },
+    'Réseaux Wi-Fi': {
+        'EN': 'Wi-Fi networks',
+        'ES': 'Redes Wi-Fi',
+        'DE': 'WLAN-Netze',
+        'IT': 'Reti Wi-Fi',
+    },
+    'Découverte par diffusion': {
+        'EN': 'Broadcast discovery',
+        'ES': 'Descubrimiento por difusión',
+        'DE': 'Broadcast-Erkennung',
+        'IT': 'Rilevamento broadcast',
+    },
+    'Shodan': {
+        'EN': 'Shodan',
+        'ES': 'Shodan',
+        'DE': 'Shodan',
+        'IT': 'Shodan',
+    },
+    'VirusTotal': {
+        'EN': 'VirusTotal',
+        'ES': 'VirusTotal',
+        'DE': 'VirusTotal',
+        'IT': 'VirusTotal',
+    },
+    "Réputation d'une IP": {
+        'EN': 'IP reputation',
+        'ES': 'Reputación de una IP',
+        'DE': 'IP-Reputation',
+        'IT': 'Reputazione di un IP',
+    },
+    'SearchSploit': {
+        'EN': 'SearchSploit',
+        'ES': 'SearchSploit',
+        'DE': 'SearchSploit',
+        'IT': 'SearchSploit',
+    },
+    'Renseignement public (OSINT)': {
+        'EN': 'Open-source intelligence',
+        'ES': 'Inteligencia de fuentes abiertas',
+        'DE': 'Open-Source-Aufklärung',
+        'IT': 'Intelligence di fonti aperte',
+    },
+    'Active Directory': {
+        'EN': 'Active Directory',
+        'ES': 'Active Directory',
+        'DE': 'Active Directory',
+        'IT': 'Active Directory',
+    },
+    'Géolocalisation': {
+        'EN': 'Geolocation',
+        'ES': 'Geolocalización',
+        'DE': 'Geolokalisierung',
+        'IT': 'Geolocalizzazione',
+    },
+    'Technologies web': {
+        'EN': 'Web technologies',
+        'ES': 'Tecnologías web',
+        'DE': 'Web-Technologien',
+        'IT': 'Tecnologie web',
+    },
+    'Exporter (PDF, Excel, JSON)': {
+        'EN': 'Export (PDF, Excel, JSON)',
+        'ES': 'Exportar (PDF, Excel, JSON)',
+        'DE': 'Exportieren (PDF, Excel, JSON)',
+        'IT': 'Esporta (PDF, Excel, JSON)',
+    },
+    'Rapport HTML': {
+        'EN': 'HTML report',
+        'ES': 'Informe HTML',
+        'DE': 'HTML-Bericht',
+        'IT': 'Rapporto HTML',
+    },
+    'Tableau de bord': {
+        'EN': 'Dashboard',
+        'ES': 'Panel de control',
+        'DE': 'Dashboard',
+        'IT': 'Cruscotto',
+    },
+    'Tableau de bord 3D': {
+        'EN': '3D dashboard',
+        'ES': 'Panel 3D',
+        'DE': '3D-Dashboard',
+        'IT': 'Cruscotto 3D',
+    },
+    'Appareils détectés': {
+        'EN': 'Detected devices',
+        'ES': 'Dispositivos detectados',
+        'DE': 'Erkannte Geräte',
+        'IT': 'Dispositivi rilevati',
+    },
+    'Historique des scans': {
+        'EN': 'Scan history',
+        'ES': 'Historial de escaneos',
+        'DE': 'Scan-Verlauf',
+        'IT': 'Cronologia scansioni',
+    },
+    'Comparer deux scans': {
+        'EN': 'Compare two scans',
+        'ES': 'Comparar dos escaneos',
+        'DE': 'Zwei Scans vergleichen',
+        'IT': 'Confronta due scansioni',
+    },
+    'Rejouer un scan': {
+        'EN': 'Replay a scan',
+        'ES': 'Repetir un escaneo',
+        'DE': 'Scan wiederholen',
+        'IT': 'Ripeti una scansione',
+    },
+    "Journal d'audit": {
+        'EN': 'Audit log',
+        'ES': 'Registro de auditoría',
+        'DE': 'Audit-Protokoll',
+        'IT': 'Registro di audit',
+    },
+    "Capture d'écran": {
+        'EN': 'Screenshot',
+        'ES': 'Captura de pantalla',
+        'DE': 'Bildschirmfoto',
+        'IT': 'Schermata',
+    },
+    'Surveillance continue': {
+        'EN': 'Continuous monitoring',
+        'ES': 'Monitorización continua',
+        'DE': 'Dauerüberwachung',
+        'IT': 'Monitoraggio continuo',
+    },
+    'Règles du pare-feu': {
+        'EN': 'Firewall rules',
+        'ES': 'Reglas del cortafuegos',
+        'DE': 'Firewall-Regeln',
+        'IT': 'Regole del firewall',
+    },
+    'Leurre réseau': {
+        'EN': 'Network decoy',
+        'ES': 'Señuelo de red',
+        'DE': 'Netzwerk-Köder',
+        'IT': 'Esca di rete',
+    },
+    'Mode discret': {
+        'EN': 'Low-profile mode',
+        'ES': 'Modo discreto',
+        'DE': 'Zurückhaltender Modus',
+        'IT': 'Modalità discreta',
+    },
+    'Processus en cours': {
+        'EN': 'Running processes',
+        'ES': 'Procesos en ejecución',
+        'DE': 'Laufende Prozesse',
+        'IT': 'Processi in esecuzione',
+    },
+    'Bac à sable': {
+        'EN': 'Sandbox',
+        'ES': 'Entorno aislado',
+        'DE': 'Sandbox',
+        'IT': 'Sandbox',
+    },
+    'OpenVAS (Windows)': {
+        'EN': 'OpenVAS (Windows)',
+        'ES': 'OpenVAS (Windows)',
+        'DE': 'OpenVAS (Windows)',
+        'IT': 'OpenVAS (Windows)',
+    },
+    'OpenVAS (Docker)': {
+        'EN': 'OpenVAS (Docker)',
+        'ES': 'OpenVAS (Docker)',
+        'DE': 'OpenVAS (Docker)',
+        'IT': 'OpenVAS (Docker)',
+    },
+    'Serveur API REST': {
+        'EN': 'REST API server',
+        'ES': 'Servidor API REST',
+        'DE': 'REST-API-Server',
+        'IT': 'Server API REST',
+    },
+    'Scan multi-cibles': {
+        'EN': 'Multi-target scan',
+        'ES': 'Escaneo multiobjetivo',
+        'DE': 'Mehrziel-Scan',
+        'IT': 'Scansione multi-obiettivo',
+    },
+    'Planifier des scans': {
+        'EN': 'Schedule scans',
+        'ES': 'Programar escaneos',
+        'DE': 'Scans planen',
+        'IT': 'Pianifica scansioni',
+    },
+    'Slack': {
+        'EN': 'Slack',
+        'ES': 'Slack',
+        'DE': 'Slack',
+        'IT': 'Slack',
+    },
+    'Webhook': {
+        'EN': 'Webhook',
+        'ES': 'Webhook',
+        'DE': 'Webhook',
+        'IT': 'Webhook',
+    },
+    'Tenable': {
+        'EN': 'Tenable',
+        'ES': 'Tenable',
+        'DE': 'Tenable',
+        'IT': 'Tenable',
+    },
+    'Qualys': {
+        'EN': 'Qualys',
+        'ES': 'Qualys',
+        'DE': 'Qualys',
+        'IT': 'Qualys',
+    },
+    'Microsoft Defender': {
+        'EN': 'Microsoft Defender',
+        'ES': 'Microsoft Defender',
+        'DE': 'Microsoft Defender',
+        'IT': 'Microsoft Defender',
+    },
+    'Mode agent': {
+        'EN': 'Agent mode',
+        'ES': 'Modo agente',
+        'DE': 'Agentenmodus',
+        'IT': 'Modalità agente',
+    },
+    'Aide': {
+        'EN': 'Help',
+        'ES': 'Ayuda',
+        'DE': 'Hilfe',
+        'IT': 'Aiuto',
+    },
+    "Configurer l'e-mail": {
+        'EN': 'Configure email',
+        'ES': 'Configurar correo',
+        'DE': 'E-Mail einrichten',
+        'IT': 'Configura e-mail',
+    },
+    'Notifications': {
+        'EN': 'Notifications',
+        'ES': 'Notificaciones',
+        'DE': 'Benachrichtigungen',
+        'IT': 'Notifiche',
+    },
+    "Sons d'alerte": {
+        'EN': 'Alert sounds',
+        'ES': 'Sonidos de alerta',
+        'DE': 'Warntöne',
+        'IT': 'Suoni di avviso',
+    },
+    'Mode performance': {
+        'EN': 'Performance mode',
+        'ES': 'Modo rendimiento',
+        'DE': 'Leistungsmodus',
+        'IT': 'Modalità prestazioni',
+    },
+    'Thème sombre': {
+        'EN': 'Dark theme',
+        'ES': 'Tema oscuro',
+        'DE': 'Dunkles Design',
+        'IT': 'Tema scuro',
+    },
+    'Thème clair': {
+        'EN': 'Light theme',
+        'ES': 'Tema claro',
+        'DE': 'Helles Design',
+        'IT': 'Tema chiaro',
+    },
+    'Palette active': {
+        'EN': 'Active palette',
+        'ES': 'Paleta activa',
+        'DE': 'Aktive Palette',
+        'IT': 'Tavolozza attiva',
+    },
+    'Détecter': {
+        'EN': 'Detect',
+        'ES': 'Detectar',
+        'DE': 'Erkennen',
+        'IT': 'Rileva',
     },
     ' Cible ': {
         'EN': ' Target ',

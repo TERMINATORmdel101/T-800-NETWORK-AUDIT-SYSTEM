@@ -66,13 +66,13 @@ class CommandConsoleMixin:
         def run_cmd():
             try:
                 timeout = self.timeout_var.get()
-                # ⚠️ SÉCURITÉ: Utiliser shlex.split pour éviter injection de commandes
+                # SÉCURITÉ: Utiliser shlex.split pour éviter injection de commandes
                 # Ne JAMAIS utiliser shell=True avec entrée utilisateur!
                 try:
                     cmd_list = shlex.split(cmd) if isinstance(cmd, str) else cmd
                 except ValueError as e:
                     # shlex.split échoue si commande mal formée
-                    write_result(f"\n❌ Erreur: Commande mal formée: {e}\n", "error")
+                    write_result(f"\n Erreur: Commande mal formée: {e}\n", "error")
                     return
 
                 if not cmd_list:
@@ -81,7 +81,7 @@ class CommandConsoleMixin:
                 base_cmd = cmd_list[0].lower()
                 if base_cmd not in self.ALLOWED_CONSOLE_COMMANDS:
                     write_result(
-                        f"\n🚫 Commande interdite : {base_cmd}\n"
+                        f"\n Commande interdite : {base_cmd}\n"
                         f"   Commandes autorisées : {', '.join(sorted(self.ALLOWED_CONSOLE_COMMANDS))}\n",
                         "error",
                     )
@@ -156,7 +156,7 @@ class CommandConsoleMixin:
         if cmd and cmd not in self.command_favorites:
             self.command_favorites.append(cmd)
             self.update_favorites_combo()
-            self.log(f"✓ Commande ajoutée aux favoris: {cmd}", "ok")
+            self.log(f"Commande ajoutée aux favoris:{cmd}", "ok")
 
     def update_favorites_combo(self):
         """Met à jour la liste déroulante favoris"""
@@ -203,9 +203,9 @@ class CommandConsoleMixin:
             results = self.cmd_result.get("1.0", tk.END)
             self.root.clipboard_clear()
             self.root.clipboard_append(results)
-            self.log("✓ Résultats copiés!", "ok")
+            self.log("Résultats copiés!", "ok")
         except Exception as e:
-            self.log(f"✗ Erreur copie: {e}", "error")
+            self.log(f"Erreur copie:{e}", "error")
 
     def save_results(self):
         """Sauvegarde les résultats dans un fichier"""
@@ -224,9 +224,9 @@ class CommandConsoleMixin:
             try:
                 with open(filename, 'w', encoding='utf-8') as f:
                     f.write(results)
-                self.log(f"✓ Fichier sauvegardé: {filename}", "ok")
+                self.log(f"Fichier sauvegardé:{filename}", "ok")
             except Exception as e:
-                self.log(f"✗ Erreur sauvegarde: {e}", "error")
+                self.log(f"Erreur sauvegarde:{e}", "error")
 
     def log_command(self, command, status="executed"):
         """Log une commande exécutée"""

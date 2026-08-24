@@ -33,7 +33,7 @@ except Exception:
 
 
 def _is_red_or_grey(hex_color):
-    """Vrai si la couleur est un rouge ou un gris neutre (identite T-800).
+    """Vrai si la couleur est un rouge ou un gris neutre (identite SIPA).
 
     Ecarte les teintes etrangeres au theme : cyan, vert, magenta, orange.
     """

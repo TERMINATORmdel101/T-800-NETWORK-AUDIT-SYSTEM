@@ -77,12 +77,12 @@ class ConfigManager:
             if os.path.exists(self.config_path):
                 with open(self.config_path, 'r', encoding='utf-8') as f:
                     self.config = json.load(f)
-                    print(f"[CONFIG] ✅ Fichier de configuration chargé: {self.config_path}")
+                    print(f"[CONFIG] Fichier de configuration chargé:{self.config_path}")
             else:
-                print(f"[CONFIG] ⚠️  Fichier config non trouvé: {self.config_path}")
+                print(f"[CONFIG] Fichier config non trouvé:{self.config_path}")
                 self.config = self.get_default_config()
         except Exception as e:
-            print(f"[CONFIG] ❌ Erreur de chargement: {e}")
+            print(f"[CONFIG] Erreur de chargement:{e}")
             self.config = self.get_default_config()
     
     def save_config(self):
@@ -92,7 +92,7 @@ class ConfigManager:
                 json.dump(self.config, f, indent=2, ensure_ascii=False)
             return True
         except Exception as e:
-            print(f"[CONFIG] ❌ Erreur de sauvegarde: {e}")
+            print(f"[CONFIG] Erreur de sauvegarde:{e}")
             return False
     
     def get(self, key_path, default=None):
@@ -252,9 +252,9 @@ class AuditLogger:
             """)
             conn.commit()
             conn.close()
-            print(f"[AUDIT] ✅ Table de log créée/vérifiée")
+            print(f"[AUDIT] Table de log créée/vérifiée")
         except Exception as e:
-            print(f"[AUDIT] ❌ Erreur db: {e}")
+            print(f"[AUDIT] Erreur db:{e}")
     
     def log_action(self, user_action, details="", result="SUCCESS", severity="INFO", target_ip="", scan_type=""):
         """Enregistre une action utilisateur - RÉEL"""
@@ -269,10 +269,10 @@ class AuditLogger:
             """, (timestamp, user_action, details, result, severity, target_ip, scan_type))
             conn.commit()
             conn.close()
-            print(f"[AUDIT] ✅ Action enregistrée: {user_action}")
+            print(f"[AUDIT] Action enregistrée:{user_action}")
             return True
         except Exception as e:
-            print(f"[AUDIT] ❌ Erreur log: {e}")
+            print(f"[AUDIT] Erreur log:{e}")
             return False
     
     def get_logs(self, limit=100, severity=None):
@@ -289,7 +289,7 @@ class AuditLogger:
             conn.close()
             return logs
         except Exception as e:
-            print(f"[AUDIT] ❌ Erreur fetch: {e}")
+            print(f"[AUDIT] Erreur fetch:{e}")
             return []
 
 # ========== EMAIL ALERTS CLASS ==========
@@ -338,10 +338,10 @@ class EmailNotifier:
                              _secrets.unprotect(self.email_cfg.get('sender_password') or ''))
                 server.send_message(msg)
             
-            print(f"[EMAIL] ✅ Email envoyé à {len(self.email_cfg.get('recipients', []))} destinataires")
+            print(f"[EMAIL] Email envoyé à{len(self.email_cfg.get('recipients', []))} destinataires")
             return True
         except Exception as e:
-            print(f"[EMAIL] ❌ Erreur: {e}")
+            print(f"[EMAIL] Erreur:{e}")
             return False
 
 # ========== SLACK/DISCORD WEBHOOKS CLASS ==========
@@ -383,13 +383,13 @@ class WebhookNotifier:
         try:
             response = requests.post(url, json=payload, timeout=5)
             if response.status_code == 200:
-                print(f"[SLACK] ✅ Message posté")
+                print(f"[SLACK] Message posté")
                 return True
             else:
-                print(f"[SLACK] ❌ Status {response.status_code}")
+                print(f"[SLACK] Status{response.status_code}")
                 return False
         except Exception as e:
-            print(f"[SLACK] ❌ Erreur: {e}")
+            print(f"[SLACK] Erreur:{e}")
             return False
     
     def send_discord(self, title, message, severity="INFO"):
@@ -422,13 +422,13 @@ class WebhookNotifier:
         try:
             response = requests.post(url, json=payload, timeout=5)
             if response.status_code in [200, 204]:
-                print(f"[DISCORD] ✅ Message posté")
+                print(f"[DISCORD] Message posté")
                 return True
             else:
-                print(f"[DISCORD] ❌ Status {response.status_code}")
+                print(f"[DISCORD] Status{response.status_code}")
                 return False
         except Exception as e:
-            print(f"[DISCORD] ❌ Erreur: {e}")
+            print(f"[DISCORD] Erreur:{e}")
             return False
 
 # ========== PDF REPORTS CLASS ==========
@@ -481,7 +481,7 @@ class PDFReportGenerator:
                 y -= 0.2*inch
             
             c.save()
-            print(f"[PDF] ✅ Rapport généré: {output_file}")
+            print(f"[PDF] Rapport généré:{output_file}")
             
             if self.pdf_cfg.get('auto_open'):
                 import webbrowser
@@ -489,7 +489,7 @@ class PDFReportGenerator:
             
             return output_file
         except Exception as e:
-            print(f"[PDF] ❌ Erreur: {e}")
+            print(f"[PDF] Erreur:{e}")
             return None
 
 # ========== SCHEDULER CLASS ==========
@@ -549,14 +549,14 @@ class ScanScheduler:
                 
                 self.scheduler.start()
                 self.is_running = True
-                print(f"[SCHEDULER] ✅ Scheduling ACTIF - Scan à {time_str}")
+                print(f"[SCHEDULER] Scheduling ACTIF - Scan à{time_str}")
                 
                 if self.audit_logger:
                     self.audit_logger.log_action('SCHEDULER_START', f"Scan automatique à {time_str}")
                 
                 return True
         except Exception as e:
-            print(f"[SCHEDULER] ❌ Erreur: {e}")
+            print(f"[SCHEDULER] Erreur:{e}")
         
         return False
     
@@ -647,7 +647,7 @@ class ScanQueue:
         
         with self.lock:
             self.pending_scans.append(scan_item)
-            print(f"[QUEUE] ✅ Scan ajouté: {scan_id} ({target})")
+            print(f"[QUEUE] Scan ajouté:{scan_id} ({target})")
         
         return scan_id
     
@@ -692,7 +692,7 @@ class AutoInstaller:
     def check_tool_installed(self, check_cmd):
         """Vérifie si un outil est présent dans le PATH."""
         try:
-            # ⚠️ SÉCURITÉ: Ne JAMAIS utiliser shell=True avec check_cmd
+            # SÉCURITÉ: Ne JAMAIS utiliser shell=True avec check_cmd
             cmd_list = shlex.split(check_cmd) if isinstance(check_cmd, str) else check_cmd
             subprocess.run(cmd_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE, 
                          timeout=5, check=True)
@@ -718,18 +718,18 @@ class AutoInstaller:
             if result.returncode == 0:
                 nmap_available = True
                 nmap_version = result.stdout.split('\n')[0]
-                self.log(f"✅ NMAP détecté: {nmap_version}", tag="ok")
+                self.log(f"NMAP détecté:{nmap_version}", tag="ok")
             else:
-                self.log(f"❌ NMAP retourné une erreur: {result.stderr}", tag="warn")
+                self.log(f"NMAP retourné une erreur:{result.stderr}", tag="warn")
         except FileNotFoundError:
-            self.log("❌ NMAP introuvable dans le PATH", tag="warn")
+            self.log("NMAP introuvable dans le PATH", tag="warn")
         except subprocess.TimeoutExpired:
-            self.log("❌ NMAP timeout (ne répond pas après 5s)", tag="warn")
+            self.log("NMAP timeout (ne répond pas après 5s)", tag="warn")
         except Exception as e:
-            self.log(f"❌ Erreur lors de la vérification: {e}", tag="warn")
+            self.log(f"Erreur lors de la vérification:{e}", tag="warn")
         
         # 2. VÉRIFIER CHEMINS CONNUS
-        self.log("\n📂 Vérification des chemins d'installation courants...", tag="info")
+        self.log("\n Vérification des chemins d'installation courants...", tag="info")
         paths_to_check = [
             r"C:\Program Files (x86)\Nmap\nmap.exe",
             r"C:\Program Files\Nmap\nmap.exe",
@@ -740,31 +740,31 @@ class AutoInstaller:
         for path in paths_to_check:
             if os.path.exists(path):
                 found_paths.append(path)
-                self.log(f"   ✅ Trouvé: {path}", tag="ok")
+                self.log(f"   Trouvé:{path}", tag="ok")
             else:
-                self.log(f"   ❌ Pas trouvé: {path}", tag="warn")
+                self.log(f"   Pas trouvé:{path}", tag="warn")
         
         # 3. VÉRIFIER PYTHON-NMAP
-        self.log("\n🐍 Vérification du module python-nmap...", tag="info")
+        self.log("\n Vérification du module python-nmap...", tag="info")
         try:
             import nmap as nmap_module
-            self.log(f"✅ Module python-nmap disponible", tag="ok")
+            self.log(f"Module python-nmap disponible", tag="ok")
         except ImportError:
-            self.log("❌ Module python-nmap NON INSTALLÉ (pip install python-nmap)", tag="warn")
+            self.log("Module python-nmap NON INSTALLÉ (pip install python-nmap)", tag="warn")
         
         # 4. VÉRIFIER L'INITIALISEUR DE NMAP
-        self.log("\n⚙️  Vérification de l'initialiseur interne...", tag="info")
+        self.log("\n Vérification de l'initialiseur interne...", tag="info")
         if self.nm is not None:
-            self.log("✅ NMAP initialisé et prêt", tag="ok")
+            self.log("NMAP initialisé et prêt", tag="ok")
             self.nmap_status = "ONLINE"
         else:
-            self.log("❌ NMAP non initialisé - Tentative de ré-initialisation...", tag="warn")
+            self.log("NMAP non initialisé - Tentative de ré-initialisation...", tag="warn")
             self.init_nmap()
             if self.nm is not None:
-                self.log("✅ NMAP initialisé après retry", tag="ok")
+                self.log("NMAP initialisé après retry", tag="ok")
                 self.nmap_status = "ONLINE"
             else:
-                self.log("❌ IMPOSSIBLE D'INITIALISER NMAP", tag="warn")
+                self.log("IMPOSSIBLE D'INITIALISER NMAP", tag="warn")
                 self.nmap_status = "OFFLINE"
         
         # 5. RÉSUMÉ ET RECOMMANDATIONS
@@ -773,22 +773,22 @@ class AutoInstaller:
         self.log("="*70, tag="title")
         
         if nmap_available and self.nm is not None:
-            self.log("✅ SYSTÈME OPÉRATIONNEL - Tous les tests passés", tag="ok")
+            self.log("SYSTÈME OPÉRATIONNEL - Tous les tests passés", tag="ok")
             self.log(f"   Version NMAP: {nmap_version}", tag="ok")
             self.log(f"   Chemins trouvés: {len(found_paths)}", tag="ok")
             self.log(f"   Module Python-Nmap: OK", tag="ok")
         else:
-            self.log("❌ PROBLÈMES DÉTECTÉS - Actions recommandées:", tag="warn")
+            self.log("PROBLÈMES DÉTECTÉS - Actions recommandées:", tag="warn")
             
             if not nmap_available:
-                self.log("\n  1️⃣  NMAP non trouvé:", tag="warn")
+                self.log("\n 1⃣ NMAP non trouvé:", tag="warn")
                 self.log("     → Télécharger: https://nmap.org/download.html", tag="info")
                 self.log("     → Windows: Exécuter l'installateur .exe", tag="info")
                 self.log("     → Installer avec chemin par défaut (C:\\Program Files)", tag="info")
                 self.log("     → Redémarrer Windows après installation", tag="info")
             
             if self.nm is None:
-                self.log("\n  2️⃣  Module Python-Nmap non importable:", tag="warn")
+                self.log("\n 2⃣ Module Python-Nmap non importable:", tag="warn")
                 self.log("     → Exécuter: pip install python-nmap", tag="info")
                 self.log("     → Ou depuis le terminal PowerShell (admin)", tag="info")
         

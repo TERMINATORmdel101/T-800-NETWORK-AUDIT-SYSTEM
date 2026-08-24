@@ -33,7 +33,7 @@ class TrafficAnalysisMixin:
         
         # Création de la fenêtre de sélection
         dialog = tk.Toplevel(self.root)
-        dialog.title("📡 SÉLECTION DU MODE D'INTERCEPTION")
+        dialog.title("SÉLECTION DU MODE D'INTERCEPTION")
         # Taille adaptee au DPI (500x450 en pixels bruts est illisible sur un
         # ecran haute densite) et redimensionnable en cas de debordement.
         _scale = max(1.0, dialog.winfo_fpixels('1i') / 96.0)
@@ -52,7 +52,7 @@ class TrafficAnalysisMixin:
         choice_var = tk.StringVar(value="raw")
 
         # --- OPTION 1 : RAW SOCKETS (La Puissance Windows) ---
-        frame_raw = tk.LabelFrame(dialog, text=" 🚀 MODE 1 : RAW SOCKETS (Ultra-Performant) ", 
+        frame_raw = tk.LabelFrame(dialog, text=" MODE 1 : RAW SOCKETS (Ultra-Performant)", 
                                   bg=THEME["bg"], fg=THEME["fg"], font=("Arial", 10, "bold"))
         frame_raw.pack(fill="x", padx=20, pady=5)
         
@@ -63,7 +63,7 @@ class TrafficAnalysisMixin:
                  justify="left", bg=THEME["bg"], fg="#888", font=("Consolas", 8)).pack(anchor="w", padx=25, pady=2)
 
         # --- OPTION 2 : SCAPY (La Précision) ---
-        frame_scapy = tk.LabelFrame(dialog, text=" 🐢 MODE 2 : SCAPY (Deep Analysis) ", 
+        frame_scapy = tk.LabelFrame(dialog, text=" MODE 2 : SCAPY (Deep Analysis)", 
                                     bg=THEME["bg"], fg="#00CCFF", font=("Arial", 10, "bold"))
         frame_scapy.pack(fill="x", padx=20, pady=5)
         
@@ -77,7 +77,7 @@ class TrafficAnalysisMixin:
                  justify="left", bg=THEME["bg"], fg="#888", font=("Consolas", 8)).pack(anchor="w", padx=25, pady=2)
 
         # --- OPTION 3 : NETSTAT (Le Snapshot) ---
-        frame_net = tk.LabelFrame(dialog, text=" 📸 MODE 3 : NETSTAT (Snapshot) ", 
+        frame_net = tk.LabelFrame(dialog, text=" MODE 3 : NETSTAT (Snapshot)", 
                                   bg=THEME["bg"], fg="#FFFFFF", font=("Arial", 10, "bold"))
         frame_net.pack(fill="x", padx=20, pady=5)
         
@@ -156,9 +156,9 @@ class TrafficAnalysisMixin:
             self.log("[RAW] Capture terminée.", tag="success")
 
         except PermissionError:
-            self.log("🛑 ERREUR : Lancez en ADMIN pour utiliser les Raw Sockets !", tag="error")
+            self.log("ERREUR : Lancez en ADMIN pour utiliser les Raw Sockets !", tag="error")
         except Exception as e:
-            self.log(f"🛑 Erreur Raw: {e}", tag="error")
+            self.log(f"Erreur Raw:{e}", tag="error")
         finally:
             # Toujours désactiver le mode promiscuous et fermer le socket,
             # même si la capture s'est arrêtée sur une exception en cours de
@@ -187,7 +187,7 @@ class TrafficAnalysisMixin:
 
             # Capture
             packets = scapy.sniff(count=20, timeout=10)
-            self.log(f"✓ {len(packets)} paquets capturés et analysés.", tag="success")
+            self.log(f"{len(packets)} paquets capturés et analysés.", tag="success")
             
             for pkt in packets:
                 if pkt.haslayer('IP'):
@@ -199,12 +199,12 @@ class TrafficAnalysisMixin:
                     # Détection DNS spécifique
                     if pkt.haslayer('DNS') and pkt.haslayer('DNSQR'):
                         query = pkt['DNSQR'].qname.decode('utf-8', 'ignore')
-                        self.log(f"🔍 [DNS] Query: {query} (from {src})", tag="warn")
+                        self.log(f"[DNS] Query:{query} (from {src})", tag="warn")
                     elif pkt.haslayer('TCP'):
                         flags = pkt['TCP'].flags
-                        self.log(f"📦 [TCP] {src} -> {dst} | Flags: {flags}", tag="info")
+                        self.log(f"[TCP]{src} -> {dst} | Flags: {flags}", tag="info")
                     else:
-                        self.log(f"📄 {summary}", tag="accent")
+                        self.log(f"{summary}", tag="accent")
                         
             self.log("[SCAPY] Analyse terminée.", tag="success")
 
@@ -300,7 +300,7 @@ class TrafficAnalysisMixin:
             self.log("\n[ANALYSE HEURISTIQUE]", tag="accent")
             
             if stats['SYN_SENT'] > 10:
-                self.log(f"⚠️ ALERTE: {stats['SYN_SENT']} connexions SYN_SENT détectées. Possible infection (Scanning).", tag="warn")
+                self.log(f"ALERTE:{stats['SYN_SENT']} connexions SYN_SENT détectées. Possible infection (Scanning).", tag="warn")
                 self.problems_found.append({'type': 'TRAFIC SUSPECT', 'details': 'Nombreux SYN_SENT (Scan sortant?)', 'action': 'Vérifier processus'})
             
             self.log(f"Connexions actives: {stats['ESTABLISHED']}", tag="ok")

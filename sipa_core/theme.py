@@ -4,7 +4,7 @@ Extrait de sipa.py (phase 3 : refonte modulaire). L'appel a
 SetProcessDpiAwareness doit rester le plus tot possible dans le demarrage :
 importer ce module suffit a le declencher.
 
-Deux palettes existent : "sombre" (identite T-800, par defaut) et "clair".
+Deux palettes existent : "sombre" (par defaut) et "claire".
 `THEME` est un dictionnaire VIVANT : `apply_palette()` le met a jour en place
 plutot que de le remplacer, pour que les modules qui ont fait
 `from sipa_core.theme import THEME` voient le changement sans etre reimportes.
@@ -52,44 +52,56 @@ _COMMUN = {
 
 
 # =============================================================================
-# PALETTE SOMBRE — identite T-800 : rouge, noir et gris neutres.
+# PALETTE SOMBRE — rouge, noir et gris neutres.
 # =============================================================================
 _SOMBRE = {
     # FOND : Vantablack absolu – zéro clémence
-    "bg": "#050505",             # 99% noir Vantablack
-    "bg_secondary": "#0a0a0a",   # Panneaux latéraux
-    "bg_input": "#0f0f0f",       # Zones de texte
-    "bg_tertiary": "#0a0a0a",    # Compatibilité widgets
+    "bg": "#14171A",             # Graphite : le noir absolu ecrase les nuances
+    "bg_secondary": "#1C2024",   # Panneaux lateraux
+    "bg_input": "#101315",       # Zones de texte
+    "bg_tertiary": "#1C2024",    # Compatibilite widgets
 
     # TEXTE & ACCENTS : STRICT Rouge/Noir/Blanc
-    "fg": "#FF0000",             # Rouge pur – laser Terminator
-    "fg_text": "#FFFFFF",        # Blanc éclatant (pas de gris cassé)
-    "fg_dim": "#660000",         # Rouge sombre (matrices)
-    "fg_bright": "#FF0000",      # Toujours le même rouge
+    "fg": "#D06A60",             # Rouge controle : le rouge pur criait
+    "fg_text": "#E6EDF3",        # Blanc legerement froid, moins agressif
+    "fg_dim": "#6E4F4B",         # Rouge eteint (traits, decor)
+    "fg_bright": "#E08880",      # Rouge appuye
 
-    "accent": "#FF0000",         # Rouge pur
-    "accent_bright": "#FF0000",
-    "accent_dim": "#660000",
-    "success": "#FFFFFF",        # Blanc pour succès (STRICT)
-    "warn": "#FF0000",           # Rouge pour avertissement (PAS d'orange)
-    "error": "#880000",          # Bordeaux sombre pour erreurs
-    "info": "#CCCCCC",           # Gris léger pour info (minimaliste)
+    "accent": "#D06A60",
+    "accent_bright": "#E08880",
+    "accent_dim": "#6E4F4B",
+    "success": "#E6EDF3",
+    "warn": "#D06A60",
+    "error": "#E08880",
+    "info": "#A8B3BD",
 
-    "scrollbar_bg": "#0f0f0f",
-    "scrollbar_fg": "#FF0000",
+    "scrollbar_bg": "#101315",
+    "scrollbar_fg": "#D06A60",
+
+    # ---- JOURNAL D'ACTIVITE ----------------------------------------------
+    # Chaque niveau doit se distinguer des autres ET rester lisible sur le
+    # fond du journal. Auparavant `error` valait #880000 (contraste 1.87 :
+    # illisible) et `ok` etait identique a `title`.
+    "log_title": "#FFFFFF",     # titres de section
+    "log_accent": "#E0B341",    # sous-titres et etapes
+    "log_info": "#A8B3BD",      # information neutre
+    "log_ok": "#4CC98A",        # succes
+    "log_warn": "#F0883E",      # avertissement
+    "log_error": "#FF5C5C",     # erreur : doit sauter aux yeux
+    "log_faint": "#3A3A3A",     # decor (pluie de caracteres)
 
     # ---- ROLES DE BOUTONS -------------------------------------------------
     # La couleur d'un bouton designe son TEXTE, pas son fond : le fond reste
     # sombre, ce qui rend toute combinaison lisible. Avant, une couleur claire
     # (#FFFFFF, #CCCCCC) devenait le fond et le libelle blanc devenait
     # invisible -- c'etait le cas de 42 boutons.
-    "btn_bg": "#121212",          # Fond commun a tous les boutons
-    "btn_bg_hover": "#FF0000",    # Survol : rouge plein
-    "btn_fg_hover": "#000000",    # Texte au survol : noir sur rouge
-    "btn_action": "#FF5252",      # Actions principales (scans)
-    "btn_critical": "#FF1A1A",    # Operations sensibles ou destructrices
-    "btn_tool": "#D6D6D6",        # Outils et utilitaires (gris clair)
-    "btn_muted": "#9AA3AD",       # Actions secondaires
+    "btn_bg": "#21262B",          # Fond commun a tous les boutons
+    "btn_bg_hover": "#D06A60",    # Survol : rouge plein
+    "btn_fg_hover": "#14171A",    # Texte au survol : graphite sur rouge
+    "btn_action": "#D96B60",      # Actions principales (scans)
+    "btn_critical": "#E56A60",    # Operations sensibles ou destructrices
+    "btn_tool": "#C9D1D9",        # Outils et utilitaires (gris clair)
+    "btn_muted": "#8B959E",       # Actions secondaires
 }
 
 
@@ -99,34 +111,44 @@ _SOMBRE = {
 # chaque role atteint au moins 4.5:1 sur son fond (verifie par les tests).
 # =============================================================================
 _CLAIR = {
-    "bg": "#F2F2F2",             # Gris tres clair, moins agressif que le blanc
-    "bg_secondary": "#E4E4E4",   # Panneaux lateraux
+    "bg": "#F4F6F7",             # Gris tres clair, legerement froid
+    "bg_secondary": "#E8ECEF",   # Panneaux lateraux
     "bg_input": "#FFFFFF",       # Zones de saisie et de texte
-    "bg_tertiary": "#E4E4E4",    # Compatibilite widgets
+    "bg_tertiary": "#E8ECEF",    # Compatibilite widgets
 
-    "fg": "#B00000",             # Rouge profond, lisible sur fond clair
-    "fg_text": "#111111",        # Texte principal quasi noir
-    "fg_dim": "#C98A8A",         # Rouge delave (traits, matrices)
-    "fg_bright": "#8B0000",      # Rouge appuye
+    "fg": "#A3392F",             # Rouge profond, lisible sur fond clair
+    "fg_text": "#14181B",        # Texte principal quasi noir
+    "fg_dim": "#C4A29E",         # Rouge delave (traits, decor)
+    "fg_bright": "#8C2018",      # Rouge appuye
 
-    "accent": "#B00000",
-    "accent_bright": "#8B0000",
-    "accent_dim": "#C98A8A",
-    "success": "#111111",        # Noir : le blanc serait invisible ici
-    "warn": "#B00000",
-    "error": "#7A0000",
-    "info": "#444444",
+    "accent": "#A3392F",
+    "accent_bright": "#8C2018",
+    "accent_dim": "#C4A29E",
+    "success": "#14181B",
+    "warn": "#A3392F",
+    "error": "#8C2018",
+    "info": "#525C66",
 
-    "scrollbar_bg": "#E4E4E4",
-    "scrollbar_fg": "#B00000",
+    "scrollbar_bg": "#E8ECEF",
+    "scrollbar_fg": "#A3392F",
+
+    # ---- JOURNAL D'ACTIVITE ----------------------------------------------
+    # Memes roles, assombris pour rester lisibles sur fond blanc.
+    "log_title": "#111111",
+    "log_accent": "#8A5A00",
+    "log_info": "#525C66",
+    "log_ok": "#12794A",
+    "log_warn": "#A9540A",
+    "log_error": "#C0271F",
+    "log_faint": "#C8CDD2",
 
     "btn_bg": "#FFFFFF",          # Fond commun a tous les boutons
-    "btn_bg_hover": "#B00000",    # Survol : rouge plein
+    "btn_bg_hover": "#A3392F",    # Survol : rouge plein
     "btn_fg_hover": "#FFFFFF",    # Texte au survol : blanc sur rouge
-    "btn_action": "#A32020",      # Actions principales (scans)
-    "btn_critical": "#8B0000",    # Operations sensibles ou destructrices
-    "btn_tool": "#333333",        # Outils et utilitaires (gris fonce)
-    "btn_muted": "#4A5560",       # Actions secondaires
+    "btn_action": "#A3392F",      # Actions principales (scans)
+    "btn_critical": "#8C2018",    # Operations sensibles ou destructrices
+    "btn_tool": "#33393F",        # Outils et utilitaires (gris fonce)
+    "btn_muted": "#5A646D",       # Actions secondaires
 }
 
 

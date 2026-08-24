@@ -1,5 +1,8 @@
 # Historique des versions
 
+> Projet personnel développé avec l'assistance d'une IA.
+> Voir [« À propos de ce projet »](README.md#-à-propos-de-ce-projet).
+
 ## Version 7.1.0 — passe de vérité avant publication
 
 Audit complet du dépôt avant sa mise en ligne. Le fil conducteur : **plus

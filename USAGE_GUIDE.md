@@ -194,3 +194,11 @@ deux analyses concurrentes.
 
 La fenêtre **❓ AIDE** comporte 7 onglets. Le bouton **💾 EXPORTER AIDE** écrit
 leur contenu intégral dans un fichier texte (environ 50 Ko).
+
+---
+
+## À propos
+
+SIPA est un projet personnel développé avec l'assistance d'une IA, pour combler
+une niche : un outil d'audit réseau en français sur Windows. Voir la section
+[« À propos de ce projet »](README.md#-à-propos-de-ce-projet) du README.

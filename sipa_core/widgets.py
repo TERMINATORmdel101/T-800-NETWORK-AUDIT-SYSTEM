@@ -1,4 +1,4 @@
-"""Widgets Tkinter personnalises du theme T-800.
+"""Widgets Tkinter personnalises de SIPA.
 
 Extrait de sipa.py (phase 3 : refonte modulaire), sans modification de
 comportement.
@@ -11,7 +11,7 @@ from sipa_core.theme import THEME, ensure_contrast
 
 
 class HoverButton(tk.Button):
-    """Bouton T-800 STRICT : Rouge/Noir/Blanc – ZÉRO animation"""
+    """Bouton du theme : la couleur donnee designe le TEXTE, pas le fond."""
     def __init__(self, parent, text, command=None, width=18, color=None, fg=None, **kwargs):
         # `color` designe la couleur du TEXTE, pas du fond. Le fond reste
         # sombre, ce qui garantit un libelle lisible quelle que soit la teinte

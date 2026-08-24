@@ -392,7 +392,7 @@ class ForensicsMixin:
                 self.log(f"[ANALYSE] {checked_count} fichiers système vérifiés.", tag="info")
                 
                 if suspicious_files:
-                    self.log(f"🚨 ALERTE : {len(suspicious_files)} fichiers système modifiés (<24h) !", tag="error")
+                    self.log(f"ALERTE :{len(suspicious_files)} fichiers système modifiés (<24h) !", tag="error")
                     for fname, mod_time in suspicious_files:
                         self.log(f"  -> {fname} ({mod_time})", tag="warn")
                         self.problems_found.append({
@@ -401,7 +401,7 @@ class ForensicsMixin:
                             'action': 'Vérifier signature numérique (Sigcheck)'
                         })
                 else:
-                    self.log("✅ Intégrité System32 : Aucune modification récente détectée.", tag="success")
+                    self.log("Intégrité System32 : Aucune modification récente détectée.", tag="success")
                     self.log("   (Windows Defender fait bien son travail, apparemment.)", tag="info")
 
             except Exception as e:
