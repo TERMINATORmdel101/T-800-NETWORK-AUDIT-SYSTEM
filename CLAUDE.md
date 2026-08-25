@@ -8,7 +8,7 @@ Les commentaires, l'interface et les échanges se font **en français**.
 ```bash
 python sipa.py                                  # interface graphique
 python sipa.py --cible 127.0.0.1 --scan rapide  # mode console
-python tests/run_all.py                         # 235 vérifications (hors ligne)
+python tests/run_all.py                         # toutes les vérifications (hors ligne)
 python tests/run_all.py --live                  # + appels réseau réels
 ```
 

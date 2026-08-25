@@ -88,7 +88,7 @@ Voir [USAGE_GUIDE.md](USAGE_GUIDE.md) pour toutes les options.
 python tests/run_all.py
 ```
 
-235 vérifications doivent passer, sans accès réseau.
+Toutes les vérifications doivent passer, sans accès réseau.
 
 ---
 
@@ -102,8 +102,8 @@ pip install pyinstaller
 pyinstaller --onefile --name sipa sipa.py
 ```
 
-L'exécutable apparaît dans `dist/` ; déplacez-le dans `bin/` si vous voulez le
-conserver à côté du projet.
+L'exécutable apparaît dans `dist/` ; déplacez-le où vous voulez pour le
+conserver.
 
 > ⚠️ **N'utilisez pas `--noconsole`** : sans console, le mode ligne de commande
 > devient muet (aucune sortie, aucun message d'erreur) et `sys.stdout` peut

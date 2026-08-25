@@ -30,7 +30,7 @@ rapports PDF, une intégration collectait une vraie clé API pour pinger
 
 La règle est donc simple : **si une fonctionnalité n'est pas implémentée, elle
 le dit.** Aucune valeur de repli plausible, aucun résultat inventé pour
-combler un vide. Une suite de 235 vérifications automatisées veille dessus.
+combler un vide. Une suite de vérifications automatisées veille dessus (`python tests/run_all.py`).
 
 ---
 
@@ -198,7 +198,6 @@ T-800-NETWORK-AUDIT-SYSTEM/
 │   ├── feature_traffic.py     # Capture et analyse de trafic
 │   └── feature_forensics.py   # Exploitation, persistance, forensique
 ├── tests/                     # Suites de tests
-├── bin/                       # Exécutables générés (.exe), vide par défaut
 └── requirements.txt           # Dépendances Python
 ```
 
@@ -211,7 +210,7 @@ sites d'appel.
 ## 🧪 Tests
 
 ```bash
-python tests/run_all.py          # 235 vérifications hors ligne (rapide)
+python tests/run_all.py          # toutes les vérifications hors ligne (rapide)
 python tests/run_all.py --live   # ajoute les tests d'appels réseau réels
 ```
 
