@@ -1118,6 +1118,12 @@ UI_LABELS = {
         'DE': 'Bildschirmfoto',
         'IT': 'Schermata',
     },
+    'Audit de posture': {
+        'EN': 'Hardening audit',
+        'ES': 'Auditoría de configuración',
+        'DE': 'Härtungs-Audit',
+        'IT': 'Audit di configurazione',
+    },
     'Surveillance continue': {
         'EN': 'Continuous monitoring',
         'ES': 'Monitorización continua',

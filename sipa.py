@@ -7,6 +7,10 @@ ETAT DU CYCLE 8.0.0-alpha (mis a jour en continu, pas de fiche separee) :
       * « sombre » : rouge et noir profond (voir sipa_core/theme.py).
       * « clair »  : blanc, noir et accents vifs.
       Chaque role tient >= 4.5:1 sur son fond ; verifie par tests/run_all.py.
+    - Audit de posture du poste local (sipa_core/feature_posture.py) : SMBv1,
+      cache WDigest, RDP/NLA, dump LSASS oublie. Lit de vraies valeurs de
+      registre et du disque ; statut FAIBLE / OK / INCONNU, jamais de verdict
+      « machine saine ». C'est le volet defensif, oppose au pentest refuse.
 
   TODO: WIP — finitions UI pas encore faites (cf. discussion « rendre l'interface
   plus jolie »). Non simulees : elles ne sont pas cablees, donc l'interface se
@@ -236,6 +240,7 @@ from sipa_core.gui_console import CommandConsoleMixin
 from sipa_core.feature_traffic import TrafficAnalysisMixin
 from sipa_core.feature_forensics import ForensicsMixin
 from sipa_core.feature_scans import AdvancedScansMixin
+from sipa_core.feature_posture import PostureMixin
 from sipa_core.gui_animations import AnimationsMixin
 from sipa_core.services import (
     resource_path,
@@ -255,6 +260,7 @@ class AuditIA_Ultimate(
     TrafficAnalysisMixin,
     ForensicsMixin,
     AdvancedScansMixin,
+    PostureMixin,
     AnimationsMixin,
 ):
     def __init__(self, root):
@@ -1130,6 +1136,7 @@ class AuditIA_Ultimate(
                 ("Capture d'écran", self.capture_screenshot, THEME["btn_muted"]),
             ],
             "Défense et surveillance": [
+                ("Audit de posture", self.lancer_audit_posture, THEME["btn_action"]),
                 ("Surveillance continue", self.toggle_monitoring, THEME["btn_action"]),
                 ("Règles du pare-feu", self.generate_firewall_rules, THEME["btn_critical"]),
                 ("Leurre réseau", self.deploy_honeypot_plus, THEME["btn_critical"]),

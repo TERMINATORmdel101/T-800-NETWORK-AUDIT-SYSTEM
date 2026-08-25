@@ -12,6 +12,12 @@ Cycle **alpha** : le socle graphique change, le reste de la 8.0 est en chantier.
   - « sombre » : rouge et noir profond (fonds noirs teintés de rouge, rouge vif).
   - « clair » : blanc pur, noir, et accents vifs pour le journal et les gravités.
   - Chaque rôle atteint au moins 4.5:1 sur son fond ; vérifié par les tests.
+- **Audit de posture du poste local** (nouveau bouton, onglet « Rapports et
+  défense ») : vérifie des faiblesses de configuration factuelles — SMBv1 actif,
+  cache d'identifiants WDigest, RDP sans authentification NLA, dump mémoire de
+  LSASS oublié. Chaque contrôle lit une vraie valeur (registre, disque) et rend
+  `FAIBLE` / `OK` / `INCONNU` ; jamais de verdict global « machine saine ».
+  C'est le volet **défensif** — l'inverse assumé du volet offensif écarté.
 
 ### En chantier (marqué `WIP` dans le code, rien n'est simulé)
 - Finitions d'interface : hiérarchie des boutons, panneau de constats séparé,

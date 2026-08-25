@@ -1431,6 +1431,79 @@ def main():
           "'risk': 'MOYEN'" in sans_guillemets
           and "CRITIQUE" not in src_bonsens)
 
+    # =========================================================================
+    # 28. AUDIT DE POSTURE — VOLET DEFENSIF, FACTUEL ET HONNETE
+    # =========================================================================
+    import sipa_core.feature_posture as fp
+
+    class _AppPosture(fp.PostureMixin):
+        def __init__(self):
+            self.problems_found = []
+            self.messages = []
+        def log(self, message, tag="info"):
+            self.messages.append((tag, message))
+
+    def _audit_avec(registre_faux, systeme="Windows"):
+        """Rejoue l'audit en simulant des valeurs de registre precises."""
+        vrai_lire, vrai_plat = fp._lire_registre, fp.platform.system
+        fp._lire_registre = lambda ruche, chemin, valeur: next(
+            (rep for (frag, val), rep in registre_faux.items()
+             if frag in chemin and val == valeur), (False, None))
+        fp.platform.system = lambda: systeme
+        try:
+            app = _AppPosture()
+            resultats = {r["nom"]: r for r in app.afficher_posture()}
+            return app, resultats
+        finally:
+            fp._lire_registre, fp.platform.system = vrai_lire, vrai_plat
+
+    # --- 28a. Hors Windows : on ne conclut rien -------------------------------
+    _app, res = _audit_avec({}, systeme="Linux")
+    check("Hors Windows, l'audit de posture ne conclut pas",
+          any(r["statut"] == fp.INCONNU for r in res.values()))
+
+    # --- 28b. SMBv1 actif est signale comme faiblesse -------------------------
+    _app, res = _audit_avec({("Parameters", "SMB1"): (True, 1)})
+    check("SMBv1 actif (=1) est une faiblesse",
+          res["SMBv1 (serveur)"]["statut"] == fp.FAIBLE)
+    _app, res = _audit_avec({("Parameters", "SMB1"): (True, 0)})
+    check("SMBv1 desactive (=0) est sain",
+          res["SMBv1 (serveur)"]["statut"] == fp.OK)
+    _app, res = _audit_avec({})
+    check("SMBv1 absent du registre reste INCONNU (pas suppose sain)",
+          res["SMBv1 (serveur)"]["statut"] == fp.INCONNU)
+
+    # --- 28c. WDigest en clair est signale ------------------------------------
+    _app, res = _audit_avec({("WDigest", "UseLogonCredential"): (True, 1)})
+    check("WDigest cachant les identifiants en clair (=1) est une faiblesse",
+          res["Cache d'identifiants WDigest"]["statut"] == fp.FAIBLE)
+
+    # --- 28d. RDP sans NLA est signale, RDP+NLA ne l'est pas ------------------
+    sans_nla = {("Terminal Server", "fDenyTSConnections"): (True, 0),
+                ("RDP-Tcp", "UserAuthentication"): (True, 0)}
+    _app, res = _audit_avec(sans_nla)
+    check("RDP actif sans NLA est une faiblesse",
+          res["Bureau a distance (RDP)"]["statut"] == fp.FAIBLE)
+    avec_nla = {("Terminal Server", "fDenyTSConnections"): (True, 0),
+                ("RDP-Tcp", "UserAuthentication"): (True, 1)}
+    _app, res = _audit_avec(avec_nla)
+    check("RDP actif AVEC NLA n'est pas une faiblesse",
+          res["Bureau a distance (RDP)"]["statut"] == fp.OK)
+
+    # --- 28e. Les faiblesses averees alimentent le rapport --------------------
+    _app, res = _audit_avec({("Parameters", "SMB1"): (True, 1),
+                             ("WDigest", "UseLogonCredential"): (True, 1)})
+    postures = [p for p in _app.problems_found if p.get("type") == "POSTURE"]
+    check("Chaque faiblesse averee remonte comme constat",
+          len(postures) == 2)
+    check("Un constat de posture vise la machine locale",
+          all(p.get("host") == "LOCAL" for p in postures))
+
+    # --- 28f. Jamais de verdict global « machine saine » ----------------------
+    texte = " ".join(m for _, m in _app.messages).lower()
+    check("L'audit n'affirme jamais que la machine est saine",
+          "machine saine" not in texte and "aucune menace" not in texte)
+
     # --- Bilan ---------------------------------------------------------------
     passed = sum(1 for _, ok, _ in results if ok)
     total = len(results)
