@@ -1,3 +1,32 @@
+"""SIPA — point d'entree et classe principale AuditIA_Ultimate.
+
+ETAT DU CYCLE 8.0.0-alpha (mis a jour en continu, pas de fiche separee) :
+
+  FAIT ET VERIFIE
+    - Refonte visuelle : deux themes a fort contraste, zero gris terne.
+      * « sombre » : rouge et noir profond (voir sipa_core/theme.py).
+      * « clair »  : blanc, noir et accents vifs.
+      Chaque role tient >= 4.5:1 sur son fond ; verifie par tests/run_all.py.
+
+  TODO: WIP — finitions UI pas encore faites (cf. discussion « rendre l'interface
+  plus jolie »). Non simulees : elles ne sont pas cablees, donc l'interface se
+  comporte comme en 7.x en attendant.
+    - Hierarchie des boutons (action principale large, outils secondaires plus petits).
+    - Panneau de constats separe du journal (une ligne + pastille de gravite).
+    - Bandeau de bilan permanent (2 CRITIQUE / 1 ELEVE ...).
+    - Echelle d'espacement unique, etats de survol/desactive, ecran d'accueil.
+
+  TODO: WIP — fonctionnalites avancees demandees (securite, tracabilite, audit,
+  diagnostic, base enrichie). Aucune n'est encore implementee. Regle du projet :
+  tant qu'une capacite n'existe pas, elle ne doit rien afficher qui laisse croire
+  le contraire — pas de coquille, pas de _not_implemented deguise en resultat.
+
+  REFUSE — volet « pentest furtif » (Impacket/Mimikatz/BloodHound, evasion
+  d'antivirus, dump LSASS, contournement de la surveillance LDAP). Hors sujet
+  pour un outil d'audit defensif, et non implemente volontairement. L'inverse
+  serait legitime : DETECTER ces techniques cote defense (acces anormal a LSASS,
+  pic de requetes LDAP, noms de services connus de psexec). Non commence.
+"""
 import tkinter as tk
 from tkinter import scrolledtext, messagebox, ttk, filedialog
 import threading

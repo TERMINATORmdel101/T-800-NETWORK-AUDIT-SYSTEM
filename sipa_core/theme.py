@@ -52,103 +52,106 @@ _COMMUN = {
 
 
 # =============================================================================
-# PALETTE SOMBRE — rouge, noir et gris neutres.
+# PALETTE SOMBRE — rouge et noir profond (8.0.0 : plus agressive, zero gris terne).
+# Fonds noirs teintes de rouge (jamais gris), rouge vif, blanc chaud. Les
+# neutres tirent vers le rouge pour se lire comme choisis, pas subis.
 # =============================================================================
 _SOMBRE = {
-    # FOND : Vantablack absolu – zéro clémence
-    "bg": "#14171A",             # Graphite : le noir absolu ecrase les nuances
-    "bg_secondary": "#1C2024",   # Panneaux lateraux
-    "bg_input": "#101315",       # Zones de texte
-    "bg_tertiary": "#1C2024",    # Compatibilite widgets
+    # FOND : noir profond legerement chaud, pas un gris ardoise.
+    "bg": "#0C0A0B",             # Noir chaud, base de tout l'ecran
+    "bg_secondary": "#17090C",   # Panneaux : noir teinte de rouge
+    "bg_input": "#0A0809",       # Zones de saisie et de journal
+    "bg_tertiary": "#17090C",    # Compatibilite widgets
 
-    # TEXTE & ACCENTS : STRICT Rouge/Noir/Blanc
-    "fg": "#D06A60",             # Rouge controle : le rouge pur criait
-    "fg_text": "#E6EDF3",        # Blanc legerement froid, moins agressif
-    "fg_dim": "#6E4F4B",         # Rouge eteint (traits, decor)
-    "fg_bright": "#E08880",      # Rouge appuye
+    # TEXTE & ACCENTS : rouge vif / noir / blanc chaud.
+    "fg": "#FF4D4D",             # Rouge vif, l'accent identitaire
+    "fg_text": "#F5EDEE",        # Blanc chaud, net (pas de gris casse)
+    "fg_dim": "#8A4044",         # Rouge eteint (traits, decor)
+    "fg_bright": "#FF6B6B",      # Rouge appuye
 
-    "accent": "#D06A60",
-    "accent_bright": "#E08880",
-    "accent_dim": "#6E4F4B",
-    "success": "#E6EDF3",
-    "warn": "#D06A60",
-    "error": "#E08880",
-    "info": "#A8B3BD",
+    "accent": "#FF4D4D",
+    "accent_bright": "#FF6B6B",
+    "accent_dim": "#8A4044",
+    "success": "#F5EDEE",
+    "warn": "#FF4D4D",
+    "error": "#FF6B6B",
+    "info": "#D8BFC2",           # Neutre chaud clair, jamais gris ardoise
 
-    "scrollbar_bg": "#101315",
-    "scrollbar_fg": "#D06A60",
+    "scrollbar_bg": "#0A0809",
+    "scrollbar_fg": "#FF4D4D",
 
     # ---- JOURNAL D'ACTIVITE ----------------------------------------------
-    # Chaque niveau doit se distinguer des autres ET rester lisible sur le
-    # fond du journal. Auparavant `error` valait #880000 (contraste 1.87 :
-    # illisible) et `ok` etait identique a `title`.
+    # Chaque niveau se distingue des autres ET reste lisible sur le fond du
+    # journal. Couleurs vives assumees : c'est le seul endroit ou l'on quitte
+    # le rouge/noir, parce qu'un journal doit trier vert/orange/rouge d'un
+    # coup d'oeil.
     "log_title": "#FFFFFF",     # titres de section
-    "log_accent": "#E0B341",    # sous-titres et etapes
-    "log_info": "#A8B3BD",      # information neutre
-    "log_ok": "#4CC98A",        # succes
-    "log_warn": "#F0883E",      # avertissement
+    "log_accent": "#FFC24D",    # sous-titres et etapes (or vif)
+    "log_info": "#D8BFC2",      # information neutre (chaud)
+    "log_ok": "#3FD07E",        # succes (vert vif)
+    "log_warn": "#FFA23E",      # avertissement (orange vif)
     "log_error": "#FF5C5C",     # erreur : doit sauter aux yeux
-    "log_faint": "#3A3A3A",     # decor (pluie de caracteres)
+    "log_faint": "#2A1E20",     # decor (pluie de caracteres)
 
     # ---- ROLES DE BOUTONS -------------------------------------------------
-    # La couleur d'un bouton designe son TEXTE, pas son fond : le fond reste
-    # sombre, ce qui rend toute combinaison lisible. Avant, une couleur claire
-    # (#FFFFFF, #CCCCCC) devenait le fond et le libelle blanc devenait
-    # invisible -- c'etait le cas de 42 boutons.
-    "btn_bg": "#21262B",          # Fond commun a tous les boutons
-    "btn_bg_hover": "#D06A60",    # Survol : rouge plein
-    "btn_fg_hover": "#14171A",    # Texte au survol : graphite sur rouge
-    "btn_action": "#D96B60",      # Actions principales (scans)
-    "btn_critical": "#E56A60",    # Operations sensibles ou destructrices
-    "btn_tool": "#C9D1D9",        # Outils et utilitaires (gris clair)
-    "btn_muted": "#8B959E",       # Actions secondaires
+    # La couleur d'un bouton designe son TEXTE, pas son fond. Fond commun tres
+    # sombre teinte de rouge ; texte rouge vif ou blanc chaud net.
+    "btn_bg": "#1E1214",          # Fond commun a tous les boutons
+    "btn_bg_hover": "#FF4D4D",    # Survol : rouge plein
+    "btn_fg_hover": "#0C0A0B",    # Texte au survol : noir sur rouge
+    "btn_action": "#FF5A54",      # Actions principales (scans)
+    "btn_critical": "#FF6B6B",    # Operations sensibles ou destructrices
+    "btn_tool": "#EDE4E5",        # Outils : blanc chaud net (pas de gris)
+    "btn_muted": "#D89DA1",       # Actions secondaires : rose neutre chaud
 }
 
 
 # =============================================================================
-# PALETTE CLAIRE — meme identite rouge/noir, valeurs inversees.
-# Les couleurs de texte sont assombries pour rester lisibles sur fond clair :
-# chaque role atteint au moins 4.5:1 sur son fond (verifie par les tests).
+# PALETTE CLAIRE — blanc, noir et accents vifs (8.0.0 : contraste maximal).
+# Fond blanc pur, texte quasi noir, rouge franc. Les couleurs semantiques du
+# journal sont vives et tres visibles, jamais des gris delaves.
+# Chaque role atteint au moins 4.5:1 sur son fond (verifie par les tests).
 # =============================================================================
 _CLAIR = {
-    "bg": "#F4F6F7",             # Gris tres clair, legerement froid
-    "bg_secondary": "#E8ECEF",   # Panneaux lateraux
-    "bg_input": "#FFFFFF",       # Zones de saisie et de texte
-    "bg_tertiary": "#E8ECEF",    # Compatibilite widgets
+    "bg": "#FFFFFF",             # Blanc pur, base de tout l'ecran
+    "bg_secondary": "#F4EFEF",   # Panneaux : blanc casse a peine teinte
+    "bg_input": "#FFFFFF",       # Zones de saisie et de journal
+    "bg_tertiary": "#F4EFEF",    # Compatibilite widgets
 
-    "fg": "#A3392F",             # Rouge profond, lisible sur fond clair
-    "fg_text": "#14181B",        # Texte principal quasi noir
-    "fg_dim": "#C4A29E",         # Rouge delave (traits, decor)
-    "fg_bright": "#8C2018",      # Rouge appuye
+    "fg": "#C41E1E",             # Rouge franc, lisible sur blanc
+    "fg_text": "#0A0A0A",        # Texte principal quasi noir
+    "fg_dim": "#C99BA0",         # Rouge delave (traits, decor)
+    "fg_bright": "#A81414",      # Rouge appuye
 
-    "accent": "#A3392F",
-    "accent_bright": "#8C2018",
-    "accent_dim": "#C4A29E",
-    "success": "#14181B",
-    "warn": "#A3392F",
-    "error": "#8C2018",
-    "info": "#525C66",
+    "accent": "#C41E1E",
+    "accent_bright": "#A81414",
+    "accent_dim": "#C99BA0",
+    "success": "#0A0A0A",
+    "warn": "#C41E1E",
+    "error": "#A81414",
+    "info": "#3A2E30",           # Brun tres fonce, net (pas un gris moyen)
 
-    "scrollbar_bg": "#E8ECEF",
-    "scrollbar_fg": "#A3392F",
+    "scrollbar_bg": "#F4EFEF",
+    "scrollbar_fg": "#C41E1E",
 
     # ---- JOURNAL D'ACTIVITE ----------------------------------------------
-    # Memes roles, assombris pour rester lisibles sur fond blanc.
-    "log_title": "#111111",
-    "log_accent": "#8A5A00",
-    "log_info": "#525C66",
-    "log_ok": "#12794A",
-    "log_warn": "#A9540A",
-    "log_error": "#C0271F",
-    "log_faint": "#C8CDD2",
+    # Couleurs vives et franches, assombries juste assez pour tenir 4.5:1 sur
+    # le blanc. C'est ici que vit le contraste maximal demande.
+    "log_title": "#0A0A0A",
+    "log_accent": "#9A6A00",    # or fonce
+    "log_info": "#3A2E30",
+    "log_ok": "#0B7A44",        # vert vif
+    "log_warn": "#B85C00",      # orange vif
+    "log_error": "#C41E1E",     # rouge vif
+    "log_faint": "#D9CFD0",
 
     "btn_bg": "#FFFFFF",          # Fond commun a tous les boutons
-    "btn_bg_hover": "#A3392F",    # Survol : rouge plein
+    "btn_bg_hover": "#C41E1E",    # Survol : rouge plein
     "btn_fg_hover": "#FFFFFF",    # Texte au survol : blanc sur rouge
-    "btn_action": "#A3392F",      # Actions principales (scans)
-    "btn_critical": "#8C2018",    # Operations sensibles ou destructrices
-    "btn_tool": "#33393F",        # Outils et utilitaires (gris fonce)
-    "btn_muted": "#5A646D",       # Actions secondaires
+    "btn_action": "#C41E1E",      # Actions principales (scans)
+    "btn_critical": "#A00000",    # Operations sensibles ou destructrices
+    "btn_tool": "#1A1416",        # Outils : noir net (pas de gris)
+    "btn_muted": "#5B2E30",       # Actions secondaires : brun-rouge fonce
 }
 
 

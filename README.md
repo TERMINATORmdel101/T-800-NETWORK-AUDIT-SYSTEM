@@ -1,6 +1,10 @@
 # SIPA — Programme unique intégré pour les audits
 
-**Version 7.1.0** — Outil d'audit réseau et de sécurité pour Windows
+**Version 8.0.0-alpha** — Outil d'audit réseau et de sécurité pour Windows
+
+> ⚠️ Cycle **alpha** : refonte visuelle en place (deux thèmes à fort contraste) ;
+> plusieurs capacités annoncées pour la 8.0 sont encore en chantier et marquées
+> `WIP` dans le code. Rien n'est simulé — ce qui n'est pas fait ne s'affiche pas.
 
 > Projet personnel, à usage d'apprentissage et d'audit de vos propres réseaux.
 > Ce README dit ce que l'outil fait **réellement** : voir

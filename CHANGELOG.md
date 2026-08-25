@@ -3,6 +3,29 @@
 > Projet personnel développé avec l'assistance d'une IA.
 > Voir [« À propos de ce projet »](README.md#-à-propos-de-ce-projet).
 
+## Version 8.0.0-alpha — refonte visuelle (en cours)
+
+Cycle **alpha** : le socle graphique change, le reste de la 8.0 est en chantier.
+
+### Fait
+- **Deux thèmes à fort contraste, sans aucun gris terne.**
+  - « sombre » : rouge et noir profond (fonds noirs teintés de rouge, rouge vif).
+  - « clair » : blanc pur, noir, et accents vifs pour le journal et les gravités.
+  - Chaque rôle atteint au moins 4.5:1 sur son fond ; vérifié par les tests.
+
+### En chantier (marqué `WIP` dans le code, rien n'est simulé)
+- Finitions d'interface : hiérarchie des boutons, panneau de constats séparé,
+  bandeau de bilan permanent, échelle d'espacement, écran d'accueil.
+- Capacités avancées annoncées (sécurité, traçabilité, audit, diagnostic,
+  base enrichie) : non encore implémentées.
+
+### Écarté
+- Volet « pentest furtif » (évasion d'antivirus, dump LSASS, contournement de
+  la surveillance) : hors périmètre d'un outil d'audit défensif. La piste
+  retenue à la place serait la **détection** de ces techniques, non leur usage.
+
+---
+
 ## Version 7.2.0 — le contrôle du bon sens
 
 ### La fonctionnalité distinctive
